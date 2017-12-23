@@ -9,6 +9,7 @@ import QtQuick.Controls 2.2
 import QtQuick.Controls.Styles 1.4
 
 Rectangle {
+    id: titleBar
     height: 30
     color: "gray"
 
@@ -23,6 +24,7 @@ Rectangle {
 
     //название приложения
     Text {
+        id: title
         text: "Графический редактор v.1"
         color: "white"
         font.family: "Helvetica"
@@ -47,11 +49,13 @@ Rectangle {
                 maxNormalBtnImg.source = "qrc:/24px/window-restore.png";
                 mainWindow.isNormal = false;
                 mainWindow.showMaximized();
+                mainWindowContent.anchors.margins = 0;
             }
             else {
                 maxNormalBtnImg.source = "qrc:/24px/window-maximize.png";
                 mainWindow.isNormal = true;
                 mainWindow.showNormal();
+                mainWindowContent.anchors.margins = 10;
             }
         }
 
@@ -75,7 +79,7 @@ Rectangle {
         id: closeAppBtn
         width: buttonSize
         height: buttonSize
-        color: "transparent"
+        color: closeAppBtnMouseArea.containsMouse ? "darkgray" : "transparent"
 
         anchors {
             verticalCenter: parent.verticalCenter
@@ -99,6 +103,7 @@ Rectangle {
             onClicked: {
                 mainWindow.close()
             }
+
         }
 
         ToolTip {
@@ -111,7 +116,7 @@ Rectangle {
         id: appWndMaxNormalBtn
         width: buttonSize
         height: buttonSize
-        color: "transparent"
+        color: maxNormalBtnMouseArea.containsMouse ? "darkgray" : "transparent"
 
         anchors {
             verticalCenter: parent.verticalCenter
@@ -140,12 +145,14 @@ Rectangle {
                     maxNormalBtnTooltip.text = "Свернуть в окно"
                     mainWindow.isNormal = false;
                     mainWindow.showMaximized();
+                    mainWindowContent.anchors.margins = 0;
                 }
                 else {
                     maxNormalBtnImg.source = "qrc:/24px/window-maximize.png";
                     maxNormalBtnTooltip.text = "На весь экран"
                     mainWindow.isNormal = true;
                     mainWindow.showNormal();
+                    mainWindowContent.anchors.margins = 10;
                 }
             }
 
@@ -161,7 +168,7 @@ Rectangle {
         id: appWndMinimizeBtn
         width: buttonSize
         height: buttonSize
-        color: "transparent"
+        color: minimizeBtnMouseArea.containsMouse ? "darkgray" : "transparent"
 
         anchors {
             verticalCenter: parent.verticalCenter

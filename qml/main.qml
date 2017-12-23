@@ -24,6 +24,10 @@ ApplicationWindow {
     width: 1024
     height: 768
 
+    //минимальные размеры
+    minimumWidth: 640
+    minimumHeight: 480
+
     property int previousX
     property int previousY
     property int borderSize: 3
@@ -34,7 +38,7 @@ ApplicationWindow {
     Rectangle {
         id: mainWindowContent
         anchors.fill: parent
-        anchors.margins: mainWindow.visibility === Window.FullScreen ? 0 : 10
+        anchors.margins: 10
 
         //добавляет заголовок окна
         AppWndTitleBar {
@@ -62,8 +66,10 @@ ApplicationWindow {
 
             onMouseYChanged: {
                 var dy = mouseY - previousY
-                mainWindow.setY(mainWindow.y + dy)
-                mainWindow.setHeight(mainWindow.height - dy)
+                if ((mainWindow.height - dy) >= mainWindow.minimumHeight) {
+                    mainWindow.setY(mainWindow.y + dy)
+                    mainWindow.setHeight(mainWindow.height - dy)
+                }
             }
         }
 
@@ -88,7 +94,9 @@ ApplicationWindow {
 
             onMouseYChanged: {
                 var dy = mouseY - previousY
-                mainWindow.setHeight(mainWindow.height + dy)
+                if ((mainWindow.height + dy) >= mainWindow.minimumHeight) {
+                    mainWindow.setHeight(mainWindow.height + dy)
+                }
             }
         }
 
@@ -111,8 +119,10 @@ ApplicationWindow {
 
             onMouseXChanged: {
                 var dx = mouseX - previousX
-                mainWindow.setX(mainWindow.x + dx)
-                mainWindow.setWidth(mainWindow.width - dx)
+                if ((mainWindow.width - dx) >= mainWindow.minimumWidth) {
+                    mainWindow.setX(mainWindow.x + dx)
+                    mainWindow.setWidth(mainWindow.width - dx)
+                }
             }
         }
 
@@ -135,7 +145,9 @@ ApplicationWindow {
 
             onMouseXChanged: {
                 var dx = mouseX - previousX
-                mainWindow.setWidth(mainWindow.width + dx)
+                if ((mainWindow.width + dx) >= mainWindow.minimumWidth) {
+                    mainWindow.setWidth(mainWindow.width + dx)
+                }
             }
         }
 
@@ -158,14 +170,18 @@ ApplicationWindow {
 
             onMouseXChanged: {
                 var dx = mouseX - previousX
-                mainWindow.setX(mainWindow.x + dx)
-                mainWindow.setWidth(mainWindow.width - dx)
+                if ((mainWindow.width - dx) >= mainWindow.minimumWidth) {
+                    mainWindow.setX(mainWindow.x + dx)
+                    mainWindow.setWidth(mainWindow.width - dx)
+                }
             }
 
             onMouseYChanged: {
                 var dy = mouseY - previousY
-                mainWindow.setY(mainWindow.y + dy)
-                mainWindow.setHeight(mainWindow.height - dy)
+                if ((mainWindow.height - dy) >= mainWindow.minimumHeight) {
+                    mainWindow.setY(mainWindow.y + dy)
+                    mainWindow.setHeight(mainWindow.height - dy)
+                }
             }
         }
 
@@ -188,13 +204,17 @@ ApplicationWindow {
 
             onMouseXChanged: {
                 var dx = mouseX - previousX
-                mainWindow.setWidth(mainWindow.width + dx)
+                if ((mainWindow.width + dx) >= mainWindow.minimumWidth) {
+                    mainWindow.setWidth(mainWindow.width + dx)
+                }
             }
 
             onMouseYChanged: {
                 var dy = mouseY - previousY
-                mainWindow.setY(mainWindow.y + dy)
-                mainWindow.setHeight(mainWindow.height - dy)
+                if ((mainWindow.height - dy) >= mainWindow.minimumHeight) {
+                    mainWindow.setY(mainWindow.y + dy)
+                    mainWindow.setHeight(mainWindow.height - dy)
+                }
             }
         }
 
@@ -218,13 +238,17 @@ ApplicationWindow {
 
             onMouseXChanged: {
                 var dx = mouseX - previousX
-                mainWindow.setX(mainWindow.x + dx)
-                mainWindow.setWidth(mainWindow.width - dx)
+                if ((mainWindow.width - dx) >= mainWindow.minimumWidth) {
+                    mainWindow.setX(mainWindow.x + dx)
+                    mainWindow.setWidth(mainWindow.width - dx)
+                }
             }
 
             onMouseYChanged: {
                 var dy = mouseY - previousY
-                mainWindow.setHeight(mainWindow.height + dy)
+                if ((mainWindow.height + dy) >= mainWindow.minimumHeight) {
+                    mainWindow.setHeight(mainWindow.height + dy)
+                }
             }
         }
 
@@ -248,12 +272,16 @@ ApplicationWindow {
 
             onMouseXChanged: {
                 var dx = mouseX - previousX
-                mainWindow.setWidth(mainWindow.width + dx)
+                if ((mainWindow.width + dx) >= mainWindow.minimumWidth) {
+                    mainWindow.setWidth(mainWindow.width + dx)
+                }
             }
 
             onMouseYChanged: {
                 var dy = mouseY - previousY
-                mainWindow.setHeight(mainWindow.height + dy)
+                if ((mainWindow.height + dy) >= mainWindow.minimumHeight) {
+                    mainWindow.setHeight(mainWindow.height + dy)
+                }
             }
         }
     }
@@ -261,6 +289,8 @@ ApplicationWindow {
 
     //тень главного окна
     DropShadow {
+      id: mainWindowShadow
+      visible: true
       anchors.fill: mainWindowContent
       horizontalOffset: 3
       verticalOffset: 3
@@ -268,7 +298,6 @@ ApplicationWindow {
       samples: 12
       source: mainWindowContent
       color: "gray"
-      Behavior on radius { PropertyAnimation { duration: 100 } }
     }
 
 }
