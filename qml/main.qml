@@ -5,8 +5,8 @@
   Date: 10.11.2017
 */
 
-import QtQuick 2.8
-import QtQuick.Controls 2.1
+import QtQuick 2.9
+import QtQuick.Controls 2.2
 import QtQuick.Window 2.3
 import QtGraphicalEffects 1.0
 
@@ -28,6 +28,8 @@ ApplicationWindow {
     property int previousY
     property int borderSize: 3
     property int cornerSize: 5
+
+    property bool isNormal: true
 
     Rectangle {
         id: mainWindowContent
@@ -260,12 +262,12 @@ ApplicationWindow {
     //тень главного окна
     DropShadow {
       anchors.fill: mainWindowContent
-      horizontalOffset: 2
-      verticalOffset: 2
-      radius: 5
-      samples: 10
+      horizontalOffset: 3
+      verticalOffset: 3
+      radius: 8
+      samples: 12
       source: mainWindowContent
-      color: "black"
+      color: "gray"
       Behavior on radius { PropertyAnimation { duration: 100 } }
     }
 

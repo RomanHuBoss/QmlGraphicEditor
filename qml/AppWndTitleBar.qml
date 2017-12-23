@@ -4,16 +4,33 @@
   You can use & modificate the following code without any restrictions
   Date: 10.11.2017
 */
-import QtQuick 2.8
+import QtQuick 2.9
+import QtQuick.Controls 2.2
+import QtQuick.Controls.Styles 1.4
 
 Rectangle {
     height: 30
     color: "gray"
 
+    property int buttonSize: 24
+    property int buttonInterval: 2
+
     anchors {
         top: parent.top
         left: parent.left
         right: parent.right
+    }
+
+    //название приложения
+    Text {
+        text: "Графический редактор v.1"
+        color: "white"
+        font.family: "Helvetica"
+        font.pointSize: 12
+        anchors {
+            verticalCenter: parent.verticalCenter
+            horizontalCenter: parent.horizontalCenter
+        }
     }
 
     //захват и перетаскивание окна путем нажатия на основную область
@@ -26,9 +43,15 @@ Rectangle {
         }
 
         onDoubleClicked: {
-            if(mouse.button === Qt.RightButton) {
-
-                console.log("Double Click");
+            if (mainWindow.isNormal) {
+                maxNormalBtnImg.source = "qrc:/24px/window-restore.png";
+                mainWindow.isNormal = false;
+                mainWindow.showMaximized();
+            }
+            else {
+                maxNormalBtnImg.source = "qrc:/24px/window-maximize.png";
+                mainWindow.isNormal = true;
+                mainWindow.showNormal();
             }
         }
 
@@ -47,4 +70,129 @@ Rectangle {
             mainWindow.setY(mainWindow.y + dy)
         }
     }
+
+    Rectangle {
+        id: closeAppBtn
+        width: buttonSize
+        height: buttonSize
+        color: "transparent"
+
+        anchors {
+            verticalCenter: parent.verticalCenter
+            right: parent.right
+            rightMargin: buttonInterval
+        }
+
+        Image {
+            fillMode: Image.PreserveAspectFit
+            anchors.centerIn: parent
+            source: "qrc:/24px/window-close.png"
+        }
+
+        MouseArea {
+            id: closeAppBtnMouseArea
+            hoverEnabled: true
+            anchors {
+                fill:parent
+            }
+
+            onClicked: {
+                mainWindow.close()
+            }
+        }
+
+        ToolTip {
+            text: "Закрыть"
+            visible: closeAppBtnMouseArea.containsMouse
+        }
+    }
+
+    Rectangle {
+        id: appWndMaxNormalBtn
+        width: buttonSize
+        height: buttonSize
+        color: "transparent"
+
+        anchors {
+            verticalCenter: parent.verticalCenter
+            right: parent.right
+            rightMargin: buttonSize + 2*buttonInterval
+        }
+
+        Image {
+            id: maxNormalBtnImg
+            fillMode: Image.PreserveAspectFit
+            anchors.centerIn: parent
+            source: (mainWindow.isNormal)? "qrc:/24px/window-maximize.png" : "qrc:/24px/window-restore.png";
+        }
+
+        MouseArea {
+            id: maxNormalBtnMouseArea
+            hoverEnabled: true
+
+            anchors {
+                fill:parent
+            }
+
+            onClicked: {
+                if (mainWindow.isNormal) {
+                    maxNormalBtnImg.source = "qrc:/24px/window-restore.png";
+                    maxNormalBtnTooltip.text = "Свернуть в окно"
+                    mainWindow.isNormal = false;
+                    mainWindow.showMaximized();
+                }
+                else {
+                    maxNormalBtnImg.source = "qrc:/24px/window-maximize.png";
+                    maxNormalBtnTooltip.text = "На весь экран"
+                    mainWindow.isNormal = true;
+                    mainWindow.showNormal();
+                }
+            }
+
+            ToolTip {
+                id: maxNormalBtnTooltip
+                text: (mainWindow.isNormal)? "На весь экран" : "Свернуть в окно";
+                visible: maxNormalBtnMouseArea.containsMouse
+            }
+        }
+    }
+
+    Rectangle {
+        id: appWndMinimizeBtn
+        width: buttonSize
+        height: buttonSize
+        color: "transparent"
+
+        anchors {
+            verticalCenter: parent.verticalCenter
+            right: parent.right
+            rightMargin: 2*buttonSize + 3*buttonInterval
+        }
+
+        Image {
+            fillMode: Image.PreserveAspectFit
+            anchors.centerIn: parent
+            source: "qrc:/24px/window-minimize.png"
+        }
+
+        MouseArea {
+            id: minimizeBtnMouseArea
+            hoverEnabled: true
+
+            anchors {
+                fill:parent
+            }
+
+            onClicked: {
+                mainWindow.showMinimized();
+            }
+        }
+
+        ToolTip {
+            id: minimizeBtnTooltip
+            text: "Свернуть";
+            visible: minimizeBtnMouseArea.containsMouse
+        }
+    }
+
 }
