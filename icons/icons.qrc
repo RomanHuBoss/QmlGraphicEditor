@@ -12,5 +12,7 @@
         <file>36px/window-minimize.png</file>
         <file>36px/window-restore.png</file>
         <file>36px/window-about.png</file>
+        <file>36px/file-open.png</file>
+        <file>24px/file-open.png</file>
     </qresource>
 </RCC>

@@ -39,7 +39,9 @@ ApplicationWindow {
     Rectangle {
         id: mainWindowContent
         anchors.fill: parent
-        anchors.margins: 10
+        anchors.margins: 10        
+        border.color: "gray"
+        border.width: 1
 
         //добавляем диалог "О программе"
         AboutWnd {
@@ -55,11 +57,14 @@ ApplicationWindow {
         RowLayout {
            id: mainLayout
            spacing: 6
+
            anchors {
                top: titleBar.bottom
                left: mainWindowContent.left
                right: mainWindowContent.right
                bottom: mainWindowContent.bottom
+               leftMargin: 1
+               bottomMargin: 1
            }
 
            //главные кнопки приложения
@@ -322,10 +327,10 @@ ApplicationWindow {
       anchors.fill: mainWindowContent
       horizontalOffset: 3
       verticalOffset: 3
-      radius: 8
-      samples: 12
+      radius: 4
+      samples: 7
       source: mainWindowContent
-      color: "gray"
+      color: "darkgray"
     }
 
 }

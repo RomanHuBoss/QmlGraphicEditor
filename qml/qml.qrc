@@ -6,5 +6,6 @@
         <file>AboutWndTitleBar.qml</file>
         <file>Scene.qml</file>
         <file>GeneralButtons.qml</file>
+        <file>GeneralButton.qml</file>
     </qresource>
 </RCC>

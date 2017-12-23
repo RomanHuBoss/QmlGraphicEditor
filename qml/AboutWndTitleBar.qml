@@ -11,7 +11,7 @@ import QtQuick.Controls.Styles 1.4
 Rectangle {
     id: titleBar
     height: 30
-    color: "gray"
+    color: "#607D8B"
 
     property int buttonSize: 22
     property int buttonInterval: 5
@@ -76,7 +76,7 @@ Rectangle {
         id: closeBtn
         width: buttonSize
         height: buttonSize
-        color: closeBtnMouseArea.containsMouse ? "darkgray" : "transparent"
+        color: closeBtnMouseArea.containsMouse ? "#506D6B" : "transparent"
 
         anchors {
             verticalCenter: parent.verticalCenter

@@ -35,6 +35,8 @@ Window {
         id: aboutWindowContent
         anchors.fill: parent
         anchors.margins: 10
+        border.color: "gray"
+        border.width: 1
 
         Image {
             fillMode: Image.Stretch
@@ -150,10 +152,10 @@ Window {
       anchors.fill: aboutWindowContent
       horizontalOffset: 3
       verticalOffset: 3
-      radius: 8
-      samples: 12
+      radius: 4
+      samples: 7
       source: aboutWindowContent
-      color: "gray"
+      color: "darkgray"
     }
 
 }

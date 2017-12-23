@@ -11,7 +11,7 @@ import QtQuick.Controls.Styles 1.4
 Rectangle {
     id: titleBar
     height: 30
-    color: "gray"
+    color: "#607D8B"
 
     property int buttonSize: 22
     property int buttonInterval: 5
@@ -91,7 +91,7 @@ Rectangle {
         id: appAboutBtn
         width: buttonSize
         height: buttonSize
-        color: aboutBtnMouseArea.containsMouse ? "darkgray" : "transparent"
+        color: aboutBtnMouseArea.containsMouse ? "#506D6B" : "transparent"
 
         anchors {
             verticalCenter: parent.verticalCenter
@@ -129,7 +129,7 @@ Rectangle {
         id: closeAppBtn
         width: buttonSize
         height: buttonSize
-        color: closeAppBtnMouseArea.containsMouse ? "darkgray" : "transparent"
+        color: closeAppBtnMouseArea.containsMouse ? "#506D6B" : "transparent"
 
         anchors {
             verticalCenter: parent.verticalCenter
@@ -166,7 +166,7 @@ Rectangle {
         id: appWndMaxNormalBtn
         width: buttonSize
         height: buttonSize
-        color: maxNormalBtnMouseArea.containsMouse ? "darkgray" : "transparent"
+        color: maxNormalBtnMouseArea.containsMouse ? "#506D6B" : "transparent"
 
         anchors {
             verticalCenter: parent.verticalCenter
@@ -218,7 +218,7 @@ Rectangle {
         id: appWndMinimizeBtn
         width: buttonSize
         height: buttonSize
-        color: minimizeBtnMouseArea.containsMouse ? "darkgray" : "transparent"
+        color: minimizeBtnMouseArea.containsMouse ? "#506D6B" : "transparent"
 
         anchors {
             verticalCenter: parent.verticalCenter
