@@ -1,4 +1,10 @@
-import QtQuick 2.0
+/*
+  QML-template of main window title bar
+  Author: Rabinovich R.M.
+  You can use & modificate the following code without any restrictions
+  Date: 10.11.2017
+*/
+import QtQuick 2.8
 
 Rectangle {
     height: 30

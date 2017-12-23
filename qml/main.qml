@@ -1,3 +1,10 @@
+/*
+  QML-template of application main window
+  Author: Rabinovich R.M.
+  You can use & modificate the following code without any restrictions
+  Date: 10.11.2017
+*/
+
 import QtQuick 2.8
 import QtQuick.Controls 2.1
 import QtQuick.Window 2.3
@@ -5,6 +12,7 @@ import QtGraphicalEffects 1.0
 
 //главное окно QML-приложения
 ApplicationWindow {
+
     id: mainWindow
     visible: true
     color: "#00000000"
@@ -26,6 +34,7 @@ ApplicationWindow {
         anchors.fill: parent
         anchors.margins: mainWindow.visibility === Window.FullScreen ? 0 : 10
 
+        //добавляет заголовок окна
         AppWndTitleBar {
         }
 
@@ -247,23 +256,12 @@ ApplicationWindow {
         }
     }
 
-/*
 
-    DropShadow {
-      anchors.fill: mainWindowRect
-      horizontalOffset: 2
-      verticalOffset: 2
-      radius: 5
-      samples: 5
-      source: mainWindowRect
-      color: "black"
-    }
-*/
-
+    //тень главного окна
     DropShadow {
       anchors.fill: mainWindowContent
-      horizontalOffset: 1
-      verticalOffset: 1
+      horizontalOffset: 2
+      verticalOffset: 2
       radius: 5
       samples: 10
       source: mainWindowContent
