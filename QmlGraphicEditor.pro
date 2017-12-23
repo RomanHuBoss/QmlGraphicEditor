@@ -19,7 +19,9 @@ SOURCES += src/main.cpp \
 
 RESOURCES += qml/qml.qrc \
     qml/qml.qrc \
-    icons/icons.qrc
+    icons/icons.qrc \
+    backgrounds/backgrounds.qrc \
+    additional/additional.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH = qml
@@ -37,13 +39,9 @@ HEADERS += \
     src/appsettings.h
 
 DISTFILES += \
-    icons/24px/window-close.png \
-    icons/24px/window-maximize.png \
-    icons/24px/window-minimize.png \
-    icons/24px/window-restore.png \
-    icons/36px/window-close.png \
-    icons/36px/window-maximize.png \
-    icons/36px/window-minimize.png \
-    icons/36px/window-restore.png \
+    qml/AppWndTitleBar.qml \
+    qml/main.qml \
+    qml/AboutWnd.qml \
+    qml/AboutWndTitleBar.qml \
     qml/AppWndTitleBar.qml \
     qml/main.qml

@@ -1,8 +1,16 @@
 <RCC>
     <qresource prefix="/">
+        <file>24px/app-icon.png</file>
         <file>24px/window-close.png</file>
         <file>24px/window-maximize.png</file>
         <file>24px/window-minimize.png</file>
         <file>24px/window-restore.png</file>
+        <file>24px/window-about.png</file>
+        <file>36px/app-icon.png</file>
+        <file>36px/window-close.png</file>
+        <file>36px/window-maximize.png</file>
+        <file>36px/window-minimize.png</file>
+        <file>36px/window-restore.png</file>
+        <file>36px/window-about.png</file>
     </qresource>
 </RCC>

@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>AppWndTitleBar.qml</file>
+        <file>AboutWnd.qml</file>
+        <file>AboutWndTitleBar.qml</file>
     </qresource>
 </RCC>

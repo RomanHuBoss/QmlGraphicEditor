@@ -13,13 +13,25 @@ Rectangle {
     height: 30
     color: "gray"
 
-    property int buttonSize: 24
-    property int buttonInterval: 2
+    property int buttonSize: 22
+    property int buttonInterval: 5
 
     anchors {
         top: parent.top
         left: parent.left
         right: parent.right
+    }
+
+    Image {
+        width: 24
+        height: 24
+        fillMode: Image.PreserveAspectFit
+        source: "qrc:/24px/app-icon.png"
+        anchors {
+            left: parent.left
+            verticalCenter: parent.verticalCenter
+            leftMargin: 4
+        }
     }
 
     //название приложения
@@ -76,6 +88,44 @@ Rectangle {
     }
 
     Rectangle {
+        id: appAboutBtn
+        width: buttonSize
+        height: buttonSize
+        color: aboutBtnMouseArea.containsMouse ? "darkgray" : "transparent"
+
+        anchors {
+            verticalCenter: parent.verticalCenter
+            right: parent.right
+            rightMargin: buttonInterval
+        }
+
+        Image {
+            fillMode: Image.PreserveAspectFit
+            anchors.centerIn: parent
+            source: "qrc:/24px/window-about.png"
+        }
+
+        MouseArea {
+            id: aboutBtnMouseArea
+            hoverEnabled: true
+
+            anchors {
+                fill:parent
+            }
+
+            onClicked: {
+                aboutWnd.show();
+            }
+        }
+
+        ToolTip {
+            id: aboutBtnTooltip
+            text: "О программе";
+            visible: aboutBtnMouseArea.containsMouse
+        }
+    }
+
+    Rectangle {
         id: closeAppBtn
         width: buttonSize
         height: buttonSize
@@ -83,7 +133,7 @@ Rectangle {
 
         anchors {
             verticalCenter: parent.verticalCenter
-            right: parent.right
+            right: appAboutBtn.left
             rightMargin: buttonInterval
         }
 
@@ -120,8 +170,8 @@ Rectangle {
 
         anchors {
             verticalCenter: parent.verticalCenter
-            right: parent.right
-            rightMargin: buttonSize + 2*buttonInterval
+            right: closeAppBtn.left
+            rightMargin: buttonInterval
         }
 
         Image {
@@ -172,8 +222,8 @@ Rectangle {
 
         anchors {
             verticalCenter: parent.verticalCenter
-            right: parent.right
-            rightMargin: 2*buttonSize + 3*buttonInterval
+            right: appWndMaxNormalBtn.left
+            rightMargin: buttonInterval
         }
 
         Image {
@@ -201,5 +251,6 @@ Rectangle {
             visible: minimizeBtnMouseArea.containsMouse
         }
     }
+
 
 }

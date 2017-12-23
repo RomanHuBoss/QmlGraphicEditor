@@ -21,8 +21,8 @@ ApplicationWindow {
     flags: Qt.FramelessWindowHint | Qt.Window
 
     //размеры по умолчанию
-    width: 1024
-    height: 768
+    width: 1100
+    height: 860
 
     //минимальные размеры
     minimumWidth: 640
@@ -40,10 +40,14 @@ ApplicationWindow {
         anchors.fill: parent
         anchors.margins: 10
 
+        //добавляем диалог "О программе"
+        AboutWnd {
+            id: aboutWnd
+        }
+
         //добавляет заголовок окна
         AppWndTitleBar {
         }
-
 
         //ресайз за верхний бордер
         MouseArea {
@@ -289,7 +293,7 @@ ApplicationWindow {
 
     //тень главного окна
     DropShadow {
-      id: mainWindowShadow
+      id: shadow
       visible: true
       anchors.fill: mainWindowContent
       horizontalOffset: 3
