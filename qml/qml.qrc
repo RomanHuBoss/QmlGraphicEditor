@@ -4,5 +4,7 @@
         <file>AppWndTitleBar.qml</file>
         <file>AboutWnd.qml</file>
         <file>AboutWndTitleBar.qml</file>
+        <file>Scene.qml</file>
+        <file>GeneralButtons.qml</file>
     </qresource>
 </RCC>

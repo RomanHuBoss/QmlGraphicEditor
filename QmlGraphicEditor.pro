@@ -40,8 +40,10 @@ HEADERS += \
 
 DISTFILES += \
     qml/AppWndTitleBar.qml \
-    qml/main.qml \
+    qml/GeneralButtons.qml \
+    qml/Scene.qml \
     qml/AboutWnd.qml \
     qml/AboutWndTitleBar.qml \
     qml/AppWndTitleBar.qml \
     qml/main.qml
+

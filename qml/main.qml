@@ -9,6 +9,7 @@ import QtQuick 2.9
 import QtQuick.Controls 2.2
 import QtQuick.Window 2.3
 import QtGraphicalEffects 1.0
+import QtQuick.Layouts 1.3
 
 //главное окно QML-приложения
 ApplicationWindow {
@@ -47,6 +48,29 @@ ApplicationWindow {
 
         //добавляет заголовок окна
         AppWndTitleBar {
+            id: titleBar
+        }
+
+        //главный компоновщик (для кнопок слева и сцены справа)
+        RowLayout {
+           id: mainLayout
+           spacing: 6
+           anchors {
+               top: titleBar.bottom
+               left: mainWindowContent.left
+               right: mainWindowContent.right
+               bottom: mainWindowContent.bottom
+           }
+
+           //главные кнопки приложения
+           GeneralButtons {
+               id: generalButtons
+           }
+
+           //сцена приложения
+           Scene {
+               id: scene
+           }
         }
 
         //ресайз за верхний бордер
