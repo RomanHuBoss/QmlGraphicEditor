@@ -20,16 +20,16 @@ Window {
     flags: Qt.FramelessWindowHint | Qt.Window
 
     //размеры по умолчанию
-    width: 550
-    height: 300
+    width: 600
+    height: 330
 
     //минимальные размеры
-    minimumWidth: 550
-    minimumHeight: 300
+    minimumWidth: 600
+    minimumHeight: 330
 
     //максимальные размеры
-    maximumWidth: 550
-    maximumHeight: 300
+    maximumWidth: 600
+    maximumHeight: 330
 
     Rectangle {
         id: aboutWindowContent
@@ -54,26 +54,93 @@ Window {
             fillMode: Image.PreserveAspectFit
             source: "qrc:/additional/logo.png"
             width: 200
-            height: 200
+            height: 200            
 
             anchors {
                 left: parent.left
                 leftMargin: 30
                 top: aboutWndTitle.bottom
-                topMargin: 24
+                topMargin: 34
             }
         }
 
         Text {
             id: title
             text: "Графический редактор"
+            font.pixelSize: 20
+            font.bold: true
+            color: "white"
+            wrapMode: Text.WordWrap
 
             anchors {
                 left: logo.right
-                leftMargin: 30
+                leftMargin: 25
                 top: logo.top
+                topMargin: -7
+                right: parent.right
+                rightMargin: 12
+            }
+
+            layer.enabled: true
+            layer.effect: DropShadow {
+                verticalOffset: 1
+                color: "#80000000"
+                radius: 1
+                samples: 2
             }
         }
+
+        Text {
+            id: version
+            text: "Версия: 1.0 (2017) / Автор: Рабинович Р.М."
+            font.pixelSize: 11
+            font.bold: false
+            color: "black"
+            wrapMode: Text.WordWrap
+
+            anchors {
+                left: title.left
+                top: title.bottom
+                topMargin: 12
+                right: parent.right
+                rightMargin: 12
+            }
+        }
+
+        Text {
+            id: about
+            text: "Программа демонстрирует некоторые возможности создания графических примитивов средствами QML и C++ фреймворка Qt"
+            font.pixelSize: 14
+            font.bold: false
+            color: "black"
+            wrapMode: Text.WordWrap
+
+            anchors {
+                left: version.left
+                top: version.bottom
+                topMargin: 10
+                right: parent.right
+                rightMargin: 12
+            }
+        }
+
+        Text {
+            id: author
+            text: "Программа предоставляется на условиях «как есть» (as is). Автор не даёт никаких гарантий в отношении бесперебойной работы Программы и в отсутствии ошибок в Программе. Автор не несет ответственности за прямой, косвенный или другие виды ущерба, в т.ч. потерю данных, повреждения или любые другие виды потерь, связанные с использованием Программы (правильным или неправильным)."
+            font.pixelSize: 11
+            font.bold: false
+            color: "black"
+            wrapMode: Text.WordWrap
+
+            anchors {
+                left: about.left
+                top: about.bottom
+                topMargin: 10
+                right: parent.right
+                rightMargin: 12
+            }
+        }
+
     }
 
     //тень главного окна

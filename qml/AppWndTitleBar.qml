@@ -37,7 +37,7 @@ Rectangle {
     //название приложения
     Text {
         id: title
-        text: "Графический редактор v.1"
+        text: "Графический редактор v. 1.0 (2017)"
         color: "white"
         font.family: "Helvetica"
         font.pointSize: 12
