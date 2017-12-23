@@ -40,98 +40,98 @@ Rectangle {
         GeneralButton {
             id: settingsBtn
             btnText: "Настройки"
-            btnImage: "qrc:/24px/settings.png"
+            btnImage: "qrc:/36px/settings.png"
         }
 
         GeneralButton {
             id: saveBtn
             btnText: "Сохранить"
-            btnImage: "qrc:/24px/settings.png"
+            btnImage: "qrc:/36px/file-save.png"
         }
 
 
         GeneralButton {
             id: createFileBtn
             btnText: "Создать"
-            btnImage: "qrc:/24px/file-create.png"
+            btnImage: "qrc:/36px/file-create.png"
         }
 
         GeneralButton {
             id: openFileBtn
             btnText: "Открыть"
-            btnImage: "qrc:/24px/file-open.png"
+            btnImage: "qrc:/36px/file-open.png"
         }
 
         GeneralButton {
             id: undoBtn
             btnText: "Отменить"
-            btnImage: "qrc:/24px/undo.png"
+            btnImage: "qrc:/36px/undo.png"
         }
 
         GeneralButton {
             id: redoBtn
             btnText: "Повторить"
-            btnImage: "qrc:/24px/redo.png"
+            btnImage: "qrc:/36px/redo.png"
         }
 
         GeneralButton {
             id: cleanupBtn
             btnText: "Очистисть"
-            btnImage: "qrc:/24px/cleanup.png"
+            btnImage: "qrc:/36px/cleanup.png"
         }
 
         GeneralButton {
             id: eraserBtn
             btnText: "Стереть"
-            btnImage: "qrc:/24px/eraser.png"
+            btnImage: "qrc:/36px/eraser.png"
         }
 
         GeneralButton {
             id: rotateBtn
             btnText: "Повернуть"
-            btnImage: "qrc:/24px/rotate.png"
+            btnImage: "qrc:/36px/rotate.png"
         }
 
         GeneralButton {
             id: resizeBtn
             btnText: "Размер"
-            btnImage: "qrc:/24px/resize.png"
+            btnImage: "qrc:/36px/resize.png"
         }
 
         GeneralButton {
             id: createLineBtn
             btnText: "Линия"
-            btnImage: "qrc:/24px/create-line.png"
+            btnImage: "qrc:/36px/create-line.png"
         }
 
         GeneralButton {
             id: createCircleBtn
             btnText: "Окружность"
-            btnImage: "qrc:/24px/create-circle.png"
+            btnImage: "qrc:/36px/create-circle.png"
         }
 
         GeneralButton {
             id: createEllipseBtn
             btnText: "Эллипс"
-            btnImage: "qrc:/24px/create-line.png"
+            btnImage: "qrc:/36px/create-line.png"
         }
 
         GeneralButton {
             id: createTriangleBtn
             btnText: "Треугольник"
-            btnImage: "qrc:/24px/create-triangle.png"
+            btnImage: "qrc:/36px/create-triangle.png"
         }
 
         GeneralButton {
             id: createRectangleBtn
             btnText: "Прямоугольник"
-            btnImage: "qrc:/24px/create-rectangle.png"
+            btnImage: "qrc:/36px/create-rectangle.png"
         }
 
         GeneralButton {
             id: createFillBtn
             btnText: "Закрасить"
-            btnImage: "qrc:/24px/fill.png"
+            btnImage: "qrc:/36px/fill.png"
         }
     }
 

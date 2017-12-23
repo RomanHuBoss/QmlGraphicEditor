@@ -38,12 +38,12 @@ Rectangle {
         id: buttonImage
         source: btnImage
         fillMode: Image.PreserveAspectFit
-        width: 48
-        height: 48
+        width: 36
+        height: 36
 
         anchors {
             top: parent.top
-            topMargin: 14
+            topMargin: 16
             horizontalCenter: parent.horizontalCenter
         }
 

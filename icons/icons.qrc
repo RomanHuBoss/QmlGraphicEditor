@@ -14,5 +14,15 @@
         <file>36px/window-about.png</file>
         <file>36px/file-open.png</file>
         <file>24px/file-open.png</file>
+        <file>36px/settings.png</file>
+        <file>24px/settings.png</file>
+        <file>36px/file-save.png</file>
+        <file>24px/file-save.png</file>
+        <file>36px/file-create.png</file>
+        <file>24px/file-create.png</file>
+        <file>36px/redo.png</file>
+        <file>24px/redo.png</file>
+        <file>36px/undo.png</file>
+        <file>24px/undo.png</file>
     </qresource>
 </RCC>
