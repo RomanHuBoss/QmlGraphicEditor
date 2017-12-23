@@ -45,5 +45,6 @@ DISTFILES += \
     qml/AboutWnd.qml \
     qml/AboutWndTitleBar.qml \
     qml/AppWndTitleBar.qml \
-    qml/main.qml
+    qml/main.qml \
+    qml/GeneralButton.qml
 

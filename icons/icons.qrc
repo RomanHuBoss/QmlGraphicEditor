@@ -24,5 +24,29 @@
         <file>24px/redo.png</file>
         <file>36px/undo.png</file>
         <file>24px/undo.png</file>
+        <file>24px/erase.png</file>
+        <file>36px/erase.png</file>
+        <file>36px/cleanup.png</file>
+        <file>24px/cleanup.png</file>
+        <file>36px/rotate.png</file>
+        <file>24px/rotate.png</file>
+        <file>24px/add-triangle.png</file>
+        <file>36px/add-triangle.png</file>
+        <file>36px/add-text.png</file>
+        <file>24px/add-text.png</file>
+        <file>36px/add-rectangle.png</file>
+        <file>24px/add-rectangle.png</file>
+        <file>36px/resize.png</file>
+        <file>24px/resize.png</file>
+        <file>36px/add-polygon.png</file>
+        <file>24px/add-polygon.png</file>
+        <file>36px/fill-color.png</file>
+        <file>24px/fill-color.png</file>
+        <file>36px/add-line.png</file>
+        <file>24px/add-line.png</file>
+        <file>36px/add-multiline.png</file>
+        <file>24px/add-multiline.png</file>
+        <file>36px/add-square.png</file>
+        <file>24px/add-square.png</file>
     </qresource>
 </RCC>
