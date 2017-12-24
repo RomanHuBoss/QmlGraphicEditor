@@ -2,5 +2,6 @@
     <qresource prefix="/backgrounds">
         <file>19.jpg</file>
         <file>20.jpg</file>
+        <file>scene-background.jpg</file>
     </qresource>
 </RCC>

@@ -12,8 +12,10 @@ import QtGraphicalEffects 1.0
 import QtQuick.Layouts 1.3
 
 Flickable {
-
     width: 202
+    Layout.minimumWidth: 202
+    Layout.preferredWidth: 202
+    Layout.maximumWidth: 202
     height: parent.height
     contentHeight: parent.height
     clip: true

@@ -75,6 +75,7 @@ ApplicationWindow {
            //сцена приложения
            Scene {
                id: scene
+               Layout.fillWidth: true
            }
         }
 
