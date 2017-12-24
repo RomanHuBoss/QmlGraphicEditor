@@ -50,12 +50,14 @@ Flickable {
                 id: settingsBtn
                 btnText: "Настройки"
                 btnImage: "qrc:/36px/settings.png"
+                btnAlt: "Настройка приложения"
             }
 
             GeneralButton {
                 id: saveBtn
                 btnText: "Сохранить"
                 btnImage: "qrc:/36px/file-save.png"
+                btnAlt: "Сохранить данные сцены в файл"
             }
 
 
@@ -63,72 +65,84 @@ Flickable {
                 id: createFileBtn
                 btnText: "Создать"
                 btnImage: "qrc:/36px/file-create.png"
+                btnAlt: "Создать новую сцену"
             }
 
             GeneralButton {
                 id: openFileBtn
-                btnText: "Открыть"
+                btnText: "Загрузить"
                 btnImage: "qrc:/36px/file-open.png"
+                btnAlt: "Загрузить сцену из файла"
             }
 
             GeneralButton {
                 id: undoBtn
                 btnText: "Отменить"
                 btnImage: "qrc:/36px/undo.png"
+                btnAlt: "Отмена последнего изменения"
             }
 
             GeneralButton {
                 id: redoBtn
                 btnText: "Повторить"
                 btnImage: "qrc:/36px/redo.png"
+                btnAlt: "Повторить отмененное изменение"
             }
 
             GeneralButton {
                 id: cleanupBtn
                 btnText: "Очистить"
                 btnImage: "qrc:/36px/cleanup.png"
+                btnAlt: "Очистить сцену"
             }
 
             GeneralButton {
                 id: eraserBtn
                 btnText: "Удалить"
                 btnImage: "qrc:/36px/erase.png"
+                btnAlt: "Удалить объект"
             }
 
             GeneralButton {
                 id: rotateBtn
                 btnText: "Повернуть"
                 btnImage: "qrc:/36px/rotate.png"
+                btnAlt: "Повернуть объект"
             }
 
             GeneralButton {
                 id: resizeBtn
                 btnText: "Размер"
                 btnImage: "qrc:/36px/resize.png"
+                btnAlt: "Изменить размер объекта"
             }
 
             GeneralButton {
                 id: createLineBtn
                 btnText: "Линия"
                 btnImage: "qrc:/36px/add-line.png"
+                btnAlt: "Нарисовать линию"
             }
 
             GeneralButton {
                 id: createMultilineBtn
                 btnText: "Ломаная"
                 btnImage: "qrc:/36px/add-multiline.png"
+                btnAlt: "Нарисовать ломаную"
             }
 
             GeneralButton {
                 id: createTriangleBtn
                 btnText: "Треугольник"
                 btnImage: "qrc:/36px/add-triangle.png"
+                btnAlt: "Нарисовать треугольник"
             }
 
             GeneralButton {
                 id: createSquareBtn
                 btnText: "Квадрат"
                 btnImage: "qrc:/36px/add-square.png"
+                btnAlt: "Нарисовать квадрат"
             }
 
 
@@ -136,24 +150,28 @@ Flickable {
                 id: createRectangleBtn
                 btnText: "Прямоугольник"
                 btnImage: "qrc:/36px/add-rectangle.png"
+                btnAlt: "Нарисовать прямоугольник"
             }
 
             GeneralButton {
                 id: createPolygonBtn
                 btnText: "Полигон"
                 btnImage: "qrc:/36px/add-polygon.png"
+                btnAlt: "Нарисовать полигон"
             }
 
             GeneralButton {
                 id: createTextBtn
                 btnText: "Надпись"
                 btnImage: "qrc:/36px/add-text.png"
+                btnAlt: "Добавить надпись"
             }
 
             GeneralButton {
                 id: createFillBtn
                 btnText: "Заливка"
                 btnImage: "qrc:/36px/fill-color.png"
+                btnAlt: "Закрасить объект"
             }
         }
 
