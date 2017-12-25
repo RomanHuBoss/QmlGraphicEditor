@@ -18,6 +18,11 @@ void Figure::rotateAroundPoint(const Point& point, const double& theta, AngleTyp
     }
 }
 
+void Figure::rotateAroundCenter(const double &theta, AngleType type)
+{
+    rotateAroundPoint(getCentralPoint(), theta, type);
+}
+
 bool Figure::isClosed() const
 {
     return _points.first() == _points.last();

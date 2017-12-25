@@ -50,6 +50,11 @@ Point& Point::operator*=(double factor)
     return *this;
 }
 
+Point::operator QString() const
+{
+    return "Point(" + QString::number(_x) + "," + QString::number(_y) + ")";
+}
+
 Point::~Point()
 {
 

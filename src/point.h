@@ -1,6 +1,7 @@
 #ifndef POINT_H
 #define POINT_H
 #include "geometry.h"
+#include <QString>
 
 /*
  2D-point class
@@ -20,6 +21,7 @@ public:
     Point& operator+=(const Point& point);
     Point& operator-=(const Point& point);
     Point& operator*=(double factor);
+    operator QString() const;
 
     double x() const;
     double y() const;

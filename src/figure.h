@@ -27,7 +27,7 @@ public:
     void rotateAroundPoint(const Point& point, const double& theta, AngleType type = RadiansType);
 
     //вращение фигуры вокруг геометрического центра
-    virtual void rotateAroundCenter(const double& theta, AngleType type = RadiansType) = 0;
+    void rotateAroundCenter(const double& theta, AngleType type = RadiansType);
 
     //валидность фигуры определяется числом точек, соответствующих ее типу и значениями самих точек
     virtual bool isValid() const;

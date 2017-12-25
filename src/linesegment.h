@@ -24,6 +24,8 @@ public:
     LineSegment(const Point& point1_, const Point& point2_);
     LineSegment(const LineSegment& segment);
     LineSegment& operator=(const LineSegment& segment);
+    operator QString() const;
+
     virtual ~LineSegment();
 
     int getNecessaryPointsQuant() const;
@@ -32,8 +34,6 @@ public:
     bool LineSegment::isParallelYAxis() const;
 
     Point getCentralPoint() const;    
-    void rotateAroundCenter(const double& theta, AngleType type = RadiansType);
-
     bool isValid() const;
 
     //проверка пересечения с другим отрезком

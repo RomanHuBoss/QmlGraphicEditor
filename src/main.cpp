@@ -3,6 +3,7 @@
 #include <QQuickWindow>
 #include "appsettings.h"
 #include "linesegment.h"
+#include "triangle.h"
 #include "point.h"
 
 #include <QLineF>
@@ -22,23 +23,10 @@ int main(int argc, char *argv[])
         return -1;
     */
 
-    LineSegment l1( Point(1,2), Point(5, 2));
-    LineSegment l2( Point(1,0), Point(6, 3));
-
-    LineSegment::IntersectType type = l1.checkIntersection(l2);
-
-    if (type == LineSegment::Overlapping) {
-        qWarning("Overlapping");
-    }
-    else if (type == LineSegment::Intersection) {
-        qWarning("OnePointIntersection");
-    }
-    else if (type == LineSegment::Parallel) {
-        qWarning("Parallel");
-    }
-    else {
-        qWarning("NoIntersection");
-    }
+    //LineSegment l(Point(10, 10), Point(10, 20));
+    //l.rotateAroundCenter(90, AngleType::DegreesType);
+    Triangle t(Point(1, 5), Point(6, 8), Point(12, 4));
+    qDebug() << t.getCentralPoint();
 
     return app.exec();
 }

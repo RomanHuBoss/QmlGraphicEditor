@@ -4,8 +4,6 @@
 
 LineSegment::LineSegment()
 {
-    insertFirstPoint(Point());
-    insertLastPoint(Point());
 }
 
 LineSegment::LineSegment(const Point& point1, const Point& point2)
@@ -32,6 +30,11 @@ LineSegment& LineSegment::operator=(const LineSegment& segment)
     return *this;
 }
 
+LineSegment::operator QString() const
+{
+    return "LineSegment(" + firstPoint() + ";" + lastPoint() + ")";
+}
+
 LineSegment::~LineSegment()
 {
 
@@ -46,11 +49,6 @@ Point LineSegment::getCentralPoint() const
 {
     return Point((firstPoint().x() + lastPoint().x()) * 0.5,
                  (firstPoint().y() + lastPoint().y()) * 0.5);
-}
-
-void LineSegment::rotateAroundCenter(const double& theta, AngleType type)
-{
-    rotateAroundPoint(getCentralPoint(), theta, type);
 }
 
 bool LineSegment::isValid() const
