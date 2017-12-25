@@ -18,7 +18,8 @@ SOURCES += src/main.cpp \
     src/main.cpp \
     src/point.cpp \
     src/figure.cpp \
-    src/linesegment.cpp
+    src/linesegment.cpp \
+    src/rectangle.cpp
 
 RESOURCES += qml/qml.qrc \
     qml/qml.qrc \
@@ -42,7 +43,8 @@ HEADERS += \
     src/point.h \
     src/figure.h \
     src/linesegment.h \
-    src/geometry.h
+    src/geometry.h \
+    src/rectangle.h
 
 DISTFILES += \
     qml/AppWndTitleBar.qml \

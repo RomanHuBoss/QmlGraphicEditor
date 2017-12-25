@@ -11,9 +11,8 @@
 class Point
 {
 public:
-
-
-    Point(double x_, double y_);
+    Point();
+    Point(double x, double y);
     Point(const Point& point);
     virtual ~Point();
 
@@ -22,16 +21,24 @@ public:
     Point& operator-=(const Point& point);
     Point& operator*=(double factor);
 
-    double getX() const;
-    double getY() const;
-    void setX(double x_);
-    void setY(double y_);
+    double x() const;
+    double y() const;
+    void setX(double x);
+    void setY(double y);
+
+    bool isValid() const;
+    bool isSameX(const Point& point) const;
+    bool isSameY(const Point& point) const;
+    bool isLeftward(const Point& point) const;
+    bool isRightward(const Point& point) const;
+    bool isHigher(const Point& point) const;
+    bool isBelow(const Point& point) const;
 
     //поворот точки вокруг другой точки на угол
-    void rotateAroundPoint(const Point& point, const double& theta, AngleType type = RadiansType);
+    void rotateAroundPoint(const Point& central, const double& theta, AngleType type = RadiansType);
 private:
-    double x;
-    double y;
+    double _x;
+    double _y;
 };
 
 const Point operator-(const Point& point1, const Point& point2);
@@ -39,5 +46,6 @@ const Point operator+(const Point& point1, const Point& point2);
 const Point operator*(double factor, const Point& point);
 const Point operator*(const Point& point, double factor);
 bool operator==(const Point& point1, const Point& point2);
+bool operator!=(const Point& point1, const Point& point2);
 
 #endif // POINT_H

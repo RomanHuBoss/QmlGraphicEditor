@@ -2,16 +2,22 @@
 #include "math.h"
 #include "qnumeric.h"
 
-LineSegment::LineSegment(const Point& point1_, const Point& point2_):
-    Figure(false), point1(point1_), point2(point2_)
+LineSegment::LineSegment()
 {
-
+    insertFirstPoint(Point());
+    insertLastPoint(Point());
 }
 
-LineSegment::LineSegment(const LineSegment& segment):
-    Figure(false), point1(segment.getPoint1()), point2(segment.point2)
+LineSegment::LineSegment(const Point& point1, const Point& point2)
 {
+    insertFirstPoint(point1);
+    insertLastPoint(point2);
+}
 
+LineSegment::LineSegment(const LineSegment& segment)
+{
+    insertFirstPoint(segment.firstPoint());
+    insertFirstPoint(segment.lastPoint());
 }
 
 LineSegment& LineSegment::operator=(const LineSegment& segment)
@@ -19,8 +25,9 @@ LineSegment& LineSegment::operator=(const LineSegment& segment)
     if (&segment == this)
         return *this;
 
-    point1 = segment.getPoint1();
-    point2 = segment.getPoint2();
+    resetPoints();
+    insertFirstPoint(segment.firstPoint());
+    insertLastPoint(segment.firstPoint());
 
     return *this;
 }
@@ -30,36 +37,15 @@ LineSegment::~LineSegment()
 
 }
 
-const Point& LineSegment::getPoint1() const
+int LineSegment::necessaryPointsQuant() const
 {
-    return point1;
-}
-
-const Point& LineSegment::getPoint2() const
-{
-    return point2;
-}
-
-void LineSegment::setPoint1(const Point& point)
-{
-    point1 = point;
-}
-
-void LineSegment::setPoint2(const Point& point)
-{
-    point2 = point;
+    return 2;
 }
 
 Point LineSegment::getCentralPoint() const
 {
-    return Point((point1.getX() + point2.getX()) * 0.5,
-                 (point1.getY() + point2.getY()) * 0.5);
-}
-
-void LineSegment::rotateAroundPoint(const Point& point, const double& theta, AngleType type)
-{
-    point1.rotateAroundPoint(point, theta, type);
-    point2.rotateAroundPoint(point, theta, type);
+    return Point((firstPoint().x() + lastPoint().x()) * 0.5,
+                 (firstPoint().y() + lastPoint().y()) * 0.5);
 }
 
 void LineSegment::rotateAroundCenter(const double& theta, AngleType type)
@@ -67,47 +53,65 @@ void LineSegment::rotateAroundCenter(const double& theta, AngleType type)
     rotateAroundPoint(getCentralPoint(), theta, type);
 }
 
+bool LineSegment::isValid() const
+{
+    if (!Figure::isValid())
+        return false;
+
+    return firstPoint() != lastPoint();
+}
+
+bool LineSegment::isParallelXAxis() const
+{
+    return firstPoint().y() == lastPoint().y();
+}
+
+bool LineSegment::isParallelYAxis() const
+{
+    return firstPoint().x() == lastPoint().x();
+}
+
+
 LineSegment::IntersectType LineSegment::checkIntersection(const LineSegment& segment, Point& intersectionPoint) const
 {
-    //тот же самый отрезок
+    intersectionPoint = Point();
+
     if (&segment == this)
-        return UnboundedIntersection;
-    //аналогичный отрезок
+        return Overlapping;
     else if (*this == segment)
-        return UnboundedIntersection;
+        return Overlapping;
 
+    double denom = ((segment.lastPoint().y() - segment.firstPoint().y())*(lastPoint().x() - firstPoint().x())) -
+                  ((segment.lastPoint().x() - segment.firstPoint().x())*(lastPoint().y() - firstPoint().y()));
 
-    const Point a = point2 - point1;
-    const Point b = segment.getPoint1() - segment.getPoint2();
-    const Point c = point1 - segment.getPoint1();
+    double nume_a = ((segment.lastPoint().x() - segment.firstPoint().x())*(firstPoint().y() - segment.firstPoint().y())) -
+                   ((segment.lastPoint().y() - segment.firstPoint().y())*(firstPoint().x() - segment.firstPoint().x()));
 
-    const double denominator = a.getY() * b.getX() - a.getX() * b.getY();
+    double nume_b = ((lastPoint().x() - firstPoint().x())*(firstPoint().y() - segment.firstPoint().y())) -
+                    ((lastPoint().y() - firstPoint().y())*(firstPoint().x() - segment.firstPoint().x()));
 
-    //параллельные отрезки
-    if (denominator == 0 || !qIsFinite(denominator))
-        return NoIntersection;
+    if (abs(denom) <= DBL_EPSILON) {
+        if (abs(nume_a) <= DBL_EPSILON && abs(nume_b) <= DBL_EPSILON) {
+            return Overlapping;
+        }
+        return Parallel;
+    }
 
-    const double reciprocal = 1 / denominator;
-    const double na = (b.getY() * c.getX() - b.getX() * c.getY()) * reciprocal;
+    double ua = nume_a / denom;
+    double ub = nume_b / denom;
 
-    intersectionPoint = point1 + a * na;
-
-    //отрезки лежат на одной прямой и пересекаются
-    if (na < 0 || na > 1)
-        return UnboundedIntersection;
-
-    const double nb = (a.getX() * c.getY() - a.getY() * c.getX()) * reciprocal;
-
-    //отрезки лежат на одной прямой и пересекаются
-    if (nb < 0 || nb > 1)
-        return UnboundedIntersection;
-
-    return BoundedIntersection;
+    if (ua >= 0.0 && ua <= 1.0 && ub >= 0.0 && ub <= 1.0) {
+        // получаем точку пересечения
+        intersectionPoint = Point(firstPoint().x() + ua*(lastPoint().x() - firstPoint().x()),
+                                  firstPoint().y() + ua*(lastPoint().y() - firstPoint().y()));
+        return Intersection;
+    }
+    return NoIntersection;
 }
 
 
 bool operator==(const LineSegment& segment1, const LineSegment& segment2)
 {
-    return (segment1.getPoint1() == segment2.getPoint1() && segment1.getPoint2() == segment2.getPoint2()) ||
-           (segment1.getPoint1() == segment2.getPoint2() && segment1.getPoint2() == segment2.getPoint1());
+    return (segment1.firstPoint() == segment2.firstPoint() && segment1.lastPoint() == segment2.lastPoint()) ||
+           (segment1.firstPoint() == segment2.lastPoint() && segment1.lastPoint() == segment2.firstPoint());
 }

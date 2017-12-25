@@ -7,7 +7,7 @@
 
 #include <QLineF>
 #include <QPointF>
-
+#include <QDebug>
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -16,20 +16,25 @@ int main(int argc, char *argv[])
     QGuiApplication::setApplicationName("Графический редактор v. 1.0 (2017)");
     QGuiApplication::setWindowIcon(QIcon(":/24px/app-icon.png"));
 
-    QQmlApplicationEngine engine;
+    /*QQmlApplicationEngine engine;
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())
         return -1;
+    */
 
-    LineSegment l1( Point(1,2), Point(3, 2));
-    LineSegment l2( Point(3,2), Point(2, 2));
+    LineSegment l1( Point(1,2), Point(5, 2));
+    LineSegment l2( Point(1,0), Point(6, 3));
+
     LineSegment::IntersectType type = l1.checkIntersection(l2);
 
-    if (type == LineSegment::UnboundedIntersection) {
-        qWarning("UnboundedIntersection");
+    if (type == LineSegment::Overlapping) {
+        qWarning("Overlapping");
     }
-    else if (type == LineSegment::BoundedIntersection) {
-        qWarning("BoundedIntersection");
+    else if (type == LineSegment::Intersection) {
+        qWarning("OnePointIntersection");
+    }
+    else if (type == LineSegment::Parallel) {
+        qWarning("Parallel");
     }
     else {
         qWarning("NoIntersection");
