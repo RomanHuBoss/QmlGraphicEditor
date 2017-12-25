@@ -7,5 +7,7 @@
         <file>Scene.qml</file>
         <file>GeneralButtons.qml</file>
         <file>GeneralButton.qml</file>
+        <file>storage.js</file>
+        <file>scene.js</file>
     </qresource>
 </RCC>

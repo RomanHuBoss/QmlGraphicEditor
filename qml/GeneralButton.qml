@@ -44,6 +44,8 @@ Rectangle {
             }
 
             parent.state = "clicked";
+
+
         }
     }
 

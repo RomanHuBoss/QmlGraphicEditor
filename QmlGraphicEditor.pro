@@ -15,7 +15,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += src/main.cpp \
     src/appsettings.cpp \
     src/appsettings.cpp \
-    src/main.cpp
+    src/main.cpp \
+    src/point.cpp \
+    src/figure.cpp \
+    src/linesegment.cpp
 
 RESOURCES += qml/qml.qrc \
     qml/qml.qrc \
@@ -36,7 +39,10 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     src/appsettings.h \
-    src/appsettings.h
+    src/point.h \
+    src/figure.h \
+    src/linesegment.h \
+    src/geometry.h
 
 DISTFILES += \
     qml/AppWndTitleBar.qml \
