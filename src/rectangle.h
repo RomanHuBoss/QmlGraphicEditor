@@ -1,6 +1,7 @@
-#ifndef TRIANGLE_H
-#define TRIANGLE_H
+#ifndef RECTANGLE_H
+#define RECTANGLE_H
 
+#include <QString>
 #include "figure.h"
 
 namespace Rosdistant {
@@ -8,19 +9,22 @@ namespace Rosdistant {
     class LineSegment;
 
     /*
-     Abstract 2D-triangle class
+     Abstract 2D-rectangle class
      Author: Rabinovich R.M.
      You can use & modificate the following code without any restrictions
      Date: 10.11.2017
      */
-
-    class Triangle: public Figure
+    class Rectangle: public Figure
     {
     public:
-        Triangle();
-        Triangle(const Point& point1, const Point& point2, const Point& point3);
-        virtual ~Triangle();
+        Rectangle();
+        Rectangle(const Point& point1, const Point& point2, const Point& point3, const Point& point4);
+        Rectangle(const Point& point1, const Point& point2);
+        Rectangle(const Point& point, double width, double height);
+        virtual ~Rectangle();
 
+
+        //строковое представление фигуры
         QString toString() const;
 
         //получить необходимое число точек, формирующих фигуру заданного типа
@@ -35,11 +39,12 @@ namespace Rosdistant {
         //валидность фигуры
         bool isValid() const;
 
-        LineSegment firstSide() const;
-        LineSegment secondSide() const;
-        LineSegment thirdSide() const;
+        LineSegment topSide() const;
+        LineSegment rightSide() const;
+        LineSegment bottomSide() const;
+        LineSegment leftSide() const;
     };
 
 }
 
-#endif // TRIANGLE_H
+#endif // RECTANGLE_H

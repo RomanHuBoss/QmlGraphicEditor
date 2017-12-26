@@ -14,12 +14,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += src/main.cpp \
     src/appsettings.cpp \
-    src/appsettings.cpp \
     src/main.cpp \
     src/point.cpp \
     src/figure.cpp \
     src/linesegment.cpp \
-    src/triangle.cpp
+    src/triangle.cpp \
+    src/rectangle.cpp \
+    src/square.cpp
 
 RESOURCES += qml/qml.qrc \
     qml/qml.qrc \
@@ -44,7 +45,9 @@ HEADERS += \
     src/figure.h \
     src/linesegment.h \
     src/geometry.h \
-    src/triangle.h
+    src/triangle.h \
+    src/rectangle.h \
+    src/square.h
 
 DISTFILES += \
     qml/AppWndTitleBar.qml \
@@ -52,7 +55,6 @@ DISTFILES += \
     qml/Scene.qml \
     qml/AboutWnd.qml \
     qml/AboutWndTitleBar.qml \
-    qml/AppWndTitleBar.qml \
     qml/main.qml \
     qml/GeneralButton.qml
 

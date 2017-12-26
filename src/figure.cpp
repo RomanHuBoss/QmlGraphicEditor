@@ -1,5 +1,9 @@
 #include "figure.h"
+#include "point.h"
+#include "linesegment.h"
 
+namespace RD = Rosdistant;
+using namespace RD;
 
 Figure::Figure()
 {
@@ -23,9 +27,13 @@ void Figure::rotateAroundCenter(const double &theta, AngleType type)
     rotateAroundPoint(getCentralPoint(), theta, type);
 }
 
-bool Figure::isClosed() const
-{
-    return _points.first() == _points.last();
+LineSegment Figure::getSide(int i) const {
+    if (i > _points.size())
+        return LineSegment();
+    else if (i < _points.size()-1)
+        return LineSegment(_points[i], _points[i+1]);
+    else
+        return LineSegment(_points[i], _points[0]);
 }
 
 void Figure::resetPoints()

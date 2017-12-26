@@ -1,6 +1,10 @@
-#include "linesegment.h"
 #include "math.h"
 #include "qnumeric.h"
+#include "point.h"
+#include "linesegment.h"
+
+namespace RD = Rosdistant;
+using namespace RD;
 
 LineSegment::LineSegment()
 {
@@ -30,14 +34,36 @@ LineSegment& LineSegment::operator=(const LineSegment& segment)
     return *this;
 }
 
-LineSegment::operator QString() const
+bool LineSegment::operator==(const LineSegment& segment) const
 {
-    return "LineSegment(" + firstPoint() + ";" + lastPoint() + ")";
+    return (firstPoint() == segment.firstPoint() && lastPoint() == segment.lastPoint()) ||
+            (firstPoint() == segment.lastPoint() && lastPoint() == segment.firstPoint());
+}
+
+bool LineSegment::operator!=(const LineSegment &segment) const
+{
+    return !(*this == segment);
+}
+
+int LineSegment::getNecessaryPointsQuant() const
+{
+    return 2;
+}
+
+QString LineSegment::toString() const
+{
+    return QString("LineSegment(%1;%2)").
+            arg(firstPoint().toString(), lastPoint().toString());
 }
 
 LineSegment::~LineSegment()
 {
 
+}
+
+bool LineSegment::isClosed() const
+{
+    return false;
 }
 
 int LineSegment::necessaryPointsQuant() const
@@ -57,6 +83,12 @@ bool LineSegment::isValid() const
         return false;
 
     return firstPoint() != lastPoint();
+}
+
+double LineSegment::length() const
+{
+    return pow(pow(lastPoint().x() - firstPoint().x(), 2) +
+               pow(lastPoint().y() - firstPoint().y(), 2), 0.5);
 }
 
 bool LineSegment::isParallelXAxis() const
@@ -105,11 +137,4 @@ LineSegment::IntersectType LineSegment::checkIntersection(const LineSegment& seg
         return Intersection;
     }
     return NoIntersection;
-}
-
-
-bool operator==(const LineSegment& segment1, const LineSegment& segment2)
-{
-    return (segment1.firstPoint() == segment2.firstPoint() && segment1.lastPoint() == segment2.lastPoint()) ||
-           (segment1.firstPoint() == segment2.lastPoint() && segment1.lastPoint() == segment2.firstPoint());
 }

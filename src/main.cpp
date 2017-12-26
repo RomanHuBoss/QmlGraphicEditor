@@ -5,10 +5,18 @@
 #include "linesegment.h"
 #include "triangle.h"
 #include "point.h"
+#include "rectangle.h"
+#include "square.h"
 
-#include <QLineF>
-#include <QPointF>
 #include <QDebug>
+
+namespace RD = Rosdistant;
+using RD::Point;
+using RD::LineSegment;
+using RD::Triangle;
+using RD::Rectangle;
+using RD::Square;
+
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -23,10 +31,15 @@ int main(int argc, char *argv[])
         return -1;
     */
 
-    //LineSegment l(Point(10, 10), Point(10, 20));
-    //l.rotateAroundCenter(90, AngleType::DegreesType);
-    Triangle t(Point(1, 5), Point(6, 8), Point(12, 4));
-    qDebug() << t.getCentralPoint();
+    Point(1, 2);
+    //qDebug() << QString(Point(1, 2));
+    //qDebug() << LineSegment(Point(1,2), Point(3,4));
+    //qDebug() << Triangle(Point(1,2), Point(3,4), Point(2, 2));
+    //qDebug() << RD::Rectangle(Point(1,2), Point(2, 3));
+
+    //qDebug() << t.isValid();
+    //qDebug() << t.getCentralPoint();
+
 
     return app.exec();
 }

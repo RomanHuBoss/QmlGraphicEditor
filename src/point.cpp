@@ -1,5 +1,8 @@
 #include "point.h"
 
+namespace RD = Rosdistant;
+using namespace RD;
+
 Point::Point(): _x(DBL_MAX), _y(DBL_MAX)
 {
 
@@ -26,12 +29,17 @@ Point& Point::operator=(const Point& point)
     return *this;
 }
 
-Point &Point::operator+=(const Point& point)
+Point& Point::operator+=(const Point& point)
 {
     _x += point.x();
     _y += point.y();
 
     return *this;
+}
+
+Point Point::operator+(const Point &point) const
+{
+    return Point(_x + point.x(), _y + point.y());
 }
 
 Point& Point::operator-=(const Point& point)
@@ -42,6 +50,11 @@ Point& Point::operator-=(const Point& point)
     return *this;
 }
 
+Point Point::operator-(const Point &point) const
+{
+    return Point(_x - point.x(), _y - point.y());
+}
+
 Point& Point::operator*=(double factor)
 {
     _x *= factor;
@@ -50,7 +63,22 @@ Point& Point::operator*=(double factor)
     return *this;
 }
 
-Point::operator QString() const
+Point Point::operator*(double factor) const
+{
+    return Point(_x*factor, _y*factor);
+}
+
+bool Point::operator==(const Point& point) const
+{
+    return (_x == point.x()) && (_y == point.y());
+}
+
+bool Point::operator!=(const Point& point) const
+{
+    return !(*this == point);
+}
+
+QString Point::toString() const
 {
     return "Point(" + QString::number(_x) + "," + QString::number(_y) + ")";
 }
@@ -134,31 +162,3 @@ void Point::rotateAroundPoint(const Point& central, const double& theta, AngleTy
     _y = newY;
 }
 
-const Point operator-(const Point& point1, const Point &point2)
-{
-    return Point(point1.x() - point2.x(), point1.y() - point2.y());
-}
-
-const Point operator+(const Point& point1, const Point& point2) {
-    return Point(point1.x() + point2.x(), point1.y() + point2.y());
-}
-
-const Point operator*(double factor, const Point& point)
-{
-    return Point(point.x()*factor, point.y()*factor);
-}
-
-const Point operator*(const Point& point, double factor)
-{
-    return factor*point;
-}
-
-bool operator==(const Point& point1, const Point& point2)
-{
-    return (point1.x() == point2.x()) && (point1.y() == point2.y());
-}
-
-bool operator!=(const Point &point1, const Point &point2)
-{
-    return !(point1 == point2);
-}
