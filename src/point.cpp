@@ -78,15 +78,16 @@ bool Point::operator!=(const Point& point) const
     return !(*this == point);
 }
 
-QString Point::toString() const
-{
-    return "Point(" + QString::number(_x) + "," + QString::number(_y) + ")";
-}
-
 Point::~Point()
 {
 
 }
+
+Point::operator QString()
+{
+    return QString("Point(%1, %2)").arg(QString::number(_x), QString::number(_y));
+}
+
 
 double Point::x() const
 {

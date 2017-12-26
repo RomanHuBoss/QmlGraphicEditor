@@ -34,7 +34,7 @@ namespace Rosdistant {
         bool operator!=(const LineSegment& segment) const;
 
         //строковое представление фигуры
-        QString toString() const;
+        operator QString();
 
         //получить необходимое число точек, формирующих фигуру заданного типа
         int getNecessaryPointsQuant() const;
@@ -62,6 +62,13 @@ namespace Rosdistant {
 
         //число точек, необходимое для построения отрезка
         int necessaryPointsQuant() const;
+
+        //изменение размера за одну из сторон описывающего прямоугольника
+        void bbSideResize(BBoxSides side, double value);
+
+        //пропорциональное изменение размера за один из углов описывающего прямоугольника
+        void bbCornerScale(BBoxCorners corner, double xvalue, double yvalue);
+
     };
 }
 

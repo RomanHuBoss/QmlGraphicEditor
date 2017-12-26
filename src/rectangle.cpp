@@ -39,11 +39,11 @@ Rectangle::~Rectangle()
 
 }
 
-QString Rectangle::toString() const
+Rectangle::operator QString()
 {
     return QString("Rectangle(%1; %2; %3; %4)").
-            arg(topSide().toString(), rightSide().toString(),
-                bottomSide().toString(), leftSide().toString());
+            arg(topSide(), rightSide(),
+                bottomSide(), leftSide());
 }
 
 int Rectangle::necessaryPointsQuant() const
@@ -68,6 +68,16 @@ bool Rectangle::isValid() const
 
     return topSide().length() == bottomSide().length() &&
             leftSide().length() == rightSide().length();
+}
+
+void Rectangle::bbSideResize(BBoxSides side, double value)
+{
+
+}
+
+void Rectangle::bbCornerScale(BBoxCorners corner, double xvalue, double yvalue)
+{
+
 }
 
 LineSegment Rectangle::topSide() const

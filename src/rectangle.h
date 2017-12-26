@@ -23,9 +23,8 @@ namespace Rosdistant {
         Rectangle(const Point& point, double width, double height);
         virtual ~Rectangle();
 
-
         //строковое представление фигуры
-        QString toString() const;
+        operator QString();
 
         //получить необходимое число точек, формирующих фигуру заданного типа
         int necessaryPointsQuant() const;
@@ -38,6 +37,12 @@ namespace Rosdistant {
 
         //валидность фигуры
         bool isValid() const;
+
+        //изменение размера за одну из сторон описывающего прямоугольника
+        void bbSideResize(BBoxSides side, double value);
+
+        //пропорциональное изменение размера за один из углов описывающего прямоугольника
+        void bbCornerScale(BBoxCorners corner, double xvalue, double yvalue);
 
         LineSegment topSide() const;
         LineSegment rightSide() const;

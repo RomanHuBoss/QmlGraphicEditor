@@ -31,7 +31,8 @@ int main(int argc, char *argv[])
         return -1;
     */
 
-    Point(1, 2);
+    //qDebug() << Triangle(Point(1,2), Point(3,4), Point(6,2)).isPointInside(Point(3,4));
+
     //qDebug() << QString(Point(1, 2));
     //qDebug() << LineSegment(Point(1,2), Point(3,4));
     //qDebug() << Triangle(Point(1,2), Point(3,4), Point(2, 2));

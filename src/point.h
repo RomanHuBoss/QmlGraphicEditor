@@ -20,6 +20,9 @@ namespace Rosdistant {
         Point(const Point& point);
         virtual ~Point();
 
+        //строковое представление фигуры
+        operator QString();
+
         Point& operator=(const Point& point);
 
         Point& operator+=(const Point& point);
@@ -33,8 +36,6 @@ namespace Rosdistant {
 
         bool operator==(const Point& point) const;
         bool operator!=(const Point& point) const;
-
-        QString toString() const;
 
         double x() const;
         double y() const;

@@ -15,6 +15,14 @@ Figure::~Figure()
 
 }
 
+void Figure::move(double dx, double dy)
+{
+    for (int i = 0; i < _points.size(); i++) {
+        _points[i].setX(_points[i].x() + dx);
+        _points[i].setY(_points[i].y() + dy);
+    }
+}
+
 void Figure::rotateAroundPoint(const Point& point, const double& theta, AngleType type)
 {
     for (int i = 0; i < _points.size(); i++) {
@@ -27,7 +35,48 @@ void Figure::rotateAroundCenter(const double &theta, AngleType type)
     rotateAroundPoint(getCentralPoint(), theta, type);
 }
 
-LineSegment Figure::getSide(int i) const {
+bool Figure::isPointInside(const Point &point)
+{
+    return isPointInside(point.x(), point.y());
+}
+
+bool Figure::isPointInside(double x, double y)
+{
+    if (!isClosed() || _points.size() < 3)
+        return false;
+
+    //сравним напрямую с каждой из точек
+    foreach (auto vertexPoint, _points)
+        if (vertexPoint == Point(x, y))
+            return true;
+
+    double sum = 0.0;
+
+    Point lastPt = lastPoint();
+    lastPt.setX(lastPt.x() - x);
+    lastPt.setY(lastPt.y() - y);
+
+    for (int i = 0; i < _points.size()-1; i++) {
+        Point curPt = _points[i];
+        curPt.setX(curPt.x() - x);
+        curPt.setY(curPt.y() - y);
+
+        double del = lastPt.x()*curPt.y() - curPt.x()*lastPt.y();
+        double xy  = curPt.x()*lastPt.x() + curPt.y()*lastPt.y();
+
+        sum+= (
+            atan((lastPt.x()*lastPt.x()+lastPt.y()*lastPt.y() - xy)/del) +
+            atan((curPt.x()*curPt.x()+curPt.y()*curPt.y() - xy)/del)
+        );
+
+        lastPt=curPt;
+    }
+
+    return fabs(sum) > DBL_EPSILON;
+}
+
+LineSegment Figure::getSide(int i) const
+{
     if (i > _points.size())
         return LineSegment();
     else if (i < _points.size()-1)

@@ -23,10 +23,10 @@ Triangle::~Triangle()
 
 }
 
-QString Triangle::toString() const
+Triangle::operator QString()
 {
     return QString("Triangle(%1; %2; %3)").
-            arg(firstSide().toString(), secondSide().toString(), thirdSide().toString());
+            arg(firstSide(), secondSide(), thirdSide());
 }
 
 int Triangle::necessaryPointsQuant() const
@@ -68,4 +68,14 @@ LineSegment Triangle::secondSide() const
 LineSegment Triangle::thirdSide() const
 {
     return getSide(2);
+}
+
+void Triangle::bbSideResize(BBoxSides side, double value)
+{
+
+}
+
+void Triangle::bbCornerScale(BBoxCorners corner, double xvalue, double yvalue)
+{
+
 }

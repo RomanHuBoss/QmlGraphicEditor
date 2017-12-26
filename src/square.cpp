@@ -25,11 +25,11 @@ Square::~Square()
 
 }
 
-QString Square::toString() const
+Square::operator QString()
 {
     return QString("Square(%1; %2; %3; %4)").
-            arg(topSide().toString(), rightSide().toString(),
-                bottomSide().toString(), leftSide().toString());
+            arg(topSide(), rightSide(),
+                bottomSide(), leftSide());
 }
 
 bool Square::isValid() const
@@ -39,3 +39,14 @@ bool Square::isValid() const
 
     return topSide().length() == leftSide().length();
 }
+
+void Square::bbSideResize(BBoxSides side, double value)
+{
+
+}
+
+void Square::bbCornerScale(BBoxCorners corner, double xvalue, double yvalue)
+{
+
+}
+

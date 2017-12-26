@@ -50,10 +50,10 @@ int LineSegment::getNecessaryPointsQuant() const
     return 2;
 }
 
-QString LineSegment::toString() const
+LineSegment::operator QString()
 {
     return QString("LineSegment(%1;%2)").
-            arg(firstPoint().toString(), lastPoint().toString());
+            arg(firstPoint(), lastPoint());
 }
 
 LineSegment::~LineSegment()
@@ -69,6 +69,16 @@ bool LineSegment::isClosed() const
 int LineSegment::necessaryPointsQuant() const
 {
     return 2;
+}
+
+void LineSegment::bbSideResize(BBoxSides side, double value)
+{
+
+}
+
+void LineSegment::bbCornerScale(BBoxCorners corner, double xvalue, double yvalue)
+{
+
 }
 
 Point LineSegment::getCentralPoint() const

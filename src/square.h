@@ -23,10 +23,16 @@ namespace Rosdistant {
         virtual ~Square();
 
         //строковое представление фигуры
-        QString toString() const;
+        operator QString();
 
         //валидность фигуры
         bool isValid() const;
+
+        //изменение размера за одну из сторон описывающего прямоугольника
+        void bbSideResize(BBoxSides side, double value);
+
+        //пропорциональное изменение размера за один из углов описывающего прямоугольника
+        void bbCornerScale(BBoxCorners corner, double xvalue, double yvalue);
     };
 
 }
