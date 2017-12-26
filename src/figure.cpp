@@ -1,6 +1,7 @@
 #include "figure.h"
 #include "point.h"
 #include "linesegment.h"
+#include "rectangle.h"
 
 namespace RD = Rosdistant;
 using namespace RD;
@@ -13,6 +14,20 @@ Figure::Figure()
 Figure::~Figure()
 {
 
+}
+
+Rectangle Figure::getBBox() const
+{
+    if (!isValid())
+        return Rectangle();
+
+    double minX = getMinX();
+    double maxX = getMaxX();
+    double minY = getMinY();
+    double maxY = getMaxY();
+
+    return Rectangle(Point(minX, maxY), Point(maxX, maxY),
+                     Point(maxX, minY), Point(minX, minY));
 }
 
 void Figure::move(double dx, double dy)
@@ -94,6 +109,46 @@ void Figure::resetPoints()
 const QList<Point>& Figure::getPoints() const
 {
     return _points;
+}
+
+double Figure::getMinX() const
+{
+    double min = DBL_MAX;
+
+    for (int i = 0; i < _points.size(); i++)
+        if (min > _points[i].x()) min = _points[i].x();
+
+    return min;
+}
+
+double Figure::getMaxX() const
+{
+    double max = DBL_MIN;
+
+    for (int i = 0; i < _points.size(); i++)
+        if (max < _points[i].x()) max = _points[i].x();
+
+    return max;
+}
+
+double Figure::getMinY() const
+{
+    double min = DBL_MAX;
+
+    for (int i = 0; i < _points.size(); i++)
+        if (min > _points[i].y()) min = _points[i].y();
+
+    return min;
+}
+
+double Figure::getMaxY() const
+{
+    double max = DBL_MIN;
+
+    for (int i = 0; i < _points.size(); i++)
+        if (max < _points[i].y()) max = _points[i].y();
+
+    return max;
 }
 
 void Figure::insertFirstPoint(const Point& point) {

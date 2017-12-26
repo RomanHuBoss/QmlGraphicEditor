@@ -8,6 +8,7 @@
 namespace Rosdistant {
     class Point;
     class LineSegment;
+    class Rectangle;
 
     /*
      Abstract 2D-figure class
@@ -26,6 +27,9 @@ namespace Rosdistant {
 
         //углы прямоугольника, в который вписывается фигура
         enum BBoxCorners {BBoxTopLeft, BBoxTopRight, BBoxBottomLeft, BBoxBottomRight};
+
+        //получить прямоугольник, в который вписана фигура
+        Rectangle getBBox() const;
 
         //строковое представление фигуры
         virtual operator QString() = 0;
@@ -86,6 +90,12 @@ namespace Rosdistant {
 
         //отдает коллекцию точек
         const QList<Point>& getPoints() const;
+
+        //минимальные и максимальные координаты фигуры
+        double getMinX() const;
+        double getMinY() const;
+        double getMaxX() const;
+        double getMaxY() const;
 
         //вставка точки в начало коллекции
         void insertFirstPoint(const Point& point);
