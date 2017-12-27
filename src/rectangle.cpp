@@ -70,14 +70,14 @@ bool Rectangle::isValid() const
             leftSide().length() == rightSide().length();
 }
 
-void Rectangle::bbSideResize(BBoxSides side, double value)
+double Rectangle::width() const
 {
-
+    return fabs(getMaxX() - getMinX());
 }
 
-void Rectangle::bbCornerScale(BBoxCorners corner, double xvalue, double yvalue)
+double Rectangle::height() const
 {
-
+    return fabs(getMaxY() - getMinY());
 }
 
 LineSegment Rectangle::topSide() const

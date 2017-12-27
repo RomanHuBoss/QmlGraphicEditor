@@ -1,6 +1,7 @@
 #ifndef FIGURE_H
 #define FIGURE_H
 
+#include <QUuid>
 #include <QList>
 #include <QString>
 #include "geometry.h"
@@ -21,6 +22,9 @@ namespace Rosdistant {
     public:
         explicit Figure();
         virtual ~Figure();
+
+        void setUuid(const QUuid& uuid);
+        QUuid uuid() const;
 
         //стороны прямоугольника, в который вписывается фигура
         enum BBoxSides {BBoxTop, BBoxRight, BBoxBottom, BBoxLeft};
@@ -50,10 +54,10 @@ namespace Rosdistant {
         void rotateAroundCenter(const double& theta, AngleType type = RadiansType);
 
         //пропорциональное изменение размера за один из углов описывающего прямоугольника
-        virtual void bbCornerScale(BBoxCorners corner, double xvalue, double yvalue) = 0;
+        void bbCornerScale(BBoxCorners corner, double xvalue, double yvalue);
 
         //изменение размера за одну из сторон описывающего прямоугольника
-        virtual void bbSideResize(BBoxSides side, double value) = 0;
+        void bbSideResize(BBoxSides side, double value);
 
         //точка внутри замкнутой фигуры (взято отсюда https://habrahabr.ru/post/125356/)
         bool isPointInside(const Point& point);
@@ -115,6 +119,9 @@ namespace Rosdistant {
         bool setPoints(const QList<Point>& points);
 
     private:
+        //идентификатор фигуры
+        QUuid _uuid;
+
         //коллекция точек
         QList<Point> _points;
     };

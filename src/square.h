@@ -8,7 +8,7 @@ namespace Rosdistant {
     class Point;
 
     /*
-     Abstract 2D-square class
+     2D-square class
      Author: Rabinovich R.M.
      You can use & modificate the following code without any restrictions
      Date: 10.11.2017

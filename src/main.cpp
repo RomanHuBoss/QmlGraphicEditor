@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQuickWindow>
+#include "figuresstorage.h"
 #include "appsettings.h"
 #include "linesegment.h"
 #include "triangle.h"
@@ -10,12 +11,7 @@
 
 #include <QDebug>
 
-namespace RD = Rosdistant;
-using RD::Point;
-using RD::LineSegment;
-using RD::Triangle;
-using RD::Rectangle;
-using RD::Square;
+using namespace Rosdistant;
 
 int main(int argc, char *argv[])
 {
@@ -25,22 +21,18 @@ int main(int argc, char *argv[])
     QGuiApplication::setApplicationName("Графический редактор v. 1.0 (2017)");
     QGuiApplication::setWindowIcon(QIcon(":/24px/app-icon.png"));
 
+    Rosdistant::Rectangle rect(Point(3,3), Point(6,3), Point(4,1), Point(1,1));
+    Rosdistant::Rectangle bbox = rect.getBBox();
+    rect.bbSideResize(Figure::BBoxLeft, -1);
+
+
+    //FiguresStorage fs;
+    //fs.addFigure(new LineSegment(Point(1,2), Point(3,4)));
+
     /*QQmlApplicationEngine engine;
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())
         return -1;
     */
-
-    qDebug() << Triangle(Point(1,2), Point(3,4), Point(6,2)).getBBox();
-
-    //qDebug() << QString(Point(1, 2));
-    //qDebug() << LineSegment(Point(1,2), Point(3,4));
-    //qDebug() << Triangle(Point(1,2), Point(3,4), Point(2, 2));
-    //qDebug() << RD::Rectangle(Point(1,2), Point(2, 3));
-
-    //qDebug() << t.isValid();
-    //qDebug() << t.getCentralPoint();
-
-
     return app.exec();
 }

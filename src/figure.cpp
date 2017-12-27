@@ -2,9 +2,19 @@
 #include "point.h"
 #include "linesegment.h"
 #include "rectangle.h"
+#include <QDebug>
 
 namespace RD = Rosdistant;
 using namespace RD;
+
+typedef double(Rectangle::*oppCoordGetter)() const;
+typedef double(Rectangle::*sizeGetter)() const;
+typedef double(Point::*pointCoordGetter)() const;
+typedef void(Point::*pointCoordSetter)(double);
+
+Q_DECLARE_METATYPE(oppCoordGetter);
+Q_DECLARE_METATYPE(pointCoordGetter);
+Q_DECLARE_METATYPE(pointCoordSetter);
 
 Figure::Figure()
 {
@@ -16,10 +26,25 @@ Figure::~Figure()
 
 }
 
+QUuid Figure::uuid() const
+{
+    return _uuid;
+}
+
+void Figure::setUuid(const QUuid &uuid)
+{
+    _uuid = uuid;
+}
+
 Rectangle Figure::getBBox() const
 {
-    if (!isValid())
+    if (!isValid()) {
         return Rectangle();
+    }
+    else if (necessaryPointsQuant() < 3 && (firstPoint().x() == lastPoint().x() ||
+                                            firstPoint().y() == lastPoint().y())) {
+        return Rectangle();
+    }
 
     double minX = getMinX();
     double maxX = getMaxX();
@@ -48,6 +73,71 @@ void Figure::rotateAroundPoint(const Point& point, const double& theta, AngleTyp
 void Figure::rotateAroundCenter(const double &theta, AngleType type)
 {
     rotateAroundPoint(getCentralPoint(), theta, type);
+}
+
+void Figure::bbCornerScale(Figure::BBoxCorners corner, double xvalue, double yvalue)
+{
+
+}
+
+void Figure::bbSideResize(BBoxSides side, double value)
+{
+    /*
+     * описание алгоритма растягивания
+     * выбирается конкретная сторона описывающего фигуру прямоугольника.
+     * точки на противоположной стороне не смещаются.
+     * остальные точки смещаются пропорционально удалению от противоположной стороны.
+     */
+
+    Rectangle bbox = getBBox();
+
+    if (!bbox.isValid())
+        return;
+    else if (bbox.height() < DBL_EPSILON || bbox.width() < DBL_EPSILON)
+        return;
+
+    QHash<BBoxSides, QList<QVariant>> hashedCalls;
+
+    QList<QVariant> funcs;
+    funcs.push_back(QVariant::fromValue<oppCoordGetter>(&Rectangle::getMinY));
+    funcs.push_back(QVariant::fromValue<sizeGetter>(&Rectangle::height));
+    funcs.push_back(QVariant::fromValue<pointCoordGetter>(&Point::y));
+    funcs.push_back(QVariant::fromValue<pointCoordSetter>(&Point::setY));
+    hashedCalls.insert(BBoxTop, funcs);
+
+    funcs.clear();
+    funcs.push_back(QVariant::fromValue<oppCoordGetter>(&Rectangle::getMaxY));
+    funcs.push_back(QVariant::fromValue<sizeGetter>(&Rectangle::height));
+    funcs.push_back(QVariant::fromValue<pointCoordGetter>(&Point::y));
+    funcs.push_back(QVariant::fromValue<pointCoordSetter>(&Point::setY));
+    hashedCalls.insert(BBoxBottom, funcs);
+
+    funcs.clear();
+    funcs.push_back(QVariant::fromValue<oppCoordGetter>(&Rectangle::getMinX));
+    funcs.push_back(QVariant::fromValue<sizeGetter>(&Rectangle::width));
+    funcs.push_back(QVariant::fromValue<pointCoordGetter>(&Point::x));
+    funcs.push_back(QVariant::fromValue<pointCoordSetter>(&Point::setX));
+    hashedCalls.insert(BBoxRight, funcs);
+
+    funcs.clear();
+    funcs.push_back(QVariant::fromValue<oppCoordGetter>(&Rectangle::getMaxX));
+    funcs.push_back(QVariant::fromValue<sizeGetter>(&Rectangle::width));
+    funcs.push_back(QVariant::fromValue<pointCoordGetter>(&Point::x));
+    funcs.push_back(QVariant::fromValue<pointCoordSetter>(&Point::setX));
+    hashedCalls.insert(BBoxLeft, funcs);
+
+    for (int i = 0; i < _points.size(); i++) {
+        QList<QVariant> funcs = hashedCalls.value(side);
+
+        oppCoordGetter      getOppCoord = funcs[0].value<oppCoordGetter>();
+        sizeGetter          getSize = funcs[1].value<sizeGetter>();
+        pointCoordGetter    getPointCoord = funcs[2].value<pointCoordGetter>();
+        pointCoordSetter    setPointCoord = funcs[3].value<pointCoordSetter>();
+
+        double distFromMargin = fabs((_points[i].*getPointCoord)() - (bbox.*getOppCoord)());
+        double newCoord = (_points[i].*getPointCoord)() + (distFromMargin/(bbox.*getSize)())*value;
+        (_points[i].*setPointCoord)(newCoord);
+    }
 }
 
 bool Figure::isPointInside(const Point &point)

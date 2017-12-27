@@ -20,7 +20,8 @@ SOURCES += src/main.cpp \
     src/linesegment.cpp \
     src/triangle.cpp \
     src/rectangle.cpp \
-    src/square.cpp
+    src/square.cpp \
+    src/figuresstorage.cpp
 
 RESOURCES += qml/qml.qrc \
     qml/qml.qrc \
@@ -47,7 +48,8 @@ HEADERS += \
     src/geometry.h \
     src/triangle.h \
     src/rectangle.h \
-    src/square.h
+    src/square.h \
+    src/figuresstorage.h
 
 DISTFILES += \
     qml/AppWndTitleBar.qml \
