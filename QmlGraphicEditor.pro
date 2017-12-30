@@ -21,7 +21,8 @@ SOURCES += src/main.cpp \
     src/triangle.cpp \
     src/rectangle.cpp \
     src/square.cpp \
-    src/figuresstorage.cpp
+    src/figuresstorage.cpp \
+    src/multiline.cpp
 
 RESOURCES += qml/qml.qrc \
     qml/qml.qrc \
@@ -49,7 +50,8 @@ HEADERS += \
     src/triangle.h \
     src/rectangle.h \
     src/square.h \
-    src/figuresstorage.h
+    src/figuresstorage.h \
+    src/multiline.h
 
 DISTFILES += \
     qml/AppWndTitleBar.qml \

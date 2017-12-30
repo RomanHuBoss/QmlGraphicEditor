@@ -41,10 +41,6 @@ Rectangle Figure::getBBox() const
     if (!isValid()) {
         return Rectangle();
     }
-    else if (necessaryPointsQuant() < 3 && (firstPoint().x() == lastPoint().x() ||
-                                            firstPoint().y() == lastPoint().y())) {
-        return Rectangle();
-    }
 
     double minX = getMinX();
     double maxX = getMaxX();

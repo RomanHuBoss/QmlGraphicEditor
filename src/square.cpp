@@ -40,13 +40,4 @@ bool Square::isValid() const
     return topSide().length() == leftSide().length();
 }
 
-void Square::bbSideResize(BBoxSides side, double value)
-{
-
-}
-
-void Square::bbCornerScale(BBoxCorners corner, double xvalue, double yvalue)
-{
-
-}
 

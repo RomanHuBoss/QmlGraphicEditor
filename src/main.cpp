@@ -8,6 +8,7 @@
 #include "point.h"
 #include "rectangle.h"
 #include "square.h"
+#include "multiline.h"
 
 #include <QDebug>
 
@@ -21,10 +22,14 @@ int main(int argc, char *argv[])
     QGuiApplication::setApplicationName("Графический редактор v. 1.0 (2017)");
     QGuiApplication::setWindowIcon(QIcon(":/24px/app-icon.png"));
 
-    Rosdistant::Rectangle rect(Point(3,3), Point(6,3), Point(4,1), Point(1,1));
-    Rosdistant::Rectangle bbox = rect.getBBox();
-    rect.bbSideResize(Figure::BBoxLeft, -1);
+    //Rosdistant::Rectangle rect(Point(3,3), Point(6,3), Point(4,1), Point(1,1));
+    //Rosdistant::Rectangle bbox = rect.getBBox();
+    //rect.bbSideResize(Figure::BBoxLeft, -1);
+    //qDebug() << bbox.isValid();
 
+    Point points[] = {Point(1,1), Point(2,2), Point(3,4)};
+    Rosdistant::Multiline ml(points , 3, false);
+    qDebug() << ml;
 
     //FiguresStorage fs;
     //fs.addFigure(new LineSegment(Point(1,2), Point(3,4)));

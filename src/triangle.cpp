@@ -70,12 +70,4 @@ LineSegment Triangle::thirdSide() const
     return getSide(2);
 }
 
-void Triangle::bbSideResize(BBoxSides side, double value)
-{
 
-}
-
-void Triangle::bbCornerScale(BBoxCorners corner, double xvalue, double yvalue)
-{
-
-}

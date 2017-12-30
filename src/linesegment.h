@@ -57,6 +57,12 @@ namespace Rosdistant {
         //длина отрезка
         double length() const;
 
+        //получить минимальные и максимальное значение координат
+        double minX() const;
+        double maxX() const;
+        double minY() const;
+        double maxY() const;
+
         //проверка пересечения с другим отрезком
         IntersectType checkIntersection(const LineSegment& segment, Point& intersectionPoint = Point()) const;
 

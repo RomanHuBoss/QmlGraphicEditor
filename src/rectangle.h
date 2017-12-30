@@ -42,6 +42,16 @@ namespace Rosdistant {
         double width() const;
         double height() const;
 
+        //проверка равенства диагоналей
+        bool checkDiagonslsEquality() const;
+
+        //точки прямоугольника
+        Point topLeftPoint() const;
+        Point topRightPoint() const;
+        Point bottomLeftPoint() const;
+        Point bottomRightPoint() const;
+
+        //стороны прямоугольника
         LineSegment topSide() const;
         LineSegment rightSide() const;
         LineSegment bottomSide() const;

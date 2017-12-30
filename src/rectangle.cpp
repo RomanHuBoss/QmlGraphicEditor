@@ -67,7 +67,8 @@ bool Rectangle::isValid() const
         return false;
 
     return topSide().length() == bottomSide().length() &&
-            leftSide().length() == rightSide().length();
+            leftSide().length() == rightSide().length() &&
+            checkDiagonslsEquality();
 }
 
 double Rectangle::width() const
@@ -78,6 +79,34 @@ double Rectangle::width() const
 double Rectangle::height() const
 {
     return fabs(getMaxY() - getMinY());
+}
+
+bool Rectangle::checkDiagonslsEquality() const
+{
+    LineSegment diagonal1(topLeftPoint(), bottomRightPoint());
+    LineSegment diagonal2(bottomLeftPoint(), topRightPoint());
+
+    return (diagonal1.length() - diagonal2.length()) < DBL_EPSILON;
+}
+
+Point Rectangle::topLeftPoint() const
+{
+    return topSide().firstPoint();
+}
+
+Point Rectangle::topRightPoint() const
+{
+    return topSide().lastPoint();
+}
+
+Point Rectangle::bottomLeftPoint() const
+{
+    return bottomSide().lastPoint();
+}
+
+Point Rectangle::bottomRightPoint() const
+{
+    return bottomSide().firstPoint();
 }
 
 LineSegment Rectangle::topSide() const

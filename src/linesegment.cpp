@@ -101,6 +101,26 @@ double LineSegment::length() const
                pow(lastPoint().y() - firstPoint().y(), 2), 0.5);
 }
 
+double LineSegment::minX() const
+{
+    return fmin(firstPoint().x(), lastPoint().x());
+}
+
+double LineSegment::maxX() const
+{
+    return fmax(firstPoint().x(), lastPoint().x());
+}
+
+double LineSegment::minY() const
+{
+    return fmin(firstPoint().y(), lastPoint().y());
+}
+
+double LineSegment::maxY() const
+{
+    return fmax(firstPoint().y(), lastPoint().y());
+}
+
 bool LineSegment::isParallelXAxis() const
 {
     return firstPoint().y() == lastPoint().y();
@@ -130,8 +150,8 @@ LineSegment::IntersectType LineSegment::checkIntersection(const LineSegment& seg
     double nume_b = ((lastPoint().x() - firstPoint().x())*(firstPoint().y() - segment.firstPoint().y())) -
                     ((lastPoint().y() - firstPoint().y())*(firstPoint().x() - segment.firstPoint().x()));
 
-    if (abs(denom) <= DBL_EPSILON) {
-        if (abs(nume_a) <= DBL_EPSILON && abs(nume_b) <= DBL_EPSILON) {
+    if (fabs(denom) <= DBL_EPSILON) {
+        if (fabs(nume_a) <= DBL_EPSILON && fabs(nume_b) <= DBL_EPSILON) {
             return Overlapping;
         }
         return Parallel;
