@@ -43,7 +43,7 @@ Rectangle {
                 return;
             }
 
-            state = (state === "clicked") ? "normal" : "clicked";
+            parent.state = (parent.state === "clicked") ? "normal" : "clicked";
 
             //передаем контекст в ф-цию
             customClickHandler.call(mouseArea);
