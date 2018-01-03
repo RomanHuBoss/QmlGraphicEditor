@@ -1,6 +1,8 @@
 #include "figure.h"
 #include "figuresstorage.h"
 #include <QDateTime>
+#include <QJsonObject>
+#include <QJsonDocument>
 
 namespace RD = Rosdistant;
 using namespace RD;
@@ -59,6 +61,25 @@ bool FiguresStorage::fillupFromFile(const QString &filePath)
 
 bool FiguresStorage::saveToFile(const QString &fileName) const
 {
+    QFile file(fileName);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+            return false;
+
+    QJsonObject json;
+
+    foreach (auto figure, _storage) {
+        QJsonObject tmp = figure->serialize();
+        json[figure->uuid().toString()] = tmp;
+    }
+
+    if (json.isEmpty())
+        return false;
+
+    QJsonDocument doc(json);
+    file.write(doc.toJson(QJsonDocument::Compact));
+
+    file.close();
+
     return true;
 }
 

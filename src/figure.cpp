@@ -3,6 +3,7 @@
 #include "linesegment.h"
 #include "rectangle.h"
 #include <QDebug>
+#include <QJsonArray>
 
 namespace RD = Rosdistant;
 using namespace RD;
@@ -268,6 +269,15 @@ bool Figure::setPoints(const QList<Point>& points)
     return true;
 }
 
+void Figure::setBgColor(const QColor &bgcolor)
+{
+    _bgcolor = bgcolor;
+}
+
+QColor Figure::bgColor() const
+{
+    return _bgcolor;
+}
 
 bool Figure::replacePoint(int idx, const Point& point) {
     if (_points.isEmpty() || idx >= _points.size())
@@ -355,8 +365,35 @@ bool Figure::isValid() const
 }
 
 //сериализация объекта фигуры в JSON-объект и сохранение на диск
-void Figure::write(QJsonObject &json) const
+QJsonObject Figure::serialize() const
 {
-    json["uuis"] = _uuid.toString();
+    QJsonObject json;
 
+    if (!isValid())
+        return json;
+
+    //уникальный идентификатор фигуры
+    json["uuid"] = _uuid.toString();
+
+    //название класса фигуры
+    json["figureClass"] = className();
+
+    //признак замкнутой фигуры
+    json["isClosed"] = isClosed();
+
+    //признак фонового цвета
+    json["bgColor"] = bgColor().name();
+
+    //координаты вершин фигуры
+    QJsonArray pointsArr;
+
+    foreach (auto point, _points)  {
+        QJsonObject pointCoords;
+        pointCoords["x"] = point.x();
+        pointCoords["y"] = point.y();
+        pointsArr.append(pointCoords);
+    }
+    json["points"] = pointsArr;
+
+    return json;
 }

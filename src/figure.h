@@ -6,6 +6,8 @@
 #include <QString>
 #include "geometry.h"
 #include <QJsonObject>
+#include <QColor>
+
 
 namespace Rosdistant {
     class Point;
@@ -120,15 +122,21 @@ namespace Rosdistant {
         //обновление коллекции точек
         bool setPoints(const QList<Point>& points);
 
+        void setBgColor(const QColor& bgcolor);
+        QColor bgColor() const;
+
         //работа с JSON
         void read(const QJsonObject &json);
-        void write(QJsonObject &json) const;
+        QJsonObject serialize() const;
     private:
         //идентификатор фигуры
         QUuid _uuid;
 
         //коллекция точек
         QList<Point> _points;
+
+        //фоновый цвет
+        QColor _bgcolor;
     };
 
 }
