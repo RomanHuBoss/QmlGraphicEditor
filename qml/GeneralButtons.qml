@@ -53,6 +53,11 @@ Flickable {
                 btnText: "Настройки"
                 btnImage: "qrc:/36px/settings.png"
                 btnAlt: "Настройка приложения"
+
+                //контекст ф-ции (this) = MouseArea кнопки
+                function customClickHandler() {
+                    console.log("Настройка приложения");
+                }
             }
 
             GeneralButton {
@@ -60,6 +65,11 @@ Flickable {
                 btnText: "Сохранить"
                 btnImage: "qrc:/36px/file-save.png"
                 btnAlt: "Сохранить данные сцены в файл"
+
+                //контекст ф-ции (this) = MouseArea кнопки
+                function customClickHandler() {
+                    console.log("Сохранить сцену в файл");
+                }
             }
 
 
@@ -68,6 +78,11 @@ Flickable {
                 btnText: "Создать"
                 btnImage: "qrc:/36px/file-create.png"
                 btnAlt: "Создать новую сцену"
+
+                //контекст ф-ции (this) = MouseArea кнопки
+                function customClickHandler() {
+                    console.log("Создать новую сцену");
+                }
             }
 
             GeneralButton {
@@ -75,6 +90,11 @@ Flickable {
                 btnText: "Загрузить"
                 btnImage: "qrc:/36px/file-open.png"
                 btnAlt: "Загрузить сцену из файла"
+
+                //контекст ф-ции (this) = MouseArea кнопки
+                function customClickHandler() {
+                    console.log("Загрузить сцену из файла");
+                }
             }
 
             GeneralButton {
@@ -82,6 +102,12 @@ Flickable {
                 btnText: "Отменить"
                 btnImage: "qrc:/36px/undo.png"
                 btnAlt: "Отмена последнего изменения"
+
+                //контекст ф-ции (this) = MouseArea кнопки
+                function customClickHandler() {
+                    console.log("Отмена последнего изменения");
+                }
+
             }
 
             GeneralButton {
@@ -89,6 +115,11 @@ Flickable {
                 btnText: "Повторить"
                 btnImage: "qrc:/36px/redo.png"
                 btnAlt: "Повторить отмененное изменение"
+
+                //контекст ф-ции (this) = MouseArea кнопки
+                function customClickHandler() {
+                    console.log("Повторить отмененное изменение");
+                }
             }
 
             GeneralButton {
@@ -96,6 +127,11 @@ Flickable {
                 btnText: "Очистить"
                 btnImage: "qrc:/36px/cleanup.png"
                 btnAlt: "Очистить сцену"
+
+                //контекст ф-ции (this) = MouseArea кнопки
+                function customClickHandler() {
+                    console.log("Очистить сцену");
+                }
             }
 
             GeneralButton {
@@ -103,6 +139,11 @@ Flickable {
                 btnText: "Удалить"
                 btnImage: "qrc:/36px/erase.png"
                 btnAlt: "Удалить объект"
+
+                //контекст ф-ции (this) = MouseArea кнопки
+                function customClickHandler() {
+                    console.log("Удалить объект");
+                }
             }
 
             GeneralButton {
@@ -110,6 +151,11 @@ Flickable {
                 btnText: "Повернуть"
                 btnImage: "qrc:/36px/rotate.png"
                 btnAlt: "Повернуть объект"
+
+                //контекст ф-ции (this) = MouseArea кнопки
+                function customClickHandler() {
+                    console.log("Повернуть объект");
+                }
             }
 
             GeneralButton {
@@ -117,6 +163,12 @@ Flickable {
                 btnText: "Размер"
                 btnImage: "qrc:/36px/resize.png"
                 btnAlt: "Изменить размер объекта"
+
+                //контекст ф-ции (this) = MouseArea кнопки
+                function customClickHandler() {
+                    console.log("Изменить размер объекта");
+                }
+
             }
 
             GeneralButton {
@@ -124,6 +176,12 @@ Flickable {
                 btnText: "Линия"
                 btnImage: "qrc:/36px/add-line.png"
                 btnAlt: "Нарисовать линию"
+
+                //контекст ф-ции (this) = MouseArea кнопки
+                function customClickHandler() {
+                    console.log("Нарисовать линию");
+                }
+
             }
 
             GeneralButton {
@@ -131,6 +189,12 @@ Flickable {
                 btnText: "Ломаная"
                 btnImage: "qrc:/36px/add-multiline.png"
                 btnAlt: "Нарисовать ломаную"
+
+                //контекст ф-ции (this) = MouseArea кнопки
+                function customClickHandler() {
+                    console.log("Нарисовать ломаную");
+                }
+
             }
 
             GeneralButton {
@@ -138,6 +202,12 @@ Flickable {
                 btnText: "Треугольник"
                 btnImage: "qrc:/36px/add-triangle.png"
                 btnAlt: "Нарисовать треугольник"
+
+                //контекст ф-ции (this) = MouseArea кнопки
+                function customClickHandler() {
+                    console.log("Нарисовать треугольник");
+                }
+
             }
 
             GeneralButton {
@@ -145,6 +215,12 @@ Flickable {
                 btnText: "Квадрат"
                 btnImage: "qrc:/36px/add-square.png"
                 btnAlt: "Нарисовать квадрат"
+
+                //контекст ф-ции (this) = MouseArea кнопки
+                function customClickHandler() {
+                    console.log("Нарисовать квадрат");
+                }
+
             }
 
 
@@ -153,6 +229,12 @@ Flickable {
                 btnText: "Прямоугольник"
                 btnImage: "qrc:/36px/add-rectangle.png"
                 btnAlt: "Нарисовать прямоугольник"
+
+                //контекст ф-ции (this) = MouseArea кнопки
+                function customClickHandler() {
+                    console.log("Нарисовать прямоугольник");
+                }
+
             }
 
             GeneralButton {
@@ -160,6 +242,12 @@ Flickable {
                 btnText: "Полигон"
                 btnImage: "qrc:/36px/add-polygon.png"
                 btnAlt: "Нарисовать полигон"
+
+                //контекст ф-ции (this) = MouseArea кнопки
+                function customClickHandler() {
+                    console.log("Нарисовать полигон");
+                }
+
             }
 
             GeneralButton {
@@ -167,6 +255,12 @@ Flickable {
                 btnText: "Надпись"
                 btnImage: "qrc:/36px/add-text.png"
                 btnAlt: "Добавить надпись"
+
+                //контекст ф-ции (this) = MouseArea кнопки
+                function customClickHandler() {
+                    console.log("Добавить надпись");
+                }
+
             }
 
             GeneralButton {
@@ -174,6 +268,12 @@ Flickable {
                 btnText: "Заливка"
                 btnImage: "qrc:/36px/fill-color.png"
                 btnAlt: "Закрасить объект"
+
+                //контекст ф-ции (this) = MouseArea кнопки
+                function customClickHandler() {
+                    console.log("Закрасить объект");
+                }
+
             }
         }
 

@@ -39,13 +39,14 @@ Rectangle {
         }
 
         onClicked: {
-            if (parent.state === "disabled" || parent.state === "clicked") {
+            if (parent.state === "disabled") {
                 return;
             }
 
-            parent.state = "clicked";
+            state = (state === "clicked") ? "normal" : "clicked";
 
-
+            //передаем контекст в ф-цию
+            customClickHandler.call(mouseArea);
         }
     }
 

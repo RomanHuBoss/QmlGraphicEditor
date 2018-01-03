@@ -9,5 +9,6 @@
         <file>GeneralButton.qml</file>
         <file>storage.js</file>
         <file>scene.js</file>
+        <file>Figure.qml</file>
     </qresource>
 </RCC>
