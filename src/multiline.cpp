@@ -36,6 +36,11 @@ bool Rosdistant::Multiline::isClosed() const
     return _isClosed && getPoints().size() > 2;
 }
 
+QString Rosdistant::Multiline::className() const
+{
+    return "Multiline";
+}
+
 Rosdistant::Multiline::operator QString()
 {
     QList<Point> points = getPoints();

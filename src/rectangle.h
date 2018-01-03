@@ -56,6 +56,10 @@ namespace Rosdistant {
         LineSegment rightSide() const;
         LineSegment bottomSide() const;
         LineSegment leftSide() const;
+
+        //возвраащет название класса
+        QString className() const;
+
     };
 
 }

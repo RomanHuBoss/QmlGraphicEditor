@@ -28,7 +28,8 @@ namespace Rosdistant {
         //валидность фигуры
         bool isValid() const;
 
-
+        //возвраащет название класса
+        QString className() const;
     };
 
 }

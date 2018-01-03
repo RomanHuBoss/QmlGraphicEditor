@@ -128,3 +128,8 @@ LineSegment Rectangle::leftSide() const
 {
     return getSide(3);
 }
+
+QString Rectangle::className() const
+{
+    return "Rectangle";
+}

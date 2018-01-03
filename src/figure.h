@@ -5,6 +5,7 @@
 #include <QList>
 #include <QString>
 #include "geometry.h"
+#include <QJsonObject>
 
 namespace Rosdistant {
     class Point;
@@ -14,7 +15,7 @@ namespace Rosdistant {
     /*
      Abstract 2D-figure class
      Author: Rabinovich R.M.
-     You can use & modificate the following code without any restrictions
+     You can use & modisaficate the following code without any restrictions
      Date: 10.11.2017
      */
     class Figure
@@ -25,6 +26,7 @@ namespace Rosdistant {
 
         void setUuid(const QUuid& uuid);
         QUuid uuid() const;
+        virtual QString className() const = 0;
 
         //стороны прямоугольника, в который вписывается фигура
         enum BBoxSides {BBoxTop, BBoxRight, BBoxBottom, BBoxLeft};
@@ -118,6 +120,9 @@ namespace Rosdistant {
         //обновление коллекции точек
         bool setPoints(const QList<Point>& points);
 
+        //работа с JSON
+        void read(const QJsonObject &json);
+        void write(QJsonObject &json) const;
     private:
         //идентификатор фигуры
         QUuid _uuid;

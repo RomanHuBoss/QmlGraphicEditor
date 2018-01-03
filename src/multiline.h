@@ -24,6 +24,10 @@ namespace Rosdistant {
         int necessaryPointsQuant() const;
         Point getCentralPoint() const;
         bool isClosed() const;
+
+        //возвраащет название класса
+        QString className() const;
+
     private:
         bool _isClosed;
     };

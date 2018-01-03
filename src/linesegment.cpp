@@ -81,6 +81,11 @@ void LineSegment::bbCornerScale(BBoxCorners corner, double xvalue, double yvalue
 
 }
 
+QString LineSegment::className() const
+{
+    return "LineSegment";
+}
+
 Point LineSegment::getCentralPoint() const
 {
     return Point((firstPoint().x() + lastPoint().x()) * 0.5,

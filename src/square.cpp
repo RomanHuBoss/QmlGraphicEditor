@@ -40,4 +40,9 @@ bool Square::isValid() const
     return topSide().length() == leftSide().length();
 }
 
+QString Square::className() const
+{
+    return "Square";
+}
+
 

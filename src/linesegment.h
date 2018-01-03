@@ -75,6 +75,8 @@ namespace Rosdistant {
         //пропорциональное изменение размера за один из углов описывающего прямоугольника
         void bbCornerScale(BBoxCorners corner, double xvalue, double yvalue);
 
+        //возвраащет название класса
+        QString className() const;
     };
 }
 

@@ -268,6 +268,7 @@ bool Figure::setPoints(const QList<Point>& points)
     return true;
 }
 
+
 bool Figure::replacePoint(int idx, const Point& point) {
     if (_points.isEmpty() || idx >= _points.size())
         return false;
@@ -351,4 +352,11 @@ bool Figure::isValid() const
             return false;
 
     return true;
+}
+
+//сериализация объекта фигуры в JSON-объект и сохранение на диск
+void Figure::write(QJsonObject &json) const
+{
+    json["uuis"] = _uuid.toString();
+
 }

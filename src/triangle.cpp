@@ -70,4 +70,9 @@ LineSegment Triangle::thirdSide() const
     return getSide(2);
 }
 
+QString Triangle::className() const
+{
+    return "Triangle";
+}
+
 
