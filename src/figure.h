@@ -125,9 +125,11 @@ namespace Rosdistant {
         void setBgColor(const QColor& bgcolor);
         QColor bgColor() const;
 
-        //работа с JSON
-        void read(const QJsonObject &json);
+        //сериализация данных фигуры в JSON
         QJsonObject serialize() const;
+
+        void setIsFilled(bool isFilled);
+        bool isFilled() const;
     private:
         //идентификатор фигуры
         QUuid _uuid;
@@ -135,8 +137,14 @@ namespace Rosdistant {
         //коллекция точек
         QList<Point> _points;
 
+        //признак замкнутой фигуры
+        bool _isClosed;
+
         //фоновый цвет
         QColor _bgcolor;
+
+        //признак заливки фоновым цветом
+        bool _isFilled;
     };
 
 }

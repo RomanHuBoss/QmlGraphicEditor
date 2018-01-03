@@ -3,6 +3,13 @@
 #include <QDateTime>
 #include <QJsonObject>
 #include <QJsonDocument>
+#include <QJsonArray>
+#include <QDebug>
+#include "linesegment.h"
+#include "multiline.h"
+#include "rectangle.h"
+#include "square.h"
+#include "triangle.h"
 
 namespace RD = Rosdistant;
 using namespace RD;
@@ -45,23 +52,92 @@ void FiguresStorage::removeFigure(const QUuid& uuid) {
     }
 }
 
-QString FiguresStorage::toJson() const {
-    return QString();
-}
-
 bool FiguresStorage::fillupFromFile(const QString &filePath)
 {
     if (!QFile::exists(filePath))
         return false;
 
+    QFile file(filePath);
 
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return false;
+
+    QJsonDocument doc = QJsonDocument().fromJson(file.readAll());
+
+    if (doc.isEmpty())
+        return false;
+
+    //json-документ верхнего уровня = объект с UUID-ключами фигур сцены
+    QJsonObject json = doc.object();
+
+    if (json.isEmpty())
+        return false;
+
+
+    foreach (auto tmp, json) {
+        if (tmp.isNull())
+            continue;
+
+        QJsonObject jsonFigure = tmp.toObject();
+
+        QString figureClass = jsonFigure["figureClass"].toString();
+
+        Figure * figure;
+
+        if (figureClass == "LineSegment")
+            figure = new LineSegment;
+        else if (figureClass == "Triangle")
+            figure = new Triangle;
+        else if (figureClass == "Rectangle")
+            figure = new Rectangle;
+        else if (figureClass == "Square")
+            figure = new Square;
+        else if (figureClass == "Multiline")
+            figure = new Multiline;
+        else
+            continue;
+
+        if (!jsonFigure["uuid"].isNull())
+            figure->setUuid(jsonFigure["uuid"].toString());
+
+        if (!jsonFigure["isFilled"].isNull())
+            figure->setIsFilled(jsonFigure["isFilled"].toBool());
+        else
+            figure->setIsFilled(false);
+
+        if (!jsonFigure["bgColor"].isNull())
+            figure->setBgColor(QColor(jsonFigure["bgColor"].toString()));
+        else
+            figure->setBgColor(QColor());
+
+        if (figureClass == "Multiline")
+            if (!jsonFigure["isClosed"].isNull())
+                reinterpret_cast<Multiline*>(figure)->setIsClosed(jsonFigure["isClosed"].toBool());
+            else
+                reinterpret_cast<Multiline*>(figure)->setIsClosed(false);
+
+
+        if (!jsonFigure["points"].isNull()) {
+            QJsonArray points = jsonFigure["points"].toArray();
+
+            if (!points.isEmpty()) {
+                foreach (auto pointJsonValue, points) {
+                    QJsonObject pointJson = pointJsonValue.toObject();
+
+                    figure->insertLastPoint(Point(pointJson["x"].toDouble(), pointJson["y"].toDouble()));
+                }
+            }
+        }
+
+        addFigure(figure);
+    }
 
     return true;
 }
 
-bool FiguresStorage::saveToFile(const QString &fileName) const
+bool FiguresStorage::saveToFile(const QString &filePath) const
 {
-    QFile file(fileName);
+    QFile file(filePath);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
             return false;
 

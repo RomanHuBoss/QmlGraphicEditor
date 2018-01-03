@@ -44,10 +44,9 @@ namespace Rosdistant {
         //заполнить хранилище данными из json-файла
         bool fillupFromFile(const QString& filePath);
 
-        //сбросить содержимое хранилище в json-файл
+        //сбросить сереализуемое содержимое хранилища в json-файл
         bool saveToFile(const QString& filePath) const;
 
-        QString toJson() const;
     private:
         //хранилище фигур на сцене
         QHash<QUuid, Figure*> _storage;

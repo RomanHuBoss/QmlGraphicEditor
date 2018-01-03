@@ -36,6 +36,11 @@ bool Rosdistant::Multiline::isClosed() const
     return _isClosed && getPoints().size() > 2;
 }
 
+void Rosdistant::Multiline::setIsClosed(bool isClosed)
+{
+    _isClosed = isClosed;
+}
+
 QString Rosdistant::Multiline::className() const
 {
     return "Multiline";

@@ -17,7 +17,7 @@ Q_DECLARE_METATYPE(oppCoordGetter);
 Q_DECLARE_METATYPE(pointCoordGetter);
 Q_DECLARE_METATYPE(pointCoordSetter);
 
-Figure::Figure()
+Figure::Figure():_isFilled(false)
 {
 
 }
@@ -381,6 +381,9 @@ QJsonObject Figure::serialize() const
     //признак замкнутой фигуры
     json["isClosed"] = isClosed();
 
+    //признак заливки фоновым цветом
+    json["isFilled"] = _isFilled;
+
     //признак фонового цвета
     json["bgColor"] = bgColor().name();
 
@@ -396,4 +399,14 @@ QJsonObject Figure::serialize() const
     json["points"] = pointsArr;
 
     return json;
+}
+
+void Figure::setIsFilled(bool isFilled)
+{
+    _isFilled = isFilled;
+}
+
+bool Figure::isFilled() const
+{
+    return _isFilled;
 }

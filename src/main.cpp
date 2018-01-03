@@ -23,9 +23,10 @@ int main(int argc, char *argv[])
     QGuiApplication::setWindowIcon(QIcon(":/24px/app-icon.png"));
 
     FiguresStorage fs;
-    LineSegment ls(Point(1,2), Point(3,4));
+    /*LineSegment ls(Point(1,2), Point(3,4));
     fs.addFigure(&ls);
-    fs.saveToFile("qqqq.txt");
+    fs.saveToFile("qqqq.txt");*/
+    fs.fillupFromFile("qqqq.txt");
 
     //Rosdistant::Rectangle rect(Point(3,3), Point(6,3), Point(4,1), Point(1,1));
     //Rosdistant::Rectangle bbox = rect.getBBox();
