@@ -56,6 +56,7 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
+                    scene.currentMode = "settings";
                     console.log("Настройка приложения");
                 }
             }

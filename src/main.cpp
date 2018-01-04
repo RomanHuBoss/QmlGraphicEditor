@@ -1,6 +1,6 @@
 #include <QGuiApplication>
-#include <QQmlApplicationEngine>
-#include <QQuickWindow>
+#include <QIcon>
+#include "qtqmlinteractor.h"
 #include "figuresstorage.h"
 #include "appsettings.h"
 #include "linesegment.h"
@@ -40,10 +40,14 @@ int main(int argc, char *argv[])
     //FiguresStorage fs;
     //fs.addFigure(new LineSegment(Point(1,2), Point(3,4)));
 
-    QQmlApplicationEngine engine;
-    engine.load(QUrl(QLatin1String("qrc:/main.qml")));
-    if (engine.rootObjects().isEmpty())
+
+    QtQmlInteractor interactor;
+
+    if (!interactor.isRootContextLoaded())
         return -1;
+
+    //QObject *qmlContext = engine.rootContext();
+
 
     return app.exec();
 }

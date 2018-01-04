@@ -22,7 +22,8 @@ SOURCES += src/main.cpp \
     src/rectangle.cpp \
     src/square.cpp \
     src/figuresstorage.cpp \
-    src/multiline.cpp
+    src/multiline.cpp \
+    src/qtqmlinteractor.cpp
 
 RESOURCES += qml/qml.qrc \
     qml/qml.qrc \
@@ -51,7 +52,8 @@ HEADERS += \
     src/rectangle.h \
     src/square.h \
     src/figuresstorage.h \
-    src/multiline.h
+    src/multiline.h \
+    src/qtqmlinteractor.h
 
 DISTFILES += \
     qml/AppWndTitleBar.qml \
