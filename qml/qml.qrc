@@ -10,5 +10,6 @@
         <file>storage.js</file>
         <file>scene.js</file>
         <file>Figure.qml</file>
+        <file>Alertify.qml</file>
     </qresource>
 </RCC>

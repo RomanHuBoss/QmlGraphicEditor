@@ -62,5 +62,6 @@ DISTFILES += \
     qml/AboutWnd.qml \
     qml/AboutWndTitleBar.qml \
     qml/main.qml \
-    qml/GeneralButton.qml
+    qml/GeneralButton.qml \
+    qml/Alertify.qml
 

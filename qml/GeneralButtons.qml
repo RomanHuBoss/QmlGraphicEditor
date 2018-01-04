@@ -69,6 +69,7 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
+                    appInteractor.onSaveScene();
                     console.log("Сохранить сцену в файл");
                 }
             }
@@ -82,6 +83,7 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
+                    appInteractor.onNewScene();
                     console.log("Создать новую сцену");
                 }
             }

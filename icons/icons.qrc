@@ -48,5 +48,14 @@
         <file>24px/add-multiline.png</file>
         <file>36px/add-square.png</file>
         <file>24px/add-square.png</file>
+        <file>24px/error-msg.png</file>
+        <file>24px/warning-msg.png</file>
+        <file>36px/error-msg.png</file>
+        <file>36px/warning-msg.png</file>
+        <file>48px/error-msg.png</file>
+        <file>48px/warning-msg.png</file>
+        <file>svg/error-msg.svg</file>
+        <file>svg/warning-msg.svg</file>
+        <file>svg/alertify-close.svg</file>
     </qresource>
 </RCC>

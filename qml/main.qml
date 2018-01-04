@@ -14,6 +14,23 @@ import QtQuick.Layouts 1.3
 
 //главное окно QML-приложения
 ApplicationWindow {
+
+    Connections {
+        target: appInteractor
+        onRaiseAlertifyError: {
+            alertifyWnd.visible = true;
+            alertifyWnd.alertifyTitle.color = "#e95350";
+            alertifyWnd.alertifyTitleIcon.source = "qrc:/svg/error-msg.svg";
+            alertifyWnd.textNode.text = text;
+        }
+        onRaiseAlertifyWarning: {
+            alertifyWnd.visible = true;
+            alertifyWnd.alertifyTitle.color = "#e9b850";
+            alertifyWnd.alertifyTitleIcon.source = "qrc:/svg/warning-msg.svg";
+            alertifyWnd.textNode.text = text;
+        }
+    }
+
     Component.onCompleted: {
         //var scene = Scene.createScene();
         //scene.cleanup();
@@ -51,6 +68,11 @@ ApplicationWindow {
         border.color: "gray"
         border.width: 1
 
+        //добавляем диалог ошибок/предупреждений
+        Alertify {
+            id: alertifyWnd
+        }
+
         //добавляем диалог "О программе"
         AboutWnd {
             id: aboutWnd
@@ -60,6 +82,7 @@ ApplicationWindow {
         AppWndTitleBar {
             id: titleBar
         }
+
 
         //главный компоновщик (для кнопок слева и сцены справа)
         RowLayout {
