@@ -53,6 +53,7 @@ Flickable {
                 btnText: "Настройки"
                 btnImage: "qrc:/36px/settings.png"
                 btnAlt: "Настройка приложения"
+                immediateUnclick: true
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
@@ -66,11 +67,12 @@ Flickable {
                 btnText: "Сохранить"
                 btnImage: "qrc:/36px/file-save.png"
                 btnAlt: "Сохранить данные сцены в файл"
+                immediateUnclick: true
+
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
                     appInteractor.onSaveScene();
-                    console.log("Сохранить сцену в файл");
                 }
             }
 
@@ -80,6 +82,7 @@ Flickable {
                 btnText: "Создать"
                 btnImage: "qrc:/36px/file-create.png"
                 btnAlt: "Создать новую сцену"
+                immediateUnclick: true
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
@@ -93,6 +96,7 @@ Flickable {
                 btnText: "Загрузить"
                 btnImage: "qrc:/36px/file-open.png"
                 btnAlt: "Загрузить сцену из файла"
+                immediateUnclick: true
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
@@ -105,6 +109,7 @@ Flickable {
                 btnText: "Отменить"
                 btnImage: "qrc:/36px/undo.png"
                 btnAlt: "Отмена последнего изменения"
+                immediateUnclick: true
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
@@ -118,6 +123,7 @@ Flickable {
                 btnText: "Повторить"
                 btnImage: "qrc:/36px/redo.png"
                 btnAlt: "Повторить отмененное изменение"
+                immediateUnclick: true
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
@@ -130,6 +136,7 @@ Flickable {
                 btnText: "Очистить"
                 btnImage: "qrc:/36px/cleanup.png"
                 btnAlt: "Очистить сцену"
+                immediateUnclick: true
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {

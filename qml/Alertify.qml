@@ -23,16 +23,16 @@ Window {
     flags: Qt.FramelessWindowHint | Qt.Window
 
     //размеры по умолчанию
-    width: 300
-    height: 250
+    width: 320
+    height: 320
 
     //минимальные размеры
-    minimumWidth: 300
-    minimumHeight: 250
+    minimumWidth: 320
+    minimumHeight: 320
 
     //максимальные размеры
-    maximumWidth: 300
-    maximumHeight: 250
+    maximumWidth: 320
+    maximumHeight: 320
 
     Rectangle {
         id: alertifyInner
@@ -54,14 +54,14 @@ Window {
                 rightMargin: 1
             }
 
-            height: parent.height/2
+            height: 200
 
             Image {
                 id: icon
                 fillMode: Image.PreserveAspectFit
                 sourceSize {
-                    height: 64
-                    width: 64
+                    height: 120
+                    width: 120
                 }
                 anchors.centerIn: alertifyTitle
             }
@@ -117,6 +117,7 @@ Window {
                 wrapMode: Text.WordWrap
                 width: parent.width - 20
                 horizontalAlignment: Text.AlignHCenter
+                color: "#112222"
             }
         }
     }

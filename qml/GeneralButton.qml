@@ -12,6 +12,7 @@ import QtQuick.Layouts 1.3
 
 //описание типовой кнопки справа
 Rectangle {
+    property bool immediateUnclick: false
     property string btnImage
     property string btnText
     property string btnAlt
@@ -39,14 +40,32 @@ Rectangle {
         }
 
         onClicked: {
+            function Timer() {
+                return Qt.createQmlObject("import QtQuick 2.0; Timer {}", mouseArea);
+            }
+
             if (parent.state === "disabled") {
                 return;
             }
 
-            parent.state = (parent.state === "clicked") ? "normal" : "clicked";
+            if (immediateUnclick) {
+                parent.state = "clicked";
 
-            //передаем контекст в ф-цию
-            customClickHandler.call(mouseArea);
+                var timer = new Timer;
+                timer.interval = 100;
+                timer.repeat = false;
+                timer.triggered.connect(function () {
+                    customClickHandler.call(mouseArea);
+                    parent.state = "normal";
+                });
+                timer.start();
+            }
+            else {
+                parent.state = (parent.state === "clicked") ? "normal" : "clicked";
+                customClickHandler.call(mouseArea);
+            }
+
+
         }
     }
 
