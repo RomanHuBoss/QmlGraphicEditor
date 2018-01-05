@@ -8,8 +8,6 @@
 import QtQuick 2.0
 
 Rectangle {
-    property string currentMode: "unknown";
-
     anchors {
         top: parent.top
         bottom: parent.bottom

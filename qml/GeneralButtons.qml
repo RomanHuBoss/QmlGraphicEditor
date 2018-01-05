@@ -49,63 +49,8 @@ Flickable {
             rowSpacing: 1
 
             GeneralButton {
-                id: settingsBtn
-                btnText: "Настройки"
-                btnImage: "qrc:/36px/settings.png"
-                btnAlt: "Настройка приложения"
-                immediateUnclick: true
-
-                //контекст ф-ции (this) = MouseArea кнопки
-                function customClickHandler() {
-                    scene.currentMode = "settings";
-                    console.log("Настройка приложения");
-                }
-            }
-
-            GeneralButton {
-                id: saveBtn
-                btnText: "Сохранить"
-                btnImage: "qrc:/36px/file-save.png"
-                btnAlt: "Сохранить данные сцены в файл"
-                immediateUnclick: true
-
-
-                //контекст ф-ции (this) = MouseArea кнопки
-                function customClickHandler() {
-                    appInteractor.onSaveScene();
-                }
-            }
-
-
-            GeneralButton {
-                id: createFileBtn
-                btnText: "Создать"
-                btnImage: "qrc:/36px/file-create.png"
-                btnAlt: "Создать новую сцену"
-                immediateUnclick: true
-
-                //контекст ф-ции (this) = MouseArea кнопки
-                function customClickHandler() {
-                    appInteractor.onNewScene();
-                    console.log("Создать новую сцену");
-                }
-            }
-
-            GeneralButton {
-                id: openFileBtn
-                btnText: "Загрузить"
-                btnImage: "qrc:/36px/file-open.png"
-                btnAlt: "Загрузить сцену из файла"
-                immediateUnclick: true
-
-                //контекст ф-ции (this) = MouseArea кнопки
-                function customClickHandler() {
-                    console.log("Загрузить сцену из файла");
-                }
-            }
-
-            GeneralButton {
                 id: undoBtn
+                state: "disabled"
                 btnText: "Отменить"
                 btnImage: "qrc:/36px/undo.png"
                 btnAlt: "Отмена последнего изменения"
@@ -120,6 +65,7 @@ Flickable {
 
             GeneralButton {
                 id: redoBtn
+                state: "disabled"
                 btnText: "Повторить"
                 btnImage: "qrc:/36px/redo.png"
                 btnAlt: "Повторить отмененное изменение"
@@ -132,50 +78,85 @@ Flickable {
             }
 
             GeneralButton {
-                id: cleanupBtn
-                btnText: "Очистить"
-                btnImage: "qrc:/36px/cleanup.png"
-                btnAlt: "Очистить сцену"
+                id: createFileBtn
+                btnText: "Создать"
+                btnImage: "qrc:/36px/file-create.png"
+                btnAlt: "Создать новую сцену"
                 immediateUnclick: true
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
-                    console.log("Очистить сцену");
+                    appInteractor.onNewScene();
                 }
             }
 
             GeneralButton {
+                id: openFileBtn
+                btnText: "Загрузить"
+                btnImage: "qrc:/36px/file-open.png"
+                btnAlt: "Загрузить сцену из файла"
+                immediateUnclick: true
+
+                //контекст ф-ции (this) = MouseArea кнопки
+                function customClickHandler() {
+                    fileDialog.visible = true;
+                }
+            }
+
+            GeneralButton {
+                id: saveBtn
+                state: "disabled"
+                btnText: "Сохранить"
+                btnImage: "qrc:/36px/file-save.png"
+                btnAlt: "Сохранить данные сцены в файл"
+                immediateUnclick: true
+
+
+                //контекст ф-ции (this) = MouseArea кнопки
+                function customClickHandler() {
+                    appInteractor.onSaveScene();
+                }
+            }
+
+
+            GeneralButton {
                 id: eraserBtn
+                state: "disabled"
                 btnText: "Удалить"
                 btnImage: "qrc:/36px/erase.png"
                 btnAlt: "Удалить объект"
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
+                    appInteractor.onSetMode("Remove");
                     console.log("Удалить объект");
                 }
             }
 
             GeneralButton {
                 id: rotateBtn
+                state: "disabled"
                 btnText: "Повернуть"
                 btnImage: "qrc:/36px/rotate.png"
                 btnAlt: "Повернуть объект"
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
+                    appInteractor.onSetMode("Rotate");
                     console.log("Повернуть объект");
                 }
             }
 
             GeneralButton {
                 id: resizeBtn
+                state: "disabled"
                 btnText: "Размер"
                 btnImage: "qrc:/36px/resize.png"
                 btnAlt: "Изменить размер объекта"
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
+                    appInteractor.onSetMode("Resize");
                     console.log("Изменить размер объекта");
                 }
 
@@ -189,6 +170,7 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
+                    appInteractor.onSetMode("Drawing", "LineSegment");
                     console.log("Нарисовать линию");
                 }
 
@@ -202,6 +184,7 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
+                    appInteractor.onSetMode("Drawing", "Multiline");
                     console.log("Нарисовать ломаную");
                 }
 
@@ -215,6 +198,7 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
+                    appInteractor.onSetMode("Drawing", "Triangle");
                     console.log("Нарисовать треугольник");
                 }
 
@@ -228,6 +212,7 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
+                    appInteractor.onSetMode("Drawing", "Square");
                     console.log("Нарисовать квадрат");
                 }
 
@@ -242,6 +227,7 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
+                    appInteractor.onSetMode("Drawing", "Rectangle");
                     console.log("Нарисовать прямоугольник");
                 }
 
@@ -255,6 +241,7 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
+                    appInteractor.onSetMode("Drawing", "Polygon");
                     console.log("Нарисовать полигон");
                 }
 
@@ -268,6 +255,7 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
+                    appInteractor.onSetMode("Text");
                     console.log("Добавить надпись");
                 }
 
@@ -275,12 +263,14 @@ Flickable {
 
             GeneralButton {
                 id: createFillBtn
+                state: "disabled"
                 btnText: "Заливка"
                 btnImage: "qrc:/36px/fill-color.png"
                 btnAlt: "Закрасить объект"
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
+                    appInteractor.onSetMode("Colorfill");
                     console.log("Закрасить объект");
                 }
 

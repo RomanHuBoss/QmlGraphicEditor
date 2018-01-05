@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
     //fs.addFigure(new LineSegment(Point(1,2), Point(3,4)));
 
 
-    QtQmlInteractor interactor;
+    QtQmlInteractor interactor(&app);
 
     if (!interactor.isRootContextLoaded())
         return -1;

@@ -1,4 +1,5 @@
 QT += quick
+QT += widgets
 CONFIG += c++11
 
 # The following define makes your compiler emit warnings if you use
@@ -63,5 +64,6 @@ DISTFILES += \
     qml/AboutWndTitleBar.qml \
     qml/main.qml \
     qml/GeneralButton.qml \
-    qml/Alertify.qml
+    qml/Alertify.qml \
+    qml/CustomFileDialog.qml
 

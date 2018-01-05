@@ -11,5 +11,6 @@
         <file>scene.js</file>
         <file>Figure.qml</file>
         <file>Alertify.qml</file>
+        <file>CustomFileDialog.qml</file>
     </qresource>
 </RCC>

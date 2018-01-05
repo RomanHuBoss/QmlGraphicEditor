@@ -83,6 +83,10 @@ ApplicationWindow {
             id: titleBar
         }
 
+        CustomFileDialog {
+            id: fileDialog
+        }
+
 
         //главный компоновщик (для кнопок слева и сцены справа)
         RowLayout {

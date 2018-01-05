@@ -2,6 +2,7 @@
 #define QTQMLINTERACTOR_H
 
 #include <QQmlApplicationEngine>
+#include <QGuiApplication>
 #include <QObject>
 #include "figuresstorage.h"
 
@@ -17,19 +18,25 @@ namespace Rosdistant {
     {
         Q_OBJECT
     public:
-        QtQmlInteractor();
+        const QString sceneFileExtension = "json";
+
+        QtQmlInteractor(const QGuiApplication * const app);
         ~QtQmlInteractor();
 
         bool isRootContextLoaded();
     private:
         QQmlApplicationEngine _engine;
+        QGuiApplication const * const _app;
         FiguresStorage _storage;
+        QString _mode;
+        QString _drownFigure;
     public slots:
-        void onShowSettings();
         void onNewScene();
+        void onSelectSceneFile(const QString& fileName);
         bool onSaveScene();
         bool onRedo();
         bool onUndo();
+        void onSetMode(const QString& mode, const QString& additional = QString());
     signals:
         void raiseAlertifyError(const QString& text);
         void raiseAlertifyWarning(const QString& text);
