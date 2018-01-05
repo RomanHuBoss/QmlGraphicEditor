@@ -29,6 +29,7 @@ bool QtQmlInteractor::isRootContextLoaded()
 void QtQmlInteractor::onSetMode(const QString &mode, const QString& additional)
 {
     if (mode == "Drawing") {
+
         QList<QString> availableModes = QList<QString>()
                << "LineSegment"
                << "Multiline"
@@ -58,9 +59,21 @@ void QtQmlInteractor::onNewScene()
     _storage.resetStorage();
 }
 
-void QtQmlInteractor::onSelectSceneFile(const QString& fileName)
+void QtQmlInteractor::onSelectSceneFile(const QUrl& fileUrl)
 {
-    qDebug() << "Selected " << fileName;
+    QString filePath = fileUrl.toLocalFile();
+
+    if (!QFile(filePath).exists()) {
+        emit raiseAlertifyError("Выбранный файл не существует");
+    }
+    else if (!QFile(filePath).size()) {
+        emit raiseAlertifyError("Выбран пустой файл файл");
+    }
+    else if (!_storage.fillupFromFile(filePath)) {
+        emit raiseAlertifyError("Не удалось загрузить файл");
+    }
+
+    emit raiseRedrawScene();
 }
 
 bool QtQmlInteractor::onSaveScene()

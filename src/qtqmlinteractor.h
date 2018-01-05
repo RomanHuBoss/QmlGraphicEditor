@@ -32,7 +32,7 @@ namespace Rosdistant {
         QString _drownFigure;
     public slots:
         void onNewScene();
-        void onSelectSceneFile(const QString& fileName);
+        void onSelectSceneFile(const QUrl& fileUrl);
         bool onSaveScene();
         bool onRedo();
         bool onUndo();
