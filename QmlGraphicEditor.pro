@@ -65,5 +65,6 @@ DISTFILES += \
     qml/main.qml \
     qml/GeneralButton.qml \
     qml/Alertify.qml \
-    qml/CustomFileDialog.qml
+    qml/CustomFileDialog.qml \
+    qml/Figure.qml
 

@@ -14,37 +14,22 @@ import QtQuick.Layouts 1.3
 
 //главное окно QML-приложения
 ApplicationWindow {
-
-
-
-    Connections {
-        target: appInteractor
-        onRaiseAlertifyError: {
-            alertifyWnd.visible = true;
-            alertifyWnd.alertifyTitle.color = "#e95350";
-            alertifyWnd.alertifyTitleIcon.source = "qrc:/svg/error-msg.svg";
-            alertifyWnd.textNode.text = text;
-        }
-        onRaiseAlertifyWarning: {
-            alertifyWnd.visible = true;
-            alertifyWnd.alertifyTitle.color = "#e9b850";
-            alertifyWnd.alertifyTitleIcon.source = "qrc:/svg/warning-msg.svg";
-            alertifyWnd.textNode.text = text;
-        }
-    }
-
-    Component.onCompleted: {
-        //var scene = Scene.createScene();
-        //scene.cleanup();
-    }
-
-    //интерфейс, связывающий QML с QT (C++)
-    //signal raiseGeneralButtonClick(string text)
-
     id: mainWindow
     visible: true
-    color: "#00000000"
-    property string mode: "resize"
+    color: "transparent"
+
+    /*режим работы приложения:
+    RotateFigure    - поворот фигуры
+    ResizeFigure    - изменение размера фигуры
+    RemoveFigure    - удаление фигур с экрана
+    DrawLineSegment - рисует отрезок
+    DrawMultiline   - рисует полигон
+    DrawTriangle    - рисование треугольника
+    DrawRectangle   - рисование прямоугольника
+    DrawSquare      - рисование квадрата
+    FillFigure      - заливка фигуры цветом
+    */
+    property string mode
 
     //отключаем штатную оконную обвязку
     flags: Qt.FramelessWindowHint | Qt.Window
@@ -61,7 +46,6 @@ ApplicationWindow {
     property int previousY
     property int borderSize: 3
     property int cornerSize: 5
-
     property bool isNormal: true
 
     Rectangle {
@@ -89,7 +73,6 @@ ApplicationWindow {
         CustomFileDialog {
             id: fileDialog
         }
-
 
         //главный компоновщик (для кнопок слева и сцены справа)
         RowLayout {
@@ -372,4 +355,19 @@ ApplicationWindow {
       color: "darkgray"
     }
 
+    Connections {
+        target: appInteractor
+        onRaiseAlertifyError: {
+            alertifyWnd.visible = true;
+            alertifyWnd.alertifyTitle.color = "#e95350";
+            alertifyWnd.alertifyTitleIcon.source = "qrc:/svg/error-msg.svg";
+            alertifyWnd.textNode.text = text;
+        }
+        onRaiseAlertifyWarning: {
+            alertifyWnd.visible = true;
+            alertifyWnd.alertifyTitle.color = "#e9b850";
+            alertifyWnd.alertifyTitleIcon.source = "qrc:/svg/warning-msg.svg";
+            alertifyWnd.textNode.text = text;
+        }
+    }
 }
