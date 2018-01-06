@@ -12,5 +12,6 @@
         <file>Figure.qml</file>
         <file>Alertify.qml</file>
         <file>CustomFileDialog.qml</file>
+        <file>BBoxActionPoint.qml</file>
     </qresource>
 </RCC>

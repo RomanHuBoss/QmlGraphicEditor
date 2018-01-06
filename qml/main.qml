@@ -15,6 +15,8 @@ import QtQuick.Layouts 1.3
 //главное окно QML-приложения
 ApplicationWindow {
 
+
+
     Connections {
         target: appInteractor
         onRaiseAlertifyError: {
@@ -42,6 +44,7 @@ ApplicationWindow {
     id: mainWindow
     visible: true
     color: "#00000000"
+    property string mode: "resize"
 
     //отключаем штатную оконную обвязку
     flags: Qt.FramelessWindowHint | Qt.Window

@@ -73,7 +73,7 @@ void QtQmlInteractor::onSelectSceneFile(const QUrl& fileUrl)
         emit raiseAlertifyError("Не удалось загрузить файл");
     }
 
-    emit raiseRedrawScene();
+    emit raiseClearScene();
 }
 
 bool QtQmlInteractor::onSaveScene()

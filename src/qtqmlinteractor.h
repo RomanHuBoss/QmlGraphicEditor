@@ -40,6 +40,7 @@ namespace Rosdistant {
     signals:
         void raiseAlertifyError(const QString& text);
         void raiseAlertifyWarning(const QString& text);
+        void raiseClearScene();
     };
 
 }
