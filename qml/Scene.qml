@@ -31,6 +31,7 @@ Rectangle {
         anchors.fill: parent
 
         property variant vertices: []
+        property variant tmpVertices: []
         property bool started: false
         property bool finished: false
         property int strokeWidth: 1                 //ширина линии фигуры
@@ -59,8 +60,8 @@ Rectangle {
         property variant minVertices: {
             "DrawLineSegment":  2,
             "DrawTriangle":     3,
-            "DrawRectangle":    4,
-            "DrawSquare":       4,
+            "DrawRectangle":    3,
+            "DrawSquare":       2,
             "DrawMultiline":    2,
             "DrawPolygon":      3
         }
@@ -68,8 +69,8 @@ Rectangle {
         property variant maxVertices: {
             "DrawLineSegment":  2,
             "DrawTriangle":     3,
-            "DrawRectangle":    3,
-            "DrawSquare":       2,
+            "DrawRectangle":    4,
+            "DrawSquare":       4,
             "DrawMultiline":    +Infinity,
             "DrawPolygon":      +Infinity
         }
@@ -91,6 +92,11 @@ Rectangle {
                 }
                 else if (mainWindow.mode === "DrawPolygon" &&
                          parent.vertices.length >= parent.minVertices[mainWindow.mode]) {
+
+                    if (Math.abs(mouseX - parent.vertices[0].x) > 5 || Math.abs(mouseY - parent.vertices[0].y) > 5) {
+                        parent.vertices.push({x: mouseX, y:mouseY});
+                    }
+
                     parent.finished = true;
                 }
             }
@@ -101,15 +107,17 @@ Rectangle {
                 else if (parent.finished)
                     return;
 
-                parent.vertices.push({x: mouseX, y:mouseY});
-
                 if (!parent.started) {
                     parent.started = true;
                 }
 
-                parent.requestPaint();
+                parent.vertices.push({x: mouseX, y:mouseY});
 
-                if (parent.vertices.length >= parent.maxVertices[mainWindow.mode]) {
+                if ((mainWindow.mode == "DrawRectangle" || mainWindow.mode == "DrawSquare") && parent.vertices.length >= parent.minVertices[mainWindow.mode] ) {
+                    parent.vertices = parent.tmpVertices.slice(0);;
+                    parent.finished = true;
+                }
+                else if (parent.vertices.length >= parent.maxVertices[mainWindow.mode]) {
                     parent.finished = true;
                 }
             }
@@ -143,16 +151,16 @@ Rectangle {
 
         onFinishedChanged: {
             if (finished === true) {
-
-                vertices = [];
-
-                var ctx = getContext("2d");
-                ctx.reset();
-
                 started = false;
                 finished = false;
                 tmpX = -Math.Infinity;
                 tmpY = -Math.Infinity;
+                vertices = [];
+                tmpVertices = [];
+
+                var ctx = getContext("2d");
+                ctx.reset();
+                requestPaint();
             }
         }
 
@@ -163,20 +171,24 @@ Rectangle {
             var ctx = getContext("2d");
 
             if (tmpX != -Math.Infinity && tmpY != -Math.Infinity) {
-                ctx.beginPath();
-                ctx.strokeStyle = "#ff0000";
-                ctx.lineWidth = 1;
-                ctx.moveTo(vertices[vertices.length-1].x, vertices[vertices.length-1].y);
-                ctx.lineTo(tmpX, tmpY);
-                ctx.stroke();
-                ctx.closePath();
 
-                ctx.beginPath();
-                ctx.moveTo(tmpX, tmpY);
-                ctx.fillStyle = "#ff0000";
-                ctx.arc(tmpX, tmpY, 4, 0, Math.PI * 2, false);
-                ctx.fill();
-                ctx.closePath();
+                if (mainWindow.mode !== "DrawRectangle" ||
+                        (mainWindow.mode === "DrawRectangle" && vertices.length < 2)) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = "#ff0000";
+                    ctx.lineWidth = 1;
+                    ctx.moveTo(vertices[vertices.length-1].x, vertices[vertices.length-1].y);
+                    ctx.lineTo(tmpX, tmpY);
+                    ctx.stroke();
+                    ctx.closePath();
+
+                    ctx.beginPath();
+                    ctx.moveTo(tmpX, tmpY);
+                    ctx.fillStyle = "#ff0000";
+                    ctx.arc(tmpX, tmpY, 4, 0, Math.PI * 2, false);
+                    ctx.fill();
+                    ctx.closePath();
+                }
 
                 if (mainWindow.mode == "DrawTriangle" && vertices.length == 2) {
                     ctx.beginPath();
@@ -212,8 +224,64 @@ Rectangle {
 
                     ctx.stroke();
                     ctx.closePath();
+
+                    tmpVertices = vertices.slice(0);
+                    tmpVertices.push({x: x3, y: y3});
+                    tmpVertices.push({x: x4, y: y4});
                 }
                 else if (mainWindow.mode == "DrawRectangle" && vertices.length == 2) {
+                    var x3, y3, x4, y4;
+
+                    if (vertices[1].x !== vertices[0].x) {
+                        //угловой коэффициент
+                        var k = (vertices[1].y - vertices[0].y)/(vertices[1].x-vertices[0].x)
+                        var ySearch = -1/k*(tmpX - vertices[1].x) + vertices[1].y;
+                        var xSearch = -k*(tmpY - vertices[1].y) + vertices[1].x;
+
+                        if (Math.abs(tmpX - xSearch) > Math.abs(tmpY - ySearch)) {
+                            x3 = -k*(ySearch - vertices[1].y) + vertices[1].x;
+                            y3 = ySearch;
+                        }
+                        else {
+                            x3 = xSearch;
+                            y3 = -1/k*(x3 - vertices[1].x) + vertices[1].y;
+                        }
+                    }
+                    else {
+                        x3 = tmpX;
+                        y3 = vertices[1].y;
+                    }
+
+                    var midpX = (vertices[0].x + x3)/2;
+                    var midpY = (vertices[0].y + y3)/2;
+
+                    var x4 = 2*midpX - vertices[1].x;
+                    var y4 = 2*midpY - vertices[1].y;
+
+                    ctx.beginPath();
+                    ctx.strokeStyle = "#ff0000";
+                    ctx.lineWidth = 1;
+                    ctx.moveTo(vertices[1].x, vertices[1].y);
+                    ctx.lineTo(x3, y3);
+                    ctx.moveTo(x3, y3);
+                    ctx.lineTo(x4, y4);
+                    ctx.moveTo(x4, y4);
+                    ctx.lineTo(vertices[0].x, vertices[0].y);
+                    ctx.stroke();
+                    ctx.closePath();
+
+                    ctx.beginPath();
+                    ctx.moveTo(x3, y3);
+                    ctx.fillStyle = "#ff0000";
+                    ctx.arc(x3, y3, 4, 0, Math.PI * 2, false);
+                    ctx.fill();
+                    ctx.closePath();
+
+                    tmpVertices = vertices.slice(0);
+                    tmpVertices.push({x: x3, y: y3});
+                    tmpVertices.push({x: x4, y: y4});
+
+                    console.log("(" + tmpVertices[0].x + "," + tmpVertices[0].y + "); (" + tmpVertices[1].x + ", " + tmpVertices[1].y + "); (" + tmpVertices[2].x + ", " + tmpVertices[2].y + "); (" + tmpVertices[3].x + ", " + tmpVertices[3].y + ")");
                 }
                 else if (mainWindow.mode == "DrawPolygon" && vertices.length >= 2) {
                     ctx.beginPath();
