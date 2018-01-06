@@ -4,10 +4,19 @@ Rectangle {
     id: figure
     color: "transparent"
 
+    /*
+    тип фигуры
+    LineSegment - отрезок
+    Multiline   - ломаная/полигон
+    Triangle    - треугольник
+    Rectangle   - прямоугольник
+    Square      - квадрат
+    */
+    property string type
     property string uid            //идентификатор фигуры, синхронизированный с хранилищем
-    property string type           //тип фигуры
-    property bool isClosed: true   //признак замкнутой фигуры
     property variant vertices: []  //массив вершин {x,y}
+    property bool isClosed         //признак замкнутой фигуры
+
 
     property double offsetLeft: 0   //смещение описывающего прямоугольника по x
     property double offsetTop: 0    //смещение описывающего прямоугольника по y
@@ -32,7 +41,7 @@ Rectangle {
         anchors.fill:parent
 
         onPaint: {
-            if (parent.vertices.length === 0)
+            if (parent.vertices.length < 2)
                 return;
 
             var ctx = getContext("2d");

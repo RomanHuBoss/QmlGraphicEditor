@@ -12,6 +12,7 @@ import QtGraphicalEffects 1.0
 import QtQuick.Layouts 1.3
 
 Flickable {
+    id: root
     width: 202
     Layout.minimumWidth: 202
     Layout.preferredWidth: 202
@@ -36,6 +37,31 @@ Flickable {
       }
     }
 
+    property var resetModeButtons: function(btn) {
+        if (btn !== selectBtn)
+            selectBtn.state = "normal";
+        if (btn !== eraserBtn)
+            eraserBtn.state = "normal";
+        if (btn !== rotateBtn)
+            rotateBtn.state = "normal";
+        if (btn !== resizeBtn)
+            resizeBtn.state = "normal";
+        if (btn !== createLineBtn)
+            createLineBtn.state = "normal";
+        if (btn !== createMultilineBtn)
+            createMultilineBtn.state = "normal";
+        if (btn !== createTriangleBtn)
+            createTriangleBtn.state = "normal";
+        if (btn !== createRectangleBtn)
+            createRectangleBtn.state = "normal";
+        if (btn !== createSquareBtn)
+            createSquareBtn.state = "normal";
+        if (btn !== createPolygonBtn)
+            createPolygonBtn.state = "normal";
+        if (btn !== fillFigureBtn)
+            fillFigureBtn.state = "normal";
+    }
+
     ScrollView {
         anchors.fill: parent
         //verticalScrollBarPolicy: Qt.ScrollBarAlwaysOn
@@ -48,6 +74,8 @@ Flickable {
             columnSpacing: 1
             rowSpacing: 1
 
+
+            /*
             GeneralButton {
                 id: undoBtn
                 state: "disabled"
@@ -76,6 +104,7 @@ Flickable {
                     console.log("Повторить отмененное изменение");
                 }
             }
+            */
 
             GeneralButton {
                 id: createFileBtn
@@ -111,13 +140,26 @@ Flickable {
                 btnAlt: "Сохранить данные сцены в файл"
                 immediateUnclick: true
 
-
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
                     appInteractor.onSaveScene();
                 }
             }
 
+            GeneralButton {
+                id: selectBtn
+                state: "disabled"
+                btnText: "Выбрать"
+                btnImage: "qrc:/36px/select.png"
+                btnAlt: "Выбрать фигуру на сцене"
+
+                //контекст ф-ции (this) = MouseArea кнопки
+                function customClickHandler() {
+                    resetModeButtons(selectBtn);
+                    mainWindow.mode = "SelectFigure";
+                }
+
+            }
 
             GeneralButton {
                 id: eraserBtn
@@ -128,8 +170,8 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
-                    appInteractor.onSetMode("Remove");
-                    console.log("Удалить объект");
+                    resetModeButtons(eraserBtn);
+                    mainWindow.mode = "RemoveFigure";
                 }
             }
 
@@ -142,8 +184,8 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
-                    appInteractor.onSetMode("Rotate");
-                    console.log("Повернуть объект");
+                    resetModeButtons(rotateBtn);
+                    mainWindow.mode = "RotateFigure";
                 }
             }
 
@@ -156,8 +198,8 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
-                    appInteractor.onSetMode("Resize");
-                    console.log("Изменить размер объекта");
+                    resetModeButtons(resizeBtn);
+                    mainWindow.mode = "ResizeFigure";
                 }
 
             }
@@ -170,8 +212,8 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
-                    appInteractor.onSetMode("Drawing", "LineSegment");
-                    console.log("Нарисовать линию");
+                    resetModeButtons(createLineBtn);
+                    mainWindow.mode = "DrawLineSegment";
                 }
 
             }
@@ -184,8 +226,8 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
-                    appInteractor.onSetMode("Drawing", "Multiline");
-                    console.log("Нарисовать ломаную");
+                    resetModeButtons(createMultilineBtn);
+                    mainWindow.mode = "DrawMultiline";
                 }
 
             }
@@ -198,8 +240,8 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
-                    appInteractor.onSetMode("Drawing", "Triangle");
-                    console.log("Нарисовать треугольник");
+                    resetModeButtons(createTriangleBtn);
+                    mainWindow.mode = "DrawTriangle";
                 }
 
             }
@@ -212,8 +254,8 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
-                    appInteractor.onSetMode("Drawing", "Square");
-                    console.log("Нарисовать квадрат");
+                    resetModeButtons(createSquareBtn);
+                    mainWindow.mode = "DrawSquare";
                 }
 
             }
@@ -227,8 +269,8 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
-                    appInteractor.onSetMode("Drawing", "Rectangle");
-                    console.log("Нарисовать прямоугольник");
+                    resetModeButtons(createRectangleBtn);
+                    mainWindow.mode = "DrawRectangle";
                 }
 
             }
@@ -241,12 +283,13 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
-                    appInteractor.onSetMode("Drawing", "Polygon");
-                    console.log("Нарисовать полигон");
+                    resetModeButtons(createPolygonBtn);
+                    mainWindow.mode = "DrawPolygon";
                 }
 
             }
 
+            /*
             GeneralButton {
                 id: createTextBtn
                 btnText: "Надпись"
@@ -255,14 +298,12 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
-                    appInteractor.onSetMode("Text");
-                    console.log("Добавить надпись");
+                    main.mode = "Text";
                 }
-
-            }
+            }*/
 
             GeneralButton {
-                id: createFillBtn
+                id: fillFigureBtn
                 state: "disabled"
                 btnText: "Заливка"
                 btnImage: "qrc:/36px/fill-color.png"
@@ -270,8 +311,8 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
-                    appInteractor.onSetMode("Colorfill");
-                    console.log("Закрасить объект");
+                    resetModeButtons(fillFigureBtn);
+                    mainWindow.mode = "FillFigure";
                 }
 
             }

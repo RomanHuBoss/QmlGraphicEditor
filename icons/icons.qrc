@@ -57,5 +57,7 @@
         <file>svg/error-msg.svg</file>
         <file>svg/warning-msg.svg</file>
         <file>svg/alertify-close.svg</file>
+        <file>36px/select.png</file>
+        <file>24px/select.png</file>
     </qresource>
 </RCC>

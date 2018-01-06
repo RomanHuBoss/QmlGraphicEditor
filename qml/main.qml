@@ -14,10 +14,6 @@ import QtQuick.Layouts 1.3
 
 //главное окно QML-приложения
 ApplicationWindow {
-    id: mainWindow
-    visible: true
-    color: "transparent"
-
     /*режим работы приложения:
     RotateFigure    - поворот фигуры
     ResizeFigure    - изменение размера фигуры
@@ -30,6 +26,10 @@ ApplicationWindow {
     FillFigure      - заливка фигуры цветом
     */
     property string mode
+
+    id: mainWindow
+    visible: true
+    color: "transparent"
 
     //отключаем штатную оконную обвязку
     flags: Qt.FramelessWindowHint | Qt.Window
