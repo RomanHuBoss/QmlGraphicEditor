@@ -130,15 +130,15 @@ namespace Rosdistant {
 
         void setIsFilled(bool isFilled);
         bool isFilled() const;
+
+        QVariantMap toQML();
+
     private:
         //идентификатор фигуры
         QUuid _uuid;
 
         //коллекция точек
         QList<Point> _points;
-
-        //признак замкнутой фигуры
-        bool _isClosed;
 
         //фоновый цвет
         QColor _bgcolor;

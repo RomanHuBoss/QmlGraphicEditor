@@ -17,7 +17,6 @@ Rectangle {
     property variant vertices: []  //массив вершин {x,y}
     property bool isClosed         //признак замкнутой фигуры
 
-
     property double offsetLeft: 0   //смещение описывающего прямоугольника по x
     property double offsetTop: 0    //смещение описывающего прямоугольника по y
     property double minWidth: 20    //минимальная ширина описывающего прямоугольника

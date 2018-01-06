@@ -410,3 +410,30 @@ bool Figure::isFilled() const
 {
     return _isFilled;
 }
+
+QVariantMap Figure::toQML()
+{
+    QVariantMap map;
+
+    QList<QVariant> fPoints;
+    foreach (auto point, _points) {
+        QStringList tmp = QStringList() << QString::number(point.x()) << QString::number(point.y());
+        fPoints << tmp;
+    }
+
+    QList<QVariant> bbPoints;
+    foreach (auto point, getBBox().getPoints()) {
+        QStringList tmp = QStringList() << QString::number(point.x()) << QString::number(point.y());
+        bbPoints << tmp;
+    }
+
+    map.insert("uid", _uuid);
+    map.insert("type", className());
+    map.insert("points", QVariant::fromValue(fPoints));
+    map.insert("bbox", QVariant::fromValue(bbPoints));
+    map.insert("isClosed", isClosed());
+    map.insert("isFilled", isFilled());
+    map.insert("filledColor", bgColor().name());
+
+    return map;
+}

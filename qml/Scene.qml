@@ -12,6 +12,22 @@ Rectangle {
 
     property string activeFigureUid
 
+    property var addNewFigure: function(data){
+        var uid = String(data["uid"]);
+        var type = String(data.type);
+        var points = data.points;
+        var bbox = data.bbox;
+        var isClosed = String(data.isClosed);
+        var isFilled = String(data.isFilled);
+        var filledColor = String(data.filledColor);
+        console.log(uid);
+        console.log(points);
+        console.log(bbox);
+        console.log(isClosed);
+        console.log(isFilled);
+        console.log(filledColor);
+    }
+
     anchors {
         top: parent.top
         bottom: parent.bottom
@@ -151,6 +167,13 @@ Rectangle {
 
         onFinishedChanged: {
             if (finished === true) {
+                //отправляем информацию в Qt
+                var figureData = {};
+                figureData.mode = mainWindow.mode;
+                figureData.vertices = vertices;
+                appInteractor.onAddQmlFigure(figureData);
+
+
                 started = false;
                 finished = false;
                 tmpX = -Math.Infinity;
@@ -281,7 +304,7 @@ Rectangle {
                     tmpVertices.push({x: x3, y: y3});
                     tmpVertices.push({x: x4, y: y4});
 
-                    console.log("(" + tmpVertices[0].x + "," + tmpVertices[0].y + "); (" + tmpVertices[1].x + ", " + tmpVertices[1].y + "); (" + tmpVertices[2].x + ", " + tmpVertices[2].y + "); (" + tmpVertices[3].x + ", " + tmpVertices[3].y + ")");
+                    //console.log("(" + tmpVertices[0].x + "," + tmpVertices[0].y + "); (" + tmpVertices[1].x + ", " + tmpVertices[1].y + "); (" + tmpVertices[2].x + ", " + tmpVertices[2].y + "); (" + tmpVertices[3].x + ", " + tmpVertices[3].y + ")");
                 }
                 else if (mainWindow.mode == "DrawPolygon" && vertices.length >= 2) {
                     ctx.beginPath();

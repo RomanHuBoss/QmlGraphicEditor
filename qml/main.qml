@@ -369,5 +369,8 @@ ApplicationWindow {
             alertifyWnd.alertifyTitleIcon.source = "qrc:/svg/warning-msg.svg";
             alertifyWnd.textNode.text = text;
         }
+        onRaiseDrawFigureOnScene: {
+            scene.addNewFigure(data);
+        }
     }
 }
