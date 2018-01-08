@@ -32,33 +32,7 @@ bool QtQmlInteractor::isRootContextLoaded()
     return !_engine.rootObjects().isEmpty();
 }
 
-void QtQmlInteractor::onSetMode(const QString &mode, const QString& additional)
-{
-    if (mode == "Drawing") {
 
-        QList<QString> availableModes = QList<QString>()
-               << "LineSegment"
-               << "Multiline"
-               << "Rectangle"
-               << "Square"
-               << "Triangle";
-
-        _mode = (availableModes.contains(additional)) ? mode : QString();
-        _drownFigure = additional;
-    }
-    else if (mode == "Rotate") {
-
-    }
-    else if (mode == "Resize") {
-
-    }
-    else if (mode == "Color") {
-
-    }
-    else if (mode == "Text") {
-
-    }
-}
 
 //парсер данных добавляемой в QML-фигуры
 bool QtQmlInteractor::onAddQmlFigure(const QVariantMap& data)
@@ -152,11 +126,30 @@ void QtQmlInteractor::onNewScene()
     foreach (auto figure,_storage.figures()) {
         emit raiseRemoveQmlFigure(figure->uuid().toString());
     }
+
+    emit raiseAlertifyInfo("Создана новая сцена");
+}
+
+bool QtQmlInteractor::onSaveScene(const QUrl& fileUrl) {
+    if (_storage.isEmpty()) {
+        emit raiseAlertifyError("Невозможно сохранить пустую сцену");
+        return false;
+    }
+
+    QString filePath = fileUrl.toLocalFile();
+
+    _storage.saveToFile(filePath);
+
+    emit raiseAlertifyInfo("Сцена успешно сохранена");
+
+    return true;
 }
 
 void QtQmlInteractor::onSelectSceneFile(const QUrl& fileUrl)
 {
     QString filePath = fileUrl.toLocalFile();
+
+    onNewScene();
 
     if (!QFile(filePath).exists()) {
         emit raiseAlertifyError("Выбранный файл не существует");
@@ -168,26 +161,11 @@ void QtQmlInteractor::onSelectSceneFile(const QUrl& fileUrl)
         emit raiseAlertifyError("Не удалось загрузить файл");
     }
 
-    emit raiseClearScene();
-}
-
-bool QtQmlInteractor::onSaveScene()
-{
-    if (_storage.isEmpty()) {
-        emit raiseAlertifyError("Невозможно сохранить пустую сцену");
-        return false;
+    foreach (auto figure,_storage.figures()) {
+        emit raiseDrawFigureOnScene(figure->toQML());
     }
 
-    return true;
+    emit raiseAlertifyInfo("Сцена успешно загружена");
 }
 
-bool QtQmlInteractor::onRedo()
-{
-    return true;
-}
-
-bool QtQmlInteractor::onUndo()
-{
-    return true;
-}
 

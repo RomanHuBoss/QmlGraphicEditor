@@ -59,5 +59,6 @@
         <file>svg/alertify-close.svg</file>
         <file>36px/select.png</file>
         <file>24px/select.png</file>
+        <file>svg/info-msg.svg</file>
     </qresource>
 </RCC>

@@ -79,10 +79,6 @@ ApplicationWindow {
             id: titleBar
         }
 
-        CustomFileDialog {
-            id: fileDialog
-        }
-
         //главный компоновщик (для кнопок слева и сцены справа)
         RowLayout {
            id: mainLayout
@@ -376,6 +372,12 @@ ApplicationWindow {
             alertifyWnd.visible = true;
             alertifyWnd.alertifyTitle.color = "#e9b850";
             alertifyWnd.alertifyTitleIcon.source = "qrc:/svg/warning-msg.svg";
+            alertifyWnd.textNode.text = text;
+        }
+        onRaiseAlertifyInfo: {
+            alertifyWnd.visible = true;
+            alertifyWnd.alertifyTitle.color = "#18a2c6";
+            alertifyWnd.alertifyTitleIcon.source = "qrc:/svg/info-msg.svg";
             alertifyWnd.textNode.text = text;
         }
         onRaiseDrawFigureOnScene: {

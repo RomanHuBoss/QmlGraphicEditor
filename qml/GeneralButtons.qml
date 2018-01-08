@@ -145,7 +145,15 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
-                    fileDialog.visible = true;
+                    var component = Qt.createComponent("qrc:/CustomFileDialog.qml");
+                    if (component.status === Component.Ready) {
+                       component.createObject(this, {
+                            "sidebarVisible": false,
+                            "title": "Открыть файл",
+                            "action": "open"
+                       });
+                    }
+
                 }
             }
 
@@ -159,7 +167,14 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
-                    appInteractor.onSaveScene();
+                    var component = Qt.createComponent("qrc:/CustomFileDialog.qml");
+                    if (component.status === Component.Ready) {
+                       component.createObject(this, {
+                            "sidebarVisible": false,
+                            "title": "Сохранить файл как...",
+                            "action": "save"
+                       });
+                    }
                 }
             }
 

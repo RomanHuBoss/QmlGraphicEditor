@@ -33,21 +33,18 @@ namespace Rosdistant {
     public slots:
         void onNewScene();
         void onSelectSceneFile(const QUrl& fileUrl);
-        bool onSaveScene();
-        bool onRedo();
-        bool onUndo();
-        void onSetMode(const QString& mode, const QString& additional = QString());
         bool onAddQmlFigure(const QVariantMap& data);
         bool onRotateQmlFigure(const QString& uid, double angle);
         bool onFillQmlFigure(const QString& uid, const QString& color);
         bool onMoveQmlFigure(const QString& uid, double dx, double dy);
         bool onRemoveQmlFigure(const QString& uid);
         int figuresQuant() const;
+        bool onSaveScene(const QUrl &fileUrl);
     signals:
         void raiseRemoveQmlFigure(const QString& uuid);
         void raiseAlertifyError(const QString& text);
         void raiseAlertifyWarning(const QString& text);
-        void raiseClearScene();
+        void raiseAlertifyInfo(const QString& text);
         void raiseDrawFigureOnScene(const QVariantMap& data);
     };
 

@@ -3,20 +3,26 @@ import QtQuick.Dialogs 1.2
 
 FileDialog {
     id: fileDialog
-    visible : false
-    title: "Выберите сцену"
+    visible: true
     sidebarVisible : false
     selectMultiple : false
     selectFolder : false
-    selectExisting : true
+    selectExisting : (action == "open") ? true : false
     folder : "/"
 
+    property string action
+
     onAccepted: {
-        fileDialog.close()
-        appInteractor.onSelectSceneFile(fileDialog.fileUrl);
+        if (action === "save") {
+            appInteractor.onSaveScene(fileDialog.fileUrl);
+        }
+        else if (action === "open") {
+            appInteractor.onSelectSceneFile(fileDialog.fileUrl);
+        }
+        close();
     }
     onRejected: {
-        fileDialog.close()
+        close();
     }
-    nameFilters: [ "Файлы сцен (*.json)"]
+    nameFilters: ["Scenes (*.json)", "All files (*)"]
 }
