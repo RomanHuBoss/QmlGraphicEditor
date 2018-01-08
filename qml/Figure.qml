@@ -24,7 +24,9 @@ Rectangle {
 
     property int strokeWidth: 1                 //ширина линии фигуры
     property string strokeColor: "#000000"      //цвет линии
+    property bool isFilled                      //признак заливки
     property string fillColor                   //цвет заливки
+    property var centralPoint: ({})
 
     anchors {
         left: parent.left
@@ -58,12 +60,52 @@ Rectangle {
                 ctx.closePath();
             }
 
-            if (parent.fillColor.length > 0) {
+            if (parent.isClosed && parent.isFilled && parent.fillColor.length > 0) {
                 ctx.fillStyle = parent.fillColor;
                 ctx.fill();
             }
 
             ctx.stroke();
+        }
+
+        MouseArea {
+            id: mouseArea
+            anchors.fill: parent
+            hoverEnabled: true
+            property bool isPressed: false
+
+            onPressed: {
+                isPressed = true
+                previousX = mouseX
+                previousY = mouseY
+            }
+
+            onMouseXChanged: {
+                if (!isPressed) {
+                    return;
+                }
+
+                if (mainWindow.mode === "SelectFigure") {
+                    var dx = mouseX - previousX
+                    figure.anchors.leftMargin += dx;
+                }
+            }
+
+            onMouseYChanged: {
+                if (!isPressed) {
+                    return;
+                }
+
+                if (mainWindow.mode === "SelectFigure") {
+                    var dy = mouseY - previousY
+                    figure.anchors.topMargin += dy;
+                }
+
+            }
+
+            onReleased: {
+                isPressed = false;
+            }
         }
     }
 
@@ -106,4 +148,5 @@ Rectangle {
         id: rightMiddle
         position: "rightMiddle"
     }
+
 }

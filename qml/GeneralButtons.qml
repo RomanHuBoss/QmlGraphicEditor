@@ -37,30 +37,48 @@ Flickable {
       }
     }
 
-    property var resetModeButtons: function(btn) {
-        if (btn !== selectBtn)
-            selectBtn.state = "normal";
-        if (btn !== eraserBtn)
-            eraserBtn.state = "normal";
-        if (btn !== rotateBtn)
-            rotateBtn.state = "normal";
-        if (btn !== resizeBtn)
-            resizeBtn.state = "normal";
-        if (btn !== createLineBtn)
-            createLineBtn.state = "normal";
-        if (btn !== createMultilineBtn)
-            createMultilineBtn.state = "normal";
-        if (btn !== createTriangleBtn)
-            createTriangleBtn.state = "normal";
-        if (btn !== createRectangleBtn)
-            createRectangleBtn.state = "normal";
-        if (btn !== createSquareBtn)
-            createSquareBtn.state = "normal";
-        if (btn !== createPolygonBtn)
-            createPolygonBtn.state = "normal";
-        if (btn !== fillFigureBtn)
-            fillFigureBtn.state = "normal";
+    property var resetModeButtons: function() {
+        selectBtn.state = (mainWindow.mode === "SelectFigure") ?
+                    "clicked" : "normal";
+        removeBtn.state = (mainWindow.mode === "RemoveFigure") ?
+                    "clicked" : "normal";
+        rotateBtn.state = (mainWindow.mode === "RotateFigure") ?
+                    "clicked" : "normal";
+        resizeBtn.state = (mainWindow.mode === "ResizeFigure") ?
+                    "clicked" : "normal";
+        fillFigureBtn.state = (mainWindow.mode === "FillFigure") ?
+                    "clicked" : "normal";
+        createLineBtn.state = (mainWindow.mode === "DrawLineSegment") ?
+                    "clicked" : "normal";
+        createLineBtn.state = (mainWindow.mode === "DrawLineSegment") ?
+                    "clicked" : "normal";
+        createMultilineBtn.state = (mainWindow.mode === "DrawMultiline") ?
+                    "clicked" : "normal";
+        createTriangleBtn.state = (mainWindow.mode === "DrawTriangle") ?
+                    "clicked" : "normal";
+        createRectangleBtn.state = (mainWindow.mode === "DrawRectangle") ?
+                    "clicked" : "normal";
+        createSquareBtn.state = (mainWindow.mode === "DrawSquare") ?
+                    "clicked" : "normal";
+        createPolygonBtn.state = (mainWindow.mode === "DrawPolygon") ?
+                    "clicked" : "normal";
     }
+
+    property var createFileBtn: createFileBtn
+    property var openFileBtn: openFileBtn
+    property var saveBtn: saveBtn
+    property var selectBtn: selectBtn
+    property var removeBtn: removeBtn
+    property var rotateBtn: rotateBtn
+    property var resizeBtn: resizeBtn
+    property var createLineBtn: createLineBtn
+    property var createMultilineBtn: createMultilineBtn
+    property var createTriangleBtn: createTriangleBtn
+    property var createSquareBtn: createSquareBtn
+    property var createRectangleBtn: createRectangleBtn
+    property var createPolygonBtn: createPolygonBtn
+    property var fillFigureBtn: fillFigureBtn
+
 
     ScrollView {
         anchors.fill: parent
@@ -155,14 +173,13 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
-                    resetModeButtons(selectBtn);
                     mainWindow.mode = "SelectFigure";
                 }
 
             }
 
             GeneralButton {
-                id: eraserBtn
+                id: removeBtn
                 state: "disabled"
                 btnText: "Удалить"
                 btnImage: "qrc:/36px/erase.png"
@@ -170,7 +187,6 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
-                    resetModeButtons(eraserBtn);
                     mainWindow.mode = "RemoveFigure";
                 }
             }
@@ -184,7 +200,6 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
-                    resetModeButtons(rotateBtn);
                     mainWindow.mode = "RotateFigure";
                 }
             }
@@ -198,7 +213,6 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
-                    resetModeButtons(resizeBtn);
                     mainWindow.mode = "ResizeFigure";
                 }
 
@@ -212,7 +226,6 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
-                    resetModeButtons(createLineBtn);
                     mainWindow.mode = "DrawLineSegment";
                 }
 
@@ -226,7 +239,6 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
-                    resetModeButtons(createMultilineBtn);
                     mainWindow.mode = "DrawMultiline";
                 }
 
@@ -240,7 +252,6 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
-                    resetModeButtons(createTriangleBtn);
                     mainWindow.mode = "DrawTriangle";
                 }
 
@@ -254,7 +265,6 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
-                    resetModeButtons(createSquareBtn);
                     mainWindow.mode = "DrawSquare";
                 }
 
@@ -269,7 +279,6 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
-                    resetModeButtons(createRectangleBtn);
                     mainWindow.mode = "DrawRectangle";
                 }
 
@@ -283,7 +292,6 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
-                    resetModeButtons(createPolygonBtn);
                     mainWindow.mode = "DrawPolygon";
                 }
 
@@ -311,7 +319,6 @@ Flickable {
 
                 //контекст ф-ции (this) = MouseArea кнопки
                 function customClickHandler() {
-                    resetModeButtons(fillFigureBtn);
                     mainWindow.mode = "FillFigure";
                 }
 

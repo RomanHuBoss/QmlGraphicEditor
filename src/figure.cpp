@@ -427,13 +427,16 @@ QVariantMap Figure::toQML()
         bbPoints << tmp;
     }
 
+    QList<double> centralPoint = QList<double>() << getCentralPoint().x() << getCentralPoint().y();
+
     map.insert("uid", _uuid);
     map.insert("type", className());
     map.insert("points", QVariant::fromValue(fPoints));
     map.insert("bbox", QVariant::fromValue(bbPoints));
+    map.insert("centralPoint", QVariant::fromValue(centralPoint));
     map.insert("isClosed", isClosed());
     map.insert("isFilled", isFilled());
-    map.insert("filledColor", bgColor().name());
+    map.insert("fillColor", bgColor().name());
 
     return map;
 }

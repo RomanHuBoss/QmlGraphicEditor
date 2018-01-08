@@ -13,7 +13,12 @@ Rectangle {
 
     property string position
 
-    visible: (mainWindow.mode === "resize" || (mainWindow.mode === "rotate" && position.toLowerCase().indexOf("middle") === -1))
+    visible: root.parent === scene.activeFigure &&
+             ( mainWindow.mode === "SelectFigure" ||
+              mainWindow.mode === "FillFigure" ||
+              mainWindow.mode === "ResizeFigure" ||
+              mainWindow.mode === "RemoveFigure" ||
+              (mainWindow.mode === "RotateFigure" && position.toLowerCase().indexOf("middle") === -1))
 
     anchors {
         horizontalCenter: (function() {
@@ -36,7 +41,10 @@ Rectangle {
         property bool isPressed: false
 
         cursorShape: (function() {
-            if (mainWindow.mode === "rotate") return Qt.OpenHandCursor;
+            if (mainWindow.mode === "RotateFigure") return Qt.OpenHandCursor;
+            else if (mainWindow.mode === "SelectFigure") return Qt.ForbiddenCursor;
+            else if (mainWindow.mode === "FillFigure") return Qt.ForbiddenCursor;
+            else if (mainWindow.mode === "RemoveFigure") return Qt.ForbiddenCursor;
             else if (position === "topLeft") return Qt.SizeFDiagCursor;
             else if (position === "bottomLeft") return Qt.SizeBDiagCursor;
             else if (position === "topRight") return Qt.SizeBDiagCursor;
@@ -74,6 +82,9 @@ Rectangle {
                     }
                 }
             }
+            else if (mainWindow.mode === "rotate") {
+
+            }
         }
 
         onMouseYChanged: {
@@ -97,14 +108,15 @@ Rectangle {
                     }
                 }
             }
+            else if (mainWindow.mode === "rotate") {
+
+            }
+
         }
 
         onReleased: {
             isPressed = false;
         }
 
-        onHoveredChanged: {
-            //parent.state = containsMouse ? "hovered" : "normal"
-        }
     }
 }

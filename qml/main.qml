@@ -15,15 +15,16 @@ import QtQuick.Layouts 1.3
 //главное окно QML-приложения
 ApplicationWindow {
     /*режим работы приложения:
+    SelectFigure    - выбор фигуры для ее перемещения, окрашивания, удаления
     RotateFigure    - поворот фигуры
     ResizeFigure    - изменение размера фигуры
     RemoveFigure    - удаление фигур с экрана
+    FillFigure      - заливка фигуры цветом
     DrawLineSegment - рисует отрезок
     DrawMultiline   - рисует полигон
     DrawTriangle    - рисование треугольника
     DrawRectangle   - рисование прямоугольника
     DrawSquare      - рисование квадрата
-    FillFigure      - заливка фигуры цветом
     */
     property string mode
 
@@ -47,6 +48,12 @@ ApplicationWindow {
     property int borderSize: 3
     property int cornerSize: 5
     property bool isNormal: true
+    property var scene: scene
+    property var buttons: generalButtons
+
+    onModeChanged: {
+        generalButtons.resetModeButtons();
+    }
 
     Rectangle {
         id: mainWindowContent

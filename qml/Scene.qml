@@ -8,24 +8,54 @@
 import QtQuick 2.0
 
 Rectangle {
+    id: root
     clip: true
 
-    property string activeFigureUid
+    property var activeFigure
 
     property var addNewFigure: function(data){
-        var uid = String(data["uid"]);
-        var type = String(data.type);
-        var points = data.points;
-        var bbox = data.bbox;
-        var isClosed = String(data.isClosed);
-        var isFilled = String(data.isFilled);
-        var filledColor = String(data.filledColor);
-        console.log(uid);
-        console.log(points);
-        console.log(bbox);
-        console.log(isClosed);
-        console.log(isFilled);
-        console.log(filledColor);
+        var component = Qt.createComponent("qrc:/Figure.qml");
+        if (component.status === Component.Ready) {
+
+
+            //в силу того, что левый верхний угол холста имеет координату (0,0),
+            //причем Y нарастает при движении вниз по оси, а реализованный ранее Qt (c++)
+            //набор классов работает в декартовой системе, то
+            var bboxOffsetTop = Number(data.bbox[3][1]);
+            var bboxOffsetLeft = Number(data.bbox[0][0]);
+            var bboxWidth = data.bbox[1][0] - data.bbox[0][0];
+            var bboxHeight = data.bbox[0][1] - data.bbox[3][1];
+
+            //вершины фигуры
+            var vertices = [];
+            for (var i in data.points) {
+                vertices.push({x: Number(data.points[i][0])-bboxOffsetLeft, y: Number(data.points[i][1])-bboxOffsetTop});
+            }
+
+            //mainWindow.mode = "resize";
+            var sprite = component.createObject(this,
+                {
+                    "uid": data["uid"],
+                    "isClosed": data.isClosed,
+                    "isFilled": data.isFilled,
+                    "fillColor": data.fillColor,
+                    "type": data.type,
+                    "offsetLeft": bboxOffsetLeft,
+                    "offsetTop": bboxOffsetTop,
+                    "width": bboxWidth,
+                    "height": bboxHeight,
+                    "vertices": vertices,
+                    "centralPoint": {x: Number(data.centralPoint[0]), y: Number(data.centralPoint[0])}
+                }
+            );
+
+            activeFigure = sprite;
+            mainWindow.mode = "SelectFigure"
+
+            console.log(sprite);
+        }
+
+
     }
 
     anchors {
@@ -168,11 +198,16 @@ Rectangle {
         onFinishedChanged: {
             if (finished === true) {
                 //отправляем информацию в Qt
+                var consoled = "";
+                for (var i = 0; i < vertices.length; i++) {
+                    consoled += "(" + vertices[i].x + "," + vertices[i].y + "); ";
+                }
+                console.log(consoled);
+
                 var figureData = {};
                 figureData.mode = mainWindow.mode;
                 figureData.vertices = vertices;
                 appInteractor.onAddQmlFigure(figureData);
-
 
                 started = false;
                 finished = false;
@@ -249,6 +284,7 @@ Rectangle {
                     ctx.closePath();
 
                     tmpVertices = vertices.slice(0);
+                    tmpVertices.push({x: tmpX, y: tmpY});
                     tmpVertices.push({x: x3, y: y3});
                     tmpVertices.push({x: x4, y: y4});
                 }
@@ -348,12 +384,13 @@ Rectangle {
         }
     }
 
-    /*
-    Figure {
+
+    /*Figure {
         width: 300
         height: 300
         offsetLeft: 20
         offsetTop: 50
+        vertices: [{x:30,y:40}, {x:50, y:60}, {x:70, y:70}]
     }*/
 
 }
