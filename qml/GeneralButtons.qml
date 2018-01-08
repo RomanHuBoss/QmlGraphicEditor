@@ -152,7 +152,7 @@ Flickable {
 
             GeneralButton {
                 id: saveBtn
-                state: "disabled"
+                state: (scene.figuresQuant > 0) ? "normal" : "disabled"
                 btnText: "Сохранить"
                 btnImage: "qrc:/36px/file-save.png"
                 btnAlt: "Сохранить данные сцены в файл"

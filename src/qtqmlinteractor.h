@@ -42,7 +42,9 @@ namespace Rosdistant {
         bool onFillQmlFigure(const QString& uid, const QString& color);
         bool onMoveQmlFigure(const QString& uid, double dx, double dy);
         bool onRemoveQmlFigure(const QString& uid);
+        int figuresQuant() const;
     signals:
+        void raiseRemoveQmlFigure(const QString& uuid);
         void raiseAlertifyError(const QString& text);
         void raiseAlertifyWarning(const QString& text);
         void raiseClearScene();

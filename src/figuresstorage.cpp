@@ -159,6 +159,21 @@ bool FiguresStorage::saveToFile(const QString &filePath) const
     return true;
 }
 
+QList<Figure *> FiguresStorage::figures()
+{
+    QList<Figure*> figures;
+
+    foreach (auto figure, _storage)
+        figures.append(figure);
+
+    return figures;
+}
+
+int FiguresStorage::figuresQuant() const
+{
+    return _storage.size();
+}
+
 const QHash<QUuid, Figure*>& FiguresStorage::storage() const
 {
     return _storage;

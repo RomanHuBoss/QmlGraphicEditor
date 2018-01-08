@@ -11,6 +11,7 @@ Rectangle {
     id: root
     clip: true
 
+    property int figuresQuant: 0;
     property var activeFigure
     property string prevMode
 
@@ -38,6 +39,21 @@ Rectangle {
         prevMode = "RemoveFigure"
         appInteractor.onRemoveQmlFigure(figure.uid);
         figure.destroy();
+        figuresQuant = appInteractor.figuresQuant();
+    }
+
+    onFiguresQuantChanged: {
+        generalButtons.saveBtn.state = (Number(scene.figuresQuant) > 0) ?
+                    "normal" : "disabled"
+    }
+
+    property var getFigureByUid: function(uid) {
+        for(var i = 0; i < root.children.length; ++i) {
+            if("uid" in root.children[i] && root.children[i].uid === uid) {
+                return root.children[i];
+            }
+        }
+        return null;
     }
 
     property var addNewFigure: function(data) {
@@ -85,8 +101,7 @@ Rectangle {
 
             prevMode = "";
 
-            console.log("mainWindow.moide: " + mainWindow.mode);
-            console.log("created sprite: " + activeFigure);
+            figuresQuant = appInteractor.figuresQuant();
         }
     }
 
@@ -415,14 +430,5 @@ Rectangle {
             ctx.closePath();
         }
     }
-
-
-    /*Figure {
-        width: 300
-        height: 300
-        offsetLeft: 20
-        offsetTop: 50
-        vertices: [{x:30,y:40}, {x:50, y:60}, {x:70, y:70}]
-    }*/
 
 }

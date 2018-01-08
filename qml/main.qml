@@ -52,6 +52,9 @@ ApplicationWindow {
 
     onModeChanged: {
         generalButtons.resetModeButtons();
+
+        if (["DrawLineSegment",  "DrawMultiline", "DrawTriangle", "DrawRectangle", "DrawSquare"].indexOf(mode) !== -1)
+            scene.prevMode = "";
     }
 
     Rectangle {
@@ -377,6 +380,9 @@ ApplicationWindow {
         }
         onRaiseDrawFigureOnScene: {
             scene.addNewFigure(data);
+        }
+        onRaiseRemoveQmlFigure: {
+            scene.removeFigure(scene.getFigureByUid(uuid));
         }
     }
 }

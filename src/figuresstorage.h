@@ -47,6 +47,12 @@ namespace Rosdistant {
         //сбросить сереализуемое содержимое хранилища в json-файл
         bool saveToFile(const QString& filePath) const;
 
+        //получить все фигуры хранилища
+        QList<Figure*> figures();
+
+        //число фигур в хранилище
+        int figuresQuant() const;
+
     private:
         //хранилище фигур на сцене
         QHash<QUuid, Figure*> _storage;

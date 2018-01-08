@@ -91,13 +91,14 @@ Rectangle {
                 previousX = mouseX
                 previousY = mouseY
 
-                if (mode === "SelectFigure" && scene.activeFigure !== figure) {
+                if (["SelectFigure", "ResizeFigure", "RotateFigure"].indexOf(mainWindow.mode) !== -1 &&
+                        scene.activeFigure !== figure) {
                     scene.activeFigure = figure;
                 }
-                else if (mode === "RemoveFigure") {
+                else if (mainWindow.mode === "RemoveFigure") {
                     scene.removeFigure(figure);
                 }
-                else if (mode === "FillFigure" && isClosed) {
+                else if (mainWindow.mode === "FillFigure" && isClosed) {
                     fillColor = "#ff0000";
                     isFilled = true;
                     parent.requestPaint();

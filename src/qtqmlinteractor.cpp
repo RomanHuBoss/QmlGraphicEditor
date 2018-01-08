@@ -142,9 +142,16 @@ bool QtQmlInteractor::onRemoveQmlFigure(const QString &uuid)
     return true;
 }
 
+int QtQmlInteractor::figuresQuant() const
+{
+    return _storage.figuresQuant();
+}
+
 void QtQmlInteractor::onNewScene()
 {
-    _storage.resetStorage();
+    foreach (auto figure,_storage.figures()) {
+        emit raiseRemoveQmlFigure(figure->uuid().toString());
+    }
 }
 
 void QtQmlInteractor::onSelectSceneFile(const QUrl& fileUrl)
