@@ -79,7 +79,6 @@ Flickable {
     property var createPolygonBtn: createPolygonBtn
     property var fillFigureBtn: fillFigureBtn
 
-
     ScrollView {
         anchors.fill: parent
         //verticalScrollBarPolicy: Qt.ScrollBarAlwaysOn
@@ -323,6 +322,48 @@ Flickable {
                 }
 
             }
+        }
+    }
+
+    Rectangle {
+         id: colorPicker
+         color: scene.fillColor
+
+         border {
+             width: 1
+             color: "#fff"
+         }
+
+         width: 80
+         height: 30
+
+         anchors {
+             bottom: parent.bottom
+             horizontalCenter: parent.horizontalCenter
+             bottomMargin: 40
+         }
+
+         MouseArea {
+             anchors.fill: parent
+             onPressed: {
+                 var component = Qt.createComponent("qrc:/CustomColorPicker.qml");
+                 if (component.status === Component.Ready) {
+                    component.createObject(this, {});
+                 }
+             }
+         }
+
+    }
+
+    Text {
+        text: "Цвет заливки"
+        color: "#fff"
+        font.pointSize: 10
+
+        anchors {
+            bottom: colorPicker.top
+            left: colorPicker.left
+            bottomMargin: 5
         }
 
     }

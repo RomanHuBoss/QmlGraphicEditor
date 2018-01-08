@@ -99,7 +99,7 @@ Rectangle {
                     scene.removeFigure(figure);
                 }
                 else if (mainWindow.mode === "FillFigure" && isClosed) {
-                    fillColor = "#ff0000";
+                    fillColor = scene.fillColor;
                     isFilled = true;
                     parent.requestPaint();
                     scene.fillFigure(figure, fillColor);

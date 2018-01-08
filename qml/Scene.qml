@@ -14,6 +14,7 @@ Rectangle {
     property int figuresQuant: 0;
     property var activeFigure
     property string prevMode
+    property string fillColor: "#ff0000"
 
     property var moveFigure: function(figure) {
         prevMode = "SelectFigure";

@@ -11,5 +11,6 @@
         <file>Alertify.qml</file>
         <file>CustomFileDialog.qml</file>
         <file>BBoxActionPoint.qml</file>
+        <file>CustomColorPicker.qml</file>
     </qresource>
 </RCC>
