@@ -38,7 +38,10 @@ namespace Rosdistant {
         bool onUndo();
         void onSetMode(const QString& mode, const QString& additional = QString());
         bool onAddQmlFigure(const QVariantMap& data);
-
+        bool onRotateQmlFigure(const QString& uid, double angle);
+        bool onFillQmlFigure(const QString& uid, const QString& color);
+        bool onMoveQmlFigure(const QString& uid, double dx, double dy);
+        bool onRemoveQmlFigure(const QString& uid);
     signals:
         void raiseAlertifyError(const QString& text);
         void raiseAlertifyWarning(const QString& text);

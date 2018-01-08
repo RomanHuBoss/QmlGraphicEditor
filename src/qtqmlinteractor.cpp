@@ -107,6 +107,41 @@ bool QtQmlInteractor::onAddQmlFigure(const QVariantMap& data)
     return true;
 }
 
+bool QtQmlInteractor::onRotateQmlFigure(const QString& uuid, double angle)
+{
+    Figure * figure = _storage.getFigure(uuid);
+    figure->rotateAroundCenter(angle, AngleType::DegreesType);
+
+    emit raiseDrawFigureOnScene(figure->toQML());
+
+    return true;
+}
+
+bool QtQmlInteractor::onFillQmlFigure(const QString &uuid, const QString &color)
+{
+    Figure * figure = _storage.getFigure(uuid);
+    figure->setIsFilled(true);
+    figure->setBgColor(color);
+
+    emit raiseDrawFigureOnScene(figure->toQML());
+
+    return true;
+}
+
+bool QtQmlInteractor::onMoveQmlFigure(const QString &uuid, double dx, double dy)
+{
+    Figure * figure = _storage.getFigure(uuid);
+    figure->move(dx, dy);
+    emit raiseDrawFigureOnScene(figure->toQML());
+    return true;
+}
+
+bool QtQmlInteractor::onRemoveQmlFigure(const QString &uuid)
+{
+    _storage.removeFigure(uuid);
+    return true;
+}
+
 void QtQmlInteractor::onNewScene()
 {
     _storage.resetStorage();

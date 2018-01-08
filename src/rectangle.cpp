@@ -51,10 +51,6 @@ int Rectangle::necessaryPointsQuant() const
     return 4;
 }
 
-Point Rectangle::getCentralPoint() const
-{
-    return LineSegment(pointByIndex(0), pointByIndex(3)).getCentralPoint();
-}
 
 bool Rectangle::isClosed() const
 {

@@ -26,7 +26,19 @@ Rectangle {
     property string strokeColor: "#000000"      //цвет линии
     property bool isFilled                      //признак заливки
     property string fillColor                   //цвет заливки
-    property var centralPoint: ({})
+
+    property double centralPointX: width/2      //X-координата центральной точки
+    property double centralPointY: height/2     //Y-координата центральной точки
+    property double rotationAngle: 0            //угол поворота
+
+    property double movedX: anchors.leftMargin - offsetLeft
+    property double movedY: anchors.topMargin - offsetTop
+
+    transform: Rotation {
+        origin.x: centralPointX;
+        origin.y: centralPointY;
+        angle: rotationAngle
+    }
 
     anchors {
         left: parent.left
@@ -70,7 +82,7 @@ Rectangle {
 
         MouseArea {
             id: mouseArea
-            anchors.fill: parent
+            anchors.fill: bboxCanvas === parent ? parent : null;
             hoverEnabled: true
             property bool isPressed: false
 
@@ -78,6 +90,19 @@ Rectangle {
                 isPressed = true
                 previousX = mouseX
                 previousY = mouseY
+
+                if (mode === "SelectFigure" && scene.activeFigure !== figure) {
+                    scene.activeFigure = figure;
+                }
+                else if (mode === "RemoveFigure") {
+                    scene.removeFigure(figure);
+                }
+                else if (mode === "FillFigure" && isClosed) {
+                    fillColor = "#ff0000";
+                    isFilled = true;
+                    parent.requestPaint();
+                    scene.fillFigure(figure, fillColor);
+                }
             }
 
             onMouseXChanged: {
@@ -105,8 +130,14 @@ Rectangle {
 
             onReleased: {
                 isPressed = false;
+
+                if (mode === "SelectFigure" &&
+                        (movedX != 0 || movedY != 0)) {
+                    scene.moveFigure(figure);
+                }
             }
         }
+
     }
 
     BBoxActionPoint {

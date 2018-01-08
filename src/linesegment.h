@@ -39,9 +39,6 @@ namespace Rosdistant {
         //получить необходимое число точек, формирующих фигуру заданного типа
         int getNecessaryPointsQuant() const;
 
-        //вычисляем координаты центральной точки
-        Point getCentralPoint() const;
-
         //праллельность отрезка оси OX
         bool isParallelXAxis() const;
 

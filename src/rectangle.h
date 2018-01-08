@@ -29,9 +29,6 @@ namespace Rosdistant {
         //получить необходимое число точек, формирующих фигуру заданного типа
         int necessaryPointsQuant() const;
 
-        //вычисляем координаты центральной точки
-        Point getCentralPoint() const;
-
         //замкнутая ли фигура
         bool isClosed() const;
 

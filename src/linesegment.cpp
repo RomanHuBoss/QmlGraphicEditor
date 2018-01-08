@@ -86,11 +86,6 @@ QString LineSegment::className() const
     return "LineSegment";
 }
 
-Point LineSegment::getCentralPoint() const
-{
-    return Point((firstPoint().x() + lastPoint().x()) * 0.5,
-                 (firstPoint().y() + lastPoint().y()) * 0.5);
-}
 
 bool LineSegment::isValid() const
 {

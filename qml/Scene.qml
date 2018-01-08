@@ -12,11 +12,38 @@ Rectangle {
     clip: true
 
     property var activeFigure
+    property string prevMode
 
-    property var addNewFigure: function(data){
+    property var moveFigure: function(figure) {
+        prevMode = "SelectFigure";
+        appInteractor.onMoveQmlFigure(figure.uid, figure.movedX, figure.movedY);
+        figure.destroy();
+    }
+
+    property var fillFigure: function(figure, color) {
+        prevMode = "FillFigure";
+        appInteractor.onFillQmlFigure(figure.uid, figure.fillColor);
+        figure.destroy();
+    }
+
+    property var updateFigure: function(figure) {
+        if (figure.rotationAngle !== 0) {
+            prevMode = "RotateFigure";
+            appInteractor.onRotateQmlFigure(figure.uid, figure.rotationAngle);
+            figure.destroy();
+        }
+    }
+
+    property var removeFigure: function(figure) {
+        prevMode = "RemoveFigure"
+        appInteractor.onRemoveQmlFigure(figure.uid);
+        figure.destroy();
+    }
+
+    property var addNewFigure: function(data) {
+
         var component = Qt.createComponent("qrc:/Figure.qml");
         if (component.status === Component.Ready) {
-
 
             //в силу того, что левый верхний угол холста имеет координату (0,0),
             //причем Y нарастает при движении вниз по оси, а реализованный ранее Qt (c++)
@@ -32,7 +59,6 @@ Rectangle {
                 vertices.push({x: Number(data.points[i][0])-bboxOffsetLeft, y: Number(data.points[i][1])-bboxOffsetTop});
             }
 
-            //mainWindow.mode = "resize";
             var sprite = component.createObject(this,
                 {
                     "uid": data["uid"],
@@ -44,18 +70,24 @@ Rectangle {
                     "offsetTop": bboxOffsetTop,
                     "width": bboxWidth,
                     "height": bboxHeight,
-                    "vertices": vertices,
-                    "centralPoint": {x: Number(data.centralPoint[0]), y: Number(data.centralPoint[0])}
+                    "vertices": vertices
                 }
             );
 
             activeFigure = sprite;
-            mainWindow.mode = "SelectFigure"
 
-            console.log(sprite);
+            if (prevMode !== "" && mainWindow.mode !== prevMode) {
+                mainWindow.mode = prevMode;
+            }
+            else if (prevMode === "") {
+                mainWindow.mode = "SelectFigure";
+            }
+
+            prevMode = "";
+
+            console.log("mainWindow.moide: " + mainWindow.mode);
+            console.log("created sprite: " + activeFigure);
         }
-
-
     }
 
     anchors {

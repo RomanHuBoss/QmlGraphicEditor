@@ -52,6 +52,15 @@ Rectangle Figure::getBBox() const
                      Point(maxX, minY), Point(minX, minY));
 }
 
+Point Figure::getCentralPoint()
+{
+    Rectangle bbox = getBBox();
+    double x = bbox.getMinX() + bbox.width()/2;
+    double y = bbox.getMinY() + bbox.height()/2;
+
+    return Point(x, y);
+}
+
 void Figure::move(double dx, double dy)
 {
     for (int i = 0; i < _points.size(); i++) {
@@ -63,7 +72,7 @@ void Figure::move(double dx, double dy)
 void Figure::rotateAroundPoint(const Point& point, const double& theta, AngleType type)
 {
     for (int i = 0; i < _points.size(); i++) {
-        _points[i].rotateAroundPoint(point, theta, type);
+        _points[i].rotateAroundPoint(point, theta, type);                
     }
 }
 

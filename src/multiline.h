@@ -22,7 +22,6 @@ namespace Rosdistant {
 
         operator QString();
         int necessaryPointsQuant() const;
-        Point getCentralPoint() const;
         bool isClosed() const;
 
         void setIsClosed(bool isClosed);

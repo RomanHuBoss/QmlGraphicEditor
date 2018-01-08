@@ -26,11 +26,6 @@ int Rosdistant::Multiline::necessaryPointsQuant() const
     return 2;
 }
 
-Rosdistant::Point Rosdistant::Multiline::getCentralPoint() const
-{
-    return Point();
-}
-
 bool Rosdistant::Multiline::isClosed() const
 {
     return _isClosed && getPoints().size() > 2;

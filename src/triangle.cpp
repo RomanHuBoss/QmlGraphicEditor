@@ -34,12 +34,6 @@ int Triangle::necessaryPointsQuant() const
     return 3;
 }
 
-Point Triangle::getCentralPoint() const
-{
-    return Point((pointByIndex(0).x() + pointByIndex(1).x() + pointByIndex(2).x())/3,
-                 (pointByIndex(0).y() + pointByIndex(1).y() + pointByIndex(2).y())/3);
-}
-
 bool Triangle::isClosed() const
 {
     return true;

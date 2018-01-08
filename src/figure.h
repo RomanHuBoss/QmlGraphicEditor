@@ -45,8 +45,8 @@ namespace Rosdistant {
         //получить необходимое число точек, формирующих фигуру заданного типа
         virtual int necessaryPointsQuant() const = 0;
 
-        //вычисляем координаты центральной точки
-        virtual Point getCentralPoint() const = 0;
+        //вычисляем координаты центральной точки описывающего фигуру прямоугольника
+        virtual Point getCentralPoint();
 
         //перемещение фигуры на заданные величины по X и Y
         void move(double dx, double dy);
