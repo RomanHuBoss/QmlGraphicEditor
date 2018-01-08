@@ -66,5 +66,7 @@ DISTFILES += \
     qml/GeneralButton.qml \
     qml/Alertify.qml \
     qml/CustomFileDialog.qml \
-    qml/Figure.qml
+    qml/Figure.qml \
+    qml/BBoxActionPoint.qml \
+    qml/CustomColorPicker.qml
 

@@ -34,6 +34,11 @@ Rectangle {
             appInteractor.onRotateQmlFigure(figure.uid, figure.rotationAngle);
             figure.destroy();
         }
+        else if (figure.scaleLeft !== 0 || figure.scaleRight !== 0 || figure.scaleTop !== 0 || figure.scaleBottom !== 0) {
+            prevMode = "ResizeFigure";
+            appInteractor.onResizeQmlFigure(figure.uid, figure.scaleLeft, figure.scaleRight, figure.scaleTop, figure.scaleBottom);
+            figure.destroy();
+        }
     }
 
     property var removeFigure: function(figure) {

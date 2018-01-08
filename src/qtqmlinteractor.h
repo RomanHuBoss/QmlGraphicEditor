@@ -35,6 +35,7 @@ namespace Rosdistant {
         void onSelectSceneFile(const QUrl& fileUrl);
         bool onAddQmlFigure(const QVariantMap& data);
         bool onRotateQmlFigure(const QString& uid, double angle);
+        bool onResizeQmlFigure(const QString &uuid, double scaleLeft, double scaleRight, double scaleTop, double scaleBottom);
         bool onFillQmlFigure(const QString& uid, const QString& color);
         bool onMoveQmlFigure(const QString& uid, double dx, double dy);
         bool onRemoveQmlFigure(const QString& uid);

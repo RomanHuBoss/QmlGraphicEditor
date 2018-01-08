@@ -50,6 +50,8 @@ Rectangle {
         anchors.fill: parent
         hoverEnabled: true
         property bool isPressed: false
+        property double previousX
+        property double previousY
 
         cursorShape: (function() {
             if (mainWindow.mode === "RotateFigure") return Qt.OpenHandCursor;
@@ -84,12 +86,24 @@ Rectangle {
                     if (root.parent.width - dx >= root.parent.minWidth) {
                         root.parent.offsetLeft += dx;
                         root.parent.width += -dx;
+                        root.parent.scaleLeft += dx;
+
+                        if (root.parent.type === "Square") {
+                            root.parent.offsetTop += dx;
+                            root.parent.height += -dx;
+                            root.parent.scaleTop += dx;
+                        }
                     }
                 }
-
-                if (position.toLowerCase().indexOf("right") !== -1) {
+                else if (position.toLowerCase().indexOf("right") !== -1) {
                     if (root.parent.width + dx >= root.parent.minWidth) {
                         root.parent.width += dx;
+                        root.parent.scaleRight += dx;
+
+                        if (root.parent.type === "Square") {
+                            root.parent.height += dx;
+                            root.parent.scaleBottom += dx;
+                        }
                     }
                 }
             }
@@ -123,12 +137,27 @@ Rectangle {
                     if (root.parent.height - dy >= root.parent.minHeight) {
                         root.parent.offsetTop += dy;
                         root.parent.height += -dy;
+                        root.parent.scaleBottom -= dy;
+
+                        if (root.parent.type === "Square") {
+                            root.parent.offsetLeft += dy;
+                            root.parent.width += -dy;
+                            root.parent.scaleLeft += -dy;
+                        }
+
+
                     }
                 }
-
-                if (position.toLowerCase().indexOf("bottom") !== -1) {
+                else if (position.toLowerCase().indexOf("bottom") !== -1) {
                     if (root.parent.height + dy >= root.parent.minHeight) {
                         root.parent.height += dy;
+                        root.parent.scaleTop += dy;
+
+                        if (root.parent.type === "Square") {
+                            root.parent.width += dy;
+                            root.parent.scaleLeft += dy;
+                        }
+
                     }
                 }
             }

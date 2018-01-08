@@ -29,15 +29,27 @@ Rectangle {
 
     property double centralPointX: width/2      //X-координата центральной точки
     property double centralPointY: height/2     //Y-координата центральной точки
-    property double rotationAngle: 0            //угол поворота
+    property double rotationAngle:0             //угол поворота
+
+    property var topLeftCorner: topLeftCorner
+    property var topRightCorner: topRightCorner
+    property var bottomLeftCorner: bottomLeftCorner
+    property var bottomRightCorner: bottomRightCorner
 
     property double movedX: anchors.leftMargin - offsetLeft
     property double movedY: anchors.topMargin - offsetTop
 
+    property double scaleLeft: 0
+    property double scaleRight: 0
+    property double scaleTop: 0
+    property double scaleBottom: 0
+
+
+
     transform: Rotation {
-        origin.x: centralPointX;
-        origin.y: centralPointY;
-        angle: rotationAngle
+            origin.x: centralPointX
+            origin.y: centralPointY
+            angle: rotationAngle
     }
 
     anchors {
@@ -47,96 +59,102 @@ Rectangle {
         topMargin: offsetTop
     }
 
-    Canvas {
-        id: bboxCanvas
+    Rectangle {
+        anchors.fill: parent
+        color: "transparent"
 
-        visible: true
-        anchors.fill:parent
+        Canvas {
+            id: bboxCanvas
 
-        onPaint: {
-            if (parent.vertices.length < 2)
-                return;
+            visible: true
+            anchors.fill:parent
 
-            var ctx = getContext("2d");
-            ctx.strokeStyle = strokeColor;
-            ctx.lineWidth = strokeWidth;
-            ctx.beginPath();
-            ctx.moveTo(parent.vertices[0].x, parent.vertices[0].y);
-
-            for (var i = 1; i < parent.vertices.length; i++) {
-                ctx.lineTo(parent.vertices[i].x, parent.vertices[i].y);
-            }
-
-            if (parent.vertices.length > 2 && parent.isClosed) {
-                ctx.lineTo(parent.vertices[0].x, parent.vertices[0].y);
-                ctx.closePath();
-            }
-
-            if (parent.isClosed && parent.isFilled && parent.fillColor.length > 0) {
-                ctx.fillStyle = parent.fillColor;
-                ctx.fill();
-            }
-
-            ctx.stroke();
-        }
-
-        MouseArea {
-            id: mouseArea
-            anchors.fill: bboxCanvas === parent ? parent : null;
-            hoverEnabled: true
-            property bool isPressed: false
-
-            onPressed: {
-                isPressed = true
-                previousX = mouseX
-                previousY = mouseY
-
-                if (["SelectFigure", "ResizeFigure", "RotateFigure"].indexOf(mainWindow.mode) !== -1 &&
-                        scene.activeFigure !== figure) {
-                    scene.activeFigure = figure;
-                }
-                else if (mainWindow.mode === "RemoveFigure") {
-                    scene.removeFigure(figure);
-                }
-                else if (mainWindow.mode === "FillFigure" && isClosed) {
-                    fillColor = scene.fillColor;
-                    isFilled = true;
-                    parent.requestPaint();
-                    scene.fillFigure(figure, fillColor);
-                }
-            }
-
-            onMouseXChanged: {
-                if (!isPressed) {
+            onPaint: {
+                if (figure.vertices.length < 2)
                     return;
+
+                var ctx = getContext("2d");
+                ctx.strokeStyle = strokeColor;
+                ctx.lineWidth = strokeWidth;
+                ctx.beginPath();
+                ctx.moveTo(figure.vertices[0].x, figure.vertices[0].y);
+
+                for (var i = 1; i < figure.vertices.length; i++) {
+                    ctx.lineTo(figure.vertices[i].x, figure.vertices[i].y);
                 }
 
-                if (mainWindow.mode === "SelectFigure") {
-                    var dx = mouseX - previousX
-                    figure.anchors.leftMargin += dx;
+                if (figure.vertices.length > 2 && figure.isClosed) {
+                    ctx.lineTo(figure.vertices[0].x, figure.vertices[0].y);
+                    ctx.closePath();
+                }
+
+                if (figure.isClosed && figure.isFilled && figure.fillColor.length > 0) {
+                    ctx.fillStyle = figure.fillColor;
+                    ctx.fill();
+                }
+
+                ctx.stroke();
+            }
+
+            MouseArea {
+                id: mouseArea
+                anchors.fill: bboxCanvas === parent ? parent : null;
+                hoverEnabled: true
+                property bool isPressed: false
+
+                onPressed: {
+                    isPressed = true
+                    previousX = mouseX
+                    previousY = mouseY
+
+                    if (["SelectFigure", "ResizeFigure", "RotateFigure"].indexOf(mainWindow.mode) !== -1 &&
+                            scene.activeFigure !== figure) {
+                        scene.activeFigure = figure;
+                    }
+                    else if (mainWindow.mode === "RemoveFigure") {
+                        scene.removeFigure(figure);
+                    }
+                    else if (mainWindow.mode === "FillFigure" && isClosed) {
+                        fillColor = scene.fillColor;
+                        isFilled = true;
+                        parent.requestPaint();
+                        scene.fillFigure(figure, fillColor);
+                    }
+                }
+
+                onMouseXChanged: {
+                    if (!isPressed) {
+                        return;
+                    }
+
+                    if (mainWindow.mode === "SelectFigure") {
+                        var dx = mouseX - previousX
+                        figure.anchors.leftMargin += dx;
+                    }
+                }
+
+                onMouseYChanged: {
+                    if (!isPressed) {
+                        return;
+                    }
+
+                    if (mainWindow.mode === "SelectFigure") {
+                        var dy = mouseY - previousY
+                        figure.anchors.topMargin += dy;
+                    }
+
+                }
+
+                onReleased: {
+                    isPressed = false;
+
+                    if (mode === "SelectFigure" &&
+                            (movedX != 0 || movedY != 0)) {
+                        scene.moveFigure(figure);
+                    }
                 }
             }
 
-            onMouseYChanged: {
-                if (!isPressed) {
-                    return;
-                }
-
-                if (mainWindow.mode === "SelectFigure") {
-                    var dy = mouseY - previousY
-                    figure.anchors.topMargin += dy;
-                }
-
-            }
-
-            onReleased: {
-                isPressed = false;
-
-                if (mode === "SelectFigure" &&
-                        (movedX != 0 || movedY != 0)) {
-                    scene.moveFigure(figure);
-                }
-            }
         }
 
     }
