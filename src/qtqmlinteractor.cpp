@@ -169,17 +169,26 @@ void QtQmlInteractor::onSelectSceneFile(const QUrl& fileUrl)
 }
 
 
-bool QtQmlInteractor::onResizeQmlFigure(const QString& uuid, double scaleLeft, double scaleRight, double scaleTop, double scaleBottom) {
+bool QtQmlInteractor::onResizeQmlFigure(const QString& uuid, double scaleLeft, double scaleRight, double scaleTop, double scaleBottom, double offsetLeft, double offsetTop) {
     Figure * figure = _storage.getFigure(uuid);
 
-    if (scaleLeft)
+
+    if (scaleLeft) {
         figure->bbSideResize(Figure::BBoxLeft, scaleLeft);
-    if (scaleRight)
+    }
+    if (scaleRight) {
         figure->bbSideResize(Figure::BBoxRight, scaleRight);
-    if (scaleTop)
+    }
+    if (scaleTop) {
         figure->bbSideResize(Figure::BBoxTop, scaleTop);
-    if (scaleBottom)
+    }
+    if (scaleBottom) {
+        double dx = offsetLeft - figure->getMinX();
+        double dy = offsetTop - figure->getMinY();
+
         figure->bbSideResize(Figure::BBoxTop, scaleBottom);
+        figure->move(dx, dy);
+    }
 
     emit raiseDrawFigureOnScene(figure->toQML());
 
