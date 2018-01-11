@@ -22,31 +22,11 @@ int main(int argc, char *argv[])
     QGuiApplication::setApplicationName("Графический редактор v. 1.0 (2017)");
     QGuiApplication::setWindowIcon(QIcon(":/24px/app-icon.png"));
 
-    //FiguresStorage fs;
-    /*LineSegment ls(Point(1,2), Point(3,4));
-    fs.addFigure(&ls);
-    fs.saveToFile("qqqq.txt");*/
-    //fs.fillupFromFile("qqqq.txt");
-
-    //Rosdistant::Rectangle rect(Point(3,3), Point(6,3), Point(4,1), Point(1,1));
-    //Rosdistant::Rectangle bbox = rect.getBBox();
-    //rect.bbSideResize(Figure::BBoxLeft, -1);
-    //qDebug() << bbox.isValid();
-
-    //Point points[] = {Point(1,1), Point(2,2), Point(3,4)};
-    //Rosdistant::Multiline ml(points , 3, false);
-    //qDebug() << ml;
-
-    //FiguresStorage fs;
-    //fs.addFigure(new LineSegment(Point(1,2), Point(3,4)));
 
     QtQmlInteractor interactor(&app);
 
     if (!interactor.isRootContextLoaded())
         return -1;
-
-    //QObject *qmlContext = engine.rootContext();
-
 
     return app.exec();
 }

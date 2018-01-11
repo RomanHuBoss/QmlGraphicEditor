@@ -9,6 +9,7 @@ FileDialog {
     selectFolder : false
     selectExisting : (action == "open") ? true : false
     folder : "/"
+    modality : Qt.WindowModal
 
     property string action
 

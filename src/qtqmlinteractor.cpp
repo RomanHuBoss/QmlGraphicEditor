@@ -1,11 +1,8 @@
-#include <QQuickWindow>
 #include <QQmlApplicationEngine>
 #include "qtqmlinteractor.h"
 #include "figuresstorage.h"
 #include <QDebug>
 #include <QQmlContext>
-#include <QFileDialog>
-#include <QGuiApplication>
 #include "linesegment.h"
 #include "multiline.h"
 #include "rectangle.h"
