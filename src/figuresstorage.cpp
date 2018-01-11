@@ -196,5 +196,5 @@ bool FiguresStorage::isEmpty() const
 
 Figure* FiguresStorage::getFigure(const QUuid& uuid) const
 {
-    return _storage.value(uuid);
+    return  (_storage.contains(uuid)) ? _storage.value(uuid) : nullptr;
 }

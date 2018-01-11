@@ -25,5 +25,5 @@ FileDialog {
     onRejected: {
         close();
     }
-    nameFilters: ["Scenes (*.json)", "All files (*)"]
+    nameFilters: [ "Scenes (*.json)"]
 }

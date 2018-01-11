@@ -81,6 +81,12 @@ bool QtQmlInteractor::onAddQmlFigure(const QVariantMap& data)
 bool QtQmlInteractor::onRotateQmlFigure(const QString& uuid, double angle)
 {
     Figure * figure = _storage.getFigure(uuid);
+
+    if (figure == nullptr) {
+        emit raiseAlertifyError("Запрашиваемая фигура не найдена");
+        return false;
+    }
+
     figure->rotateAroundCenter(angle, AngleType::DegreesType);
 
     emit raiseDrawFigureOnScene(figure->toQML());
@@ -91,6 +97,12 @@ bool QtQmlInteractor::onRotateQmlFigure(const QString& uuid, double angle)
 bool QtQmlInteractor::onFillQmlFigure(const QString &uuid, const QString &color)
 {
     Figure * figure = _storage.getFigure(uuid);
+
+    if (figure == nullptr) {
+        emit raiseAlertifyError("Запрашиваемая фигура не найдена");
+        return false;
+    }
+
     figure->setIsFilled(true);
     figure->setBgColor(color);
 
@@ -102,6 +114,12 @@ bool QtQmlInteractor::onFillQmlFigure(const QString &uuid, const QString &color)
 bool QtQmlInteractor::onMoveQmlFigure(const QString &uuid, double dx, double dy)
 {
     Figure * figure = _storage.getFigure(uuid);
+
+    if (figure == nullptr) {
+        emit raiseAlertifyError("Запрашиваемая фигура не найдена");
+        return false;
+    }
+
     figure->move(dx, dy);
     emit raiseDrawFigureOnScene(figure->toQML());
     return true;
@@ -109,6 +127,11 @@ bool QtQmlInteractor::onMoveQmlFigure(const QString &uuid, double dx, double dy)
 
 bool QtQmlInteractor::onRemoveQmlFigure(const QString &uuid)
 {
+    if (_storage.getFigure(uuid) == nullptr) {
+        emit raiseAlertifyError("Запрашиваемая фигура не найдена");
+        return false;
+    }
+
     _storage.removeFigure(uuid);
     return true;
 }
