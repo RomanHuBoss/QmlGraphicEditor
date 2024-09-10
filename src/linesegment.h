@@ -61,7 +61,7 @@ namespace Rosdistant {
         double maxY() const;
 
         //проверка пересечения с другим отрезком
-        IntersectType checkIntersection(const LineSegment& segment, Point& intersectionPoint = Point()) const;
+        IntersectType checkIntersection(const LineSegment& segment, Point& intersectionPoint) const;
 
         //число точек, необходимое для построения отрезка
         int necessaryPointsQuant() const;

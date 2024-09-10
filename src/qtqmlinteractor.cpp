@@ -1,6 +1,7 @@
 #include <QQmlApplicationEngine>
 #include "qtqmlinteractor.h"
 #include "figuresstorage.h"
+#include <QFile>
 #include <QDebug>
 #include <QQmlContext>
 #include "linesegment.h"

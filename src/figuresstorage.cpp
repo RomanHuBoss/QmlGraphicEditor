@@ -5,6 +5,7 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QDebug>
+#include <QFile>
 #include "linesegment.h"
 #include "multiline.h"
 #include "rectangle.h"
